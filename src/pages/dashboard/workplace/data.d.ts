@@ -89,7 +89,6 @@ export type ActivitiesType = {
   id: string;
   updatedAt: string;
   user: {
-    link?: string;
     name: string;
     avatar: string;
   };

@@ -1,18 +1,20 @@
-import { Input } from 'antd';
 import React from 'react';
-import useStyles from './index.style';
+
+import { Input } from 'antd';
+import styles from './PhoneView.less';
 
 type PhoneViewProps = {
   value?: string;
   onChange?: (value: string) => void;
 };
+
 const PhoneView: React.FC<PhoneViewProps> = (props) => {
-  const { styles } = useStyles();
   const { value, onChange } = props;
   let values = ['', ''];
   if (value) {
     values = value.split('-');
   }
+
   return (
     <>
       <Input
@@ -36,4 +38,5 @@ const PhoneView: React.FC<PhoneViewProps> = (props) => {
     </>
   );
 };
+
 export default PhoneView;

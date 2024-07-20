@@ -37,202 +37,246 @@ export default [
         path: '/user/register',
         component: './user/register',
       },
-      // {
-      //   component: '404',
-      //   path: '/*',
-      // },
-    ],
-  },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    icon: 'dashboard',
-    routes: [
       {
-        path: '/dashboard',
-        redirect: '/dashboard/analysis',
-      },
-      {
-        name: 'analysis',
-        icon: 'smile',
-        path: '/dashboard/analysis',
-        component: './dashboard/analysis',
-      },
-      {
-        name: 'monitor',
-        icon: 'smile',
-        path: '/dashboard/monitor',
-        component: './dashboard/monitor',
-      },
-      {
-        name: 'workplace',
-        icon: 'smile',
-        path: '/dashboard/workplace',
-        component: './dashboard/workplace',
+        component: '404',
       },
     ],
   },
   {
-    path: '/form',
-    icon: 'form',
-    name: 'form',
+    name: 'system',
+    icon: 'BugOutlined',
+    path: '/system',
     routes: [
       {
-        path: '/form',
-        redirect: '/form/basic-form',
+        path: '/system',
+        redirect: '/system/user',
       },
       {
-        name: 'basic-form',
-        icon: 'smile',
-        path: '/form/basic-form',
-        component: './form/basic-form',
+        name: 'user',
+        icon: 'PartitionOutlined',
+        path: '/system/user',
+        component: './system/user',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.user'
       },
       {
-        name: 'step-form',
-        icon: 'smile',
-        path: '/form/step-form',
-        component: './form/step-form',
+        name: 'menu',
+        icon: 'PartitionOutlined',
+        path: '/system/menu',
+        component: 'system/menu/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.menu'
       },
       {
-        name: 'advanced-form',
-        icon: 'smile',
-        path: '/form/advanced-form',
-        component: './form/advanced-form',
+        name: 'role',
+        icon: 'PartitionOutlined',
+        path: '/system/role',
+        component: 'system/role/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.role'
       },
-    ],
-  },
-  {
-    path: '/list',
-    icon: 'table',
-    name: 'list',
-    routes: [
       {
-        path: '/list/search',
-        name: 'search-list',
-        component: './list/search',
+        name: 'dept',
+        icon: 'PartitionOutlined',
+        path: '/system/dept',
+        component: 'system/dept/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.dept'
+      },
+      {
+        name: 'post',
+        icon: 'PartitionOutlined',
+        path: '/system/post',
+        component: 'system/post/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.post'
+      },
+      {
+        name: 'dict',
+        icon: 'PartitionOutlined',
+        path: '/system/dict',
+        component: 'system/dict/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.dict'
+      },
+      {
+        name: 'dictData',
+        icon: 'PartitionOutlined',
+        path: '/system/dict-data/index/:id?',
+        component: 'system/dictData/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.dictData'
+      },
+      {
+        name: 'config',
+        icon: 'PartitionOutlined',
+        path: '/system/config',
+        component: 'system/config/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.config'
+      },
+      {
+        name: 'notice',
+        icon: 'PartitionOutlined',
+        path: '/system/notice',
+        component: 'system/notice/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.notice'
+      },
+      {
+        name: 'log',
+        icon: 'BugOutlined',
+        path: '/system/log/',
         routes: [
           {
-            path: '/list/search',
-            redirect: '/list/search/articles',
+            path: '/system/log/',
+            redirect: '/system/log/operlog',
           },
           {
-            name: 'articles',
-            icon: 'smile',
-            path: '/list/search/articles',
-            component: './list/search/articles',
+            name: 'operlog',
+            icon: 'PartitionOutlined',
+            path: '/system/log/operlog',
+            component: 'monitor/operlog',
+            access: 'authorize',
+            KeepAlive: true,
+            title: 'menu.title.operlog'
           },
           {
-            name: 'projects',
-            icon: 'smile',
-            path: '/list/search/projects',
-            component: './list/search/projects',
-          },
-          {
-            name: 'applications',
-            icon: 'smile',
-            path: '/list/search/applications',
-            component: './list/search/applications',
+            name: 'loginInfo',
+            icon: 'PartitionOutlined',
+            path: '/system/log/logininfor',
+            component: 'monitor/logininfor',
+            access: 'authorize',
+            KeepAlive: true,
+            title: 'menu.title.loginInfo'
           },
         ],
       },
+      ]
+  },
+  {
+    name: 'monitor',
+    icon: 'BugOutlined',
+    path: '/monitor',
+    routes: [
       {
-        path: '/list',
-        redirect: '/list/table-list',
+        path: '/monitor',
+        redirect: '/monitor/online',
       },
       {
-        name: 'table-list',
-        icon: 'smile',
-        path: '/list/table-list',
-        component: './table-list',
+        name: 'onlineUser',
+        icon: 'PartitionOutlined',
+        path: '/monitor/online',
+        component: './monitor/online/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.onlineUser'
       },
       {
-        name: 'basic-list',
-        icon: 'smile',
-        path: '/list/basic-list',
-        component: './list/basic-list',
+        name: 'job',
+        icon: 'PartitionOutlined',
+        path: '/monitor/job',
+        component: 'monitor/job',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.job'
       },
       {
-        name: 'card-list',
-        icon: 'smile',
-        path: '/list/card-list',
-        component: './list/card-list',
+        name: 'joblog',
+        icon: 'PartitionOutlined',
+        path: '/monitor/job-log/index/:jobId?',
+        component: 'monitor/joblog',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.joblog'
+      },
+      {
+        name: 'druid',
+        icon: 'PartitionOutlined',
+        path: '/monitor/druid',
+        component: 'monitor/druid',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.druid'
+      },
+      {
+        name: 'serverInfo',
+        icon: 'PartitionOutlined',
+        path: '/monitor/server',
+        component: 'monitor/server',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.serverInfo'
+      },
+      {
+        name: 'cacheInfo',
+        icon: 'PartitionOutlined',
+        path: '/monitor/cache',
+        component: 'monitor/cache',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.cacheInfo'
+      },
+      {
+        name: 'cacheList',
+        icon: 'PartitionOutlined',
+        path: '/monitor/cacheList',
+        component: 'monitor/cacheList',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.cacheList'
       },
     ],
   },
   {
-    path: '/profile',
-    name: 'profile',
-    icon: 'profile',
+    name: 'tool',
+    icon: 'BugOutlined',
+    path: '/tool',
     routes: [
       {
-        path: '/profile',
-        redirect: '/profile/basic',
+        path: '/tool',
+        redirect: '/tool/gen',
       },
       {
-        name: 'basic',
-        icon: 'smile',
-        path: '/profile/basic',
-        component: './profile/basic',
+        name: 'gen',
+        icon: 'PartitionOutlined',
+        path: '/tool/gen',
+        component: 'tool/gen/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.gen'
       },
       {
-        name: 'advanced',
-        icon: 'smile',
-        path: '/profile/advanced',
-        component: './profile/advanced',
+        name: 'design',
+        icon: 'PartitionOutlined',
+        path: '/tool/build',
+        component: 'tool/builder',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.design'
+      },
+      {
+        name: 'swagger',
+        icon: 'PartitionOutlined',
+        path: '/tool/swagger',
+        component: 'tool/swagger',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.swagger'
       },
     ],
   },
   {
-    name: 'result',
-    icon: 'CheckCircleOutlined',
-    path: '/result',
-    routes: [
-      {
-        path: '/result',
-        redirect: '/result/success',
-      },
-      {
-        name: 'success',
-        icon: 'smile',
-        path: '/result/success',
-        component: './result/success',
-      },
-      {
-        name: 'fail',
-        icon: 'smile',
-        path: '/result/fail',
-        component: './result/fail',
-      },
-    ],
-  },
-  {
-    name: 'exception',
-    icon: 'warning',
-    path: '/exception',
-    routes: [
-      {
-        path: '/exception',
-        redirect: '/exception/403',
-      },
-      {
-        name: '403',
-        icon: 'smile',
-        path: '/exception/403',
-        component: './exception/403',
-      },
-      {
-        name: '404',
-        icon: 'smile',
-        path: '/exception/404',
-        component: './exception/404',
-      },
-      {
-        name: '500',
-        icon: 'smile',
-        path: '/exception/500',
-        component: './exception/500',
-      },
-    ],
+    component: './404',
   },
   {
     name: 'account',
@@ -264,5 +308,40 @@ export default [
   {
     component: '404',
     path: '/*',
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    icon: 'dashboard',
+    routes: [
+      {
+        path: '/dashboard',
+        redirect: '/dashboard/analysis',
+      },
+      {
+        name: 'analysis',
+        icon: 'smile',
+        path: '/dashboard/analysis',
+        component: './dashboard/analysis',
+        KeepAlive: true,
+        title: 'menu.dashboard.analysis'
+      },
+      {
+        name: 'monitor',
+        icon: 'smile',
+        path: '/dashboard/monitor',
+        component: './dashboard/monitor',
+        KeepAlive: true,
+        title: 'menu.dashboard.monitor'
+      },
+      {
+        name: 'workplace',
+        icon: 'smile',
+        path: '/dashboard/workplace',
+        component: './dashboard/workplace',
+        KeepAlive: true,
+        title: 'menu.dashboard.workplace'
+      },
+    ],
   },
 ];

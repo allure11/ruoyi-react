@@ -1,4 +1,4 @@
-import { request } from '@umijs/max';
+import { request } from 'umi';
 import type { TagType } from './data';
 
 export async function queryTags(): Promise<{ data: { list: TagType[] } }> {

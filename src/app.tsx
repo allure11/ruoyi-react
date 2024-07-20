@@ -7,10 +7,6 @@ import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import {currentUser as queryCurrentUser, getRoutersInfo} from './services/ant-design-pro/api';
-import {clearSessionToken, getAccessToken, getRefreshToken, getTokenExpireTime} from "@/access";
-import {LoginPageUrl} from "@/utils/utils";
-import {codeMessage} from "@/utils/request";
-import {message} from "antd";
 import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -24,13 +20,16 @@ export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser;
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  menus?: any[];
 }> {
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return msg.user;
+      const userInfo = msg.user;
+      userInfo.permissions = msg.permissions;
+      return userInfo;
     } catch (error) {
       history.push(loginPath);
     }
@@ -104,6 +103,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       : [],
     menuHeaderRender: undefined,
     menu:{
+      locale: false,
       // 每当 initialState?.currentUser?.userid 发生修改时重新执行 request
       params: {
         userId: initialState?.currentUser?.userId,
@@ -157,54 +157,6 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
 // 更换令牌的时间区间
 const checkRegion = 5 * 60 * 1000;
 export const request: RequestConfig = {
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://127.0.0.1:8000/api',
   ...errorConfig,
-  requestInterceptors: [(url: string, options: any) => {
-    // console.log('-------------------------')
-    console.log('request:', url);
-    const headers = options.headers ? options.headers : [];
-    if (headers['Authorization'] === '' || headers['Authorization'] == null) {
-      const expireTime = getTokenExpireTime();
-      if (expireTime) {
-        const left = Number(expireTime) - new Date().getTime();
-        const refreshToken = getRefreshToken();
-        if (left < checkRegion && refreshToken) {
-          if (left < 0) {
-            clearSessionToken();
-            history.push(LoginPageUrl);
-          }
-        } else {
-          const accessToken = getAccessToken();
-          if (accessToken) {
-            headers['Authorization'] = `Bearer ${accessToken}`;
-          }
-        }
-      } else {
-        clearSessionToken();
-        history.push(LoginPageUrl);
-        return {url:"",
-          options:""};
-      }
-      // console.log(headers)
-      return {
-        url,
-        options: {...options, headers},
-      };
-    } else {
-      return {
-        url,
-        options,
-      };
-    }
-  }],
-  responseInterceptors:[
-    (response) => {
-      const {status} = response;
-      if (status === 401 || status === 403) {
-        const msg = codeMessage[status] || codeMessage[10000]
-        message.warning(`${status} ${msg}`)
-      }
-      return response;
-    }
-  ]
 }

@@ -32,17 +32,25 @@
     "test:update": "npm run jest -- -u",
     "tsc": "tsc --noEmit"
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
+    "@ant-design/charts": "^2.1.1",
     "@ant-design/icons": "^4.8.1",
     "@ant-design/plots": "^2.1.5",
     "@ant-design/pro-components": "^2.6.44",
+    "@antv/data-set": "^0.11.8",
     "@antv/l7": "^2.20.13",
     "@antv/l7-maps": "^2.20.13",
     "@antv/l7-react": "^2.4.3",
     "@umijs/route-utils": "^2.2.2",
     "antd": "^5.12.7",
     "antd-style": "^3.6.1",
+    "bizcharts": "^3.5.3-beta.0",
+    "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.10",
     "numeral": "^2.0.6",
@@ -50,8 +58,10 @@
     "querystring": "^0.2.1",
     "rc-util": "^5.38.1",
     "react": "^18.2.0",
+    "react-cropper": "^2.3.3",
     "react-dom": "^18.2.0",
-    "react-fittext": "^1.0.0"
+    "react-fittext": "^1.0.0",
+    "react-sortable-hoc": "^2.0.0"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.5",
@@ -87,5 +97,7 @@
     "typescript": "^4.9.5",
     "umi-presets-pro": "^2.0.3"
   },
-  "engines": { "node": ">=12.0.0" }
+  "engines": {
+    "node": ">=12.0.0"
+  }
 }

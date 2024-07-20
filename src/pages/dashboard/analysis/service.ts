@@ -1,4 +1,4 @@
-import { request } from '@umijs/max';
+import { request } from 'umi';
 import type { AnalysisData } from './data';
 
 export async function fakeChartData(): Promise<{ data: AnalysisData }> {

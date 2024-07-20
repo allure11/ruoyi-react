@@ -1,19 +1,22 @@
+import React, { createElement } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import React, { createElement } from 'react';
-import useStyles from './index.style';
+
+import styles from './index.less';
+
 export type EditableLink = {
   title: string;
   href: string;
   id?: string;
 };
+
 type EditableLinkGroupProps = {
   onAdd: () => void;
   links: EditableLink[];
   linkElement: any;
 };
+
 const EditableLinkGroup: React.FC<EditableLinkGroupProps> = (props) => {
-  const { styles } = useStyles();
   const { links, linkElement, onAdd } = props;
   return (
     <div className={styles.linkGroup}>
@@ -34,9 +37,11 @@ const EditableLinkGroup: React.FC<EditableLinkGroupProps> = (props) => {
     </div>
   );
 };
+
 EditableLinkGroup.defaultProps = {
   links: [],
   onAdd: () => {},
   linkElement: 'a',
 };
+
 export default EditableLinkGroup;

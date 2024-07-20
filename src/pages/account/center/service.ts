@@ -1,8 +1,8 @@
-import { request } from '@umijs/max';
-import type { CurrentUser, ListItemDataType } from './data.d';
+import { request } from 'umi';
+import type { ListItemDataType } from './data.d';
 
-export async function queryCurrent(): Promise<{ data: CurrentUser }> {
-  return request('/api/currentUserDetail');
+export async function queryCurrentUserInfo(): Promise<{ data: API.GetUserInfoResult }> {
+  return { data: await request('/getInfo') }
 }
 
 export async function queryFakeList(params: {
