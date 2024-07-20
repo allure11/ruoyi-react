@@ -43,9 +43,8 @@ export default [
     ],
   },
   {
-    name: 'system',
-    icon: 'BugOutlined',
     path: '/system',
+    icon: 'BugOutlined',
     routes: [
       {
         path: '/system',
@@ -164,9 +163,8 @@ export default [
       ]
   },
   {
-    name: 'monitor',
-    icon: 'BugOutlined',
     path: '/monitor',
+    icon: 'BugOutlined',
     routes: [
       {
         path: '/monitor',
@@ -238,9 +236,8 @@ export default [
     ],
   },
   {
-    name: 'tool',
-    icon: 'BugOutlined',
     path: '/tool',
+    icon: 'BugOutlined',
     routes: [
       {
         path: '/tool',
@@ -276,12 +273,8 @@ export default [
     ],
   },
   {
-    component: './404',
-  },
-  {
-    name: 'account',
-    icon: 'user',
     path: '/account',
+    icon: 'user',
     routes: [
       {
         path: '/account',
@@ -302,16 +295,7 @@ export default [
     ],
   },
   {
-    path: '/',
-    redirect: '/dashboard/analysis',
-  },
-  {
-    component: '404',
-    path: '/*',
-  },
-  {
     path: '/dashboard',
-    name: 'dashboard',
     icon: 'dashboard',
     routes: [
       {
@@ -343,5 +327,16 @@ export default [
         title: 'menu.dashboard.workplace'
       },
     ],
+  },
+  {
+    path: '/',
+    redirect: '/dashboard/analysis',
+  },
+  {
+    component: './404',
+  },
+  {
+    path: '/*',
+    component: '404',
   },
 ];
