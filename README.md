@@ -1,57 +1,18 @@
-# Ant Design Pro
+# 适配于若依的 React 版本前端
+## 基础框架：Ant Designer Pro
+[Ant Design Pro](https://pro.ant.design/) 是基于 Ant Design 设计体系的 React UI 组件库，主要用于快速开发企业后台产品原型。
+## 微服务切换
+1、配置 config/proxy.ts 中的代理
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
-
-## Environment Prepare
-
-Install `node_modules`:
-
+2、请根据实际情况修改 src/services/ant-design-pro 中相关接口的地址
+## 安装依赖
 ```bash
+# 推荐：
+yarn
+# npm
 npm install
 ```
-
-or
-
+## 启动项目
 ```bash
-yarn
+npm run dev
 ```
-
-## Provided Scripts
-
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).

@@ -154,8 +154,6 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
  * 它基于 axios 和 ahooks 的 useRequest 提供了一套统一的网络请求和错误处理方案。
  * @doc https://umijs.org/docs/max/request#配置
  */
-// 更换令牌的时间区间
-const checkRegion = 5 * 60 * 1000;
 export const request: RequestConfig = {
   baseURL: 'http://127.0.0.1:8000/api',
   ...errorConfig,
