@@ -28,6 +28,7 @@ declare namespace API {
   };
 
   type LoginResult = {
+    data?:{access_token:string,expires_in?: long}
     code?: number;
     token?: string;
     status?: string;

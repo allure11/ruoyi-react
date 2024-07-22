@@ -24,7 +24,7 @@ import { buildTreeData } from '@/utils/utils';
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -129,7 +129,7 @@ const DeptTableList: React.FC = () => {
 
   const [deptTree, setDeptTree] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
- 
+
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -202,7 +202,7 @@ const DeptTableList: React.FC = () => {
                 setModalVisible(true);
                 setCurrentRow(record);
               } else {
-                message.warn(res.msg);
+                message.warning(res.msg);
               }
             });
           }}
@@ -265,7 +265,7 @@ const DeptTableList: React.FC = () => {
                     setCurrentRow(undefined);
                     setModalVisible(true);
                   } else {
-                    message.warn(res.msg);
+                    message.warning(res.msg);
                   }
                 });
               }}
@@ -340,7 +340,7 @@ const DeptTableList: React.FC = () => {
       )}
       <UpdateForm
         onSubmit={async (values) => {
-          let success = false;
+          let success;
           if (values.deptId) {
             success = await handleUpdate({ ...values } as DeptType);
           } else {

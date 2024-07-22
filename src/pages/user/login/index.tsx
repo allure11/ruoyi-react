@@ -16,12 +16,13 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { FormattedMessage, Helmet, SelectLang, useIntl, useModel } from '@umijs/max';
-import { Alert, message, Tabs } from 'antd';
+import {Alert, Col, message, Row, Tabs, Image } from 'antd';
 import { createStyles } from 'antd-style';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 import {setSessionToken} from "@/access";
+import {getCaptchaImage} from "@/services/login";
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -102,6 +103,13 @@ const Login: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState');
   const { styles } = useStyles();
   const intl = useIntl();
+  // 验证码
+  const [captchaCode, setCaptchaCode] = useState<string>('');
+  const [uuid, setUuid] = useState<string>('');
+
+  useEffect(() => {
+    getCaptchaCode();
+  }, []);
 
   const fetchUserInfo = async () => {
     const userInfo = await initialState?.fetchUserInfo?.();
@@ -115,10 +123,17 @@ const Login: React.FC = () => {
     }
   };
 
+  const getCaptchaCode = async () => {
+    const response = await getCaptchaImage()
+    const imgdata = `data:image/png;base64,${response.img}`;
+    setCaptchaCode(imgdata);
+    setUuid(response.uuid);
+  };
+
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type });
+      const msg = await login({ ...values, type, uuid});
       if (msg.code === 200) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
@@ -127,13 +142,15 @@ const Login: React.FC = () => {
         message.success(defaultLoginSuccessMessage);
         const current = new Date();
         const expireTime = current.setTime(current.getTime() + 1000 * 12 * 60 * 60);
-        setSessionToken(msg.token, msg.token, expireTime);
+        // 登录成功后设置token
+        setSessionToken(msg.data?.access_token, msg.data?.access_token, expireTime);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         window.location.href = urlParams.get('redirect') || '/';
         return;
       }
       console.log(msg);
+      getCaptchaCode();
       // 如果失败去设置用户错误信息
       setUserLoginState(msg);
     } catch (error) {
@@ -143,6 +160,7 @@ const Login: React.FC = () => {
       });
       console.log(error);
       message.error(defaultLoginFailureMessage);
+      getCaptchaCode();
     }
   };
   const { status, type: loginType } = userLoginState;
@@ -264,6 +282,46 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
+              <Row>
+                <Col flex={3}>
+                  <ProFormText
+                    style={{
+                      float: 'right',
+                    }}
+                    name="code"
+                    placeholder={intl.formatMessage({
+                      id: 'pages.login.code.placeholder',
+                      defaultMessage: '请输入验证',
+                    })}
+                    rules={[
+                      {
+                        required: true,
+                        message: (
+                          <FormattedMessage
+                            id="pages.searchTable.updateForm.ruleName.nameRules"
+                            defaultMessage="请输入验证啊"
+                          />
+                        ),
+                      },
+                    ]}
+                  />
+                </Col>
+                <Col flex={2}>
+                  <Image
+                    src={captchaCode}
+                    alt="验证码"
+                    style={{
+                      display: 'inline-block',
+                      verticalAlign: 'top',
+                      cursor: 'pointer',
+                      paddingLeft: '10px',
+                      width: '100px',
+                    }}
+                    preview={false}
+                    onClick={() => getCaptchaCode()}
+                  />
+                </Col>
+              </Row>
             </>
           )}
 

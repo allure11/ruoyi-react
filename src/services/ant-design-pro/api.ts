@@ -10,7 +10,7 @@ export async function currentUser(options?: { [key: string]: any }) {
     permissions?:[],
     roles?:[],
     user: API.CurrentUser;
-  }>('/getInfo', {
+  }>('/system/user/getInfo', {
     method: 'GET',
     ...(options || {}),
   });
@@ -18,15 +18,21 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/login/outLogin', {
+  return request<Record<string, any>>('/auth/login/outLogin', {
     method: 'POST',
     ...(options || {}),
   });
 }
 
 /** 登录接口 POST /api/login/account */
-export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/login', {
+export async function login(body: {
+  password?: string;
+  type: string;
+  autoLogin?: boolean;
+  uuid: string;
+  username?: string
+}, options?: { [p: string]: any }) {
+  return request<API.LoginResult>('/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +44,7 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
 
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
-  return request<API.NoticeIconList>('/notices', {
+  return request<API.NoticeIconList>('/auth/notices', {
     method: 'GET',
     ...(options || {}),
   });
@@ -55,7 +61,7 @@ export async function rule(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/rule', {
+  return request<API.RuleList>('/auth/rule', {
     method: 'GET',
     params: {
       ...params,
@@ -66,7 +72,7 @@ export async function rule(
 
 /** 更新规则 PUT /api/rule */
 export async function updateRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/rule', {
+  return request<API.RuleListItem>('/auth/rule', {
     method: 'POST',
     data: {
       method: 'update',
@@ -77,7 +83,7 @@ export async function updateRule(options?: { [key: string]: any }) {
 
 /** 新建规则 POST /api/rule */
 export async function addRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/rule', {
+  return request<API.RuleListItem>('/auth/rule', {
     method: 'POST',
     data: {
       method: 'post',
@@ -87,12 +93,12 @@ export async function addRule(options?: { [key: string]: any }) {
 }
 
 export async function getRouters(): Promise<API.GetRoutersResult> {
-  return request('/getRouters');
+  return request('/system/menu/getRouters');
 }
 
 /** 删除规则 DELETE /api/rule */
 export async function removeRule(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/rule', {
+  return request<Record<string, any>>('/auth/rule', {
     method: 'POST',
     data: {
       method: 'delete',
@@ -103,10 +109,11 @@ export async function removeRule(options?: { [key: string]: any }) {
 
 export function convertCompatRouters(childrens: API.RoutersMenuItem[]): MenuDataItem[] {
   return childrens.map((item: API.RoutersMenuItem) => {
+    const meta = item.meta || {};
     return {
       path: item.path,
-      icon: createIcon(item.meta.icon),
-      name: item.meta.title,
+      icon: createIcon(meta.icon || ''),
+      name: meta.title || '',
       routes: item.children ? convertCompatRouters(item.children) : undefined,
       hideChildrenInMenu: item.hidden,
       hideInMenu: item.hidden,

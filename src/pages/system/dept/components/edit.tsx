@@ -8,7 +8,7 @@ import type { DeptType } from '../data.d';
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 export type DeptFormValueType = Record<string, unknown> & Partial<DeptType>;
@@ -87,7 +87,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入部门id！" defaultMessage="请输入部门id！" />,
+                  message: <FormattedMessage defaultMessage="请输入部门id！" />,
                 },
               ]}
             />
@@ -110,7 +110,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                   {
                     required: true,
                     message: (
-                      <FormattedMessage id="请输入用户昵称！" defaultMessage="请选择上级部门!" />
+                      <FormattedMessage defaultMessage="请选择上级部门!" />
                     ),
                   },
                 ]}
@@ -132,7 +132,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入祖级列表！" defaultMessage="请输入祖级列表！" />
+                    <FormattedMessage defaultMessage="请输入祖级列表！" />
                   ),
                 },
               ]}
@@ -153,7 +153,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入部门名称！" defaultMessage="请输入部门名称！" />
+                    <FormattedMessage defaultMessage="请输入部门名称！" />
                   ),
                 },
               ]}
@@ -174,7 +174,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入显示顺序！" defaultMessage="请输入显示顺序！" />
+                    <FormattedMessage defaultMessage="请输入显示顺序！" />
                   ),
                 },
               ]}
@@ -194,7 +194,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入负责人！" defaultMessage="请输入负责人！" />,
+                  message: <FormattedMessage defaultMessage="请输入负责人！" />,
                 },
               ]}
             />
@@ -214,7 +214,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入联系电话！" defaultMessage="请输入联系电话！" />
+                    <FormattedMessage defaultMessage="请输入联系电话！" />
                   ),
                 },
               ]}
@@ -234,7 +234,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入邮箱！" defaultMessage="请输入邮箱！" />,
+                  message: <FormattedMessage defaultMessage="请输入邮箱！" />,
                 },
               ]}
             />
@@ -256,7 +256,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入部门状态！" defaultMessage="请输入部门状态！" />
+                    <FormattedMessage defaultMessage="请输入部门状态！" />
                   ),
                 },
               ]}
