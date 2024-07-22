@@ -148,9 +148,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
       );
     },
     // 头部内容
-    headerContentRender: () => {
-
-    },
+    // headerContentRender: () => {},
     ...initialState?.settings,
   };
 };
