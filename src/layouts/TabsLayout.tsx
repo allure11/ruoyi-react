@@ -1,7 +1,8 @@
-import KeepAliveTabs from '@/components/KeepAliveTabs';
 import defaultSettings from '../../config/defaultSettings';
+import {PageContainer} from "@ant-design/pro-components";
+import React from "react";
 
-const { tabsLayout } = defaultSettings;
+const {tabsLayout} = defaultSettings;
 
 /* *
  *
@@ -10,12 +11,13 @@ const { tabsLayout } = defaultSettings;
  *
  * */
 
-const TabsLayout: React.FC = (props) => {
+const TabsLayout: React.FC<{ children: any }> = (props) => {
+  console.log(props)
   const renderTabs = () => {
-    if(tabsLayout)
-      return <KeepAliveTabs />;
+    if (tabsLayout)
+      return <PageContainer ghost={true}/>
     else
-      return null;
+      return <></>;
   }
   return (
     <div>

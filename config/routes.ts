@@ -160,7 +160,7 @@ export default [
           },
         ],
       },
-      ]
+    ]
   },
   {
     path: '/monitor',
@@ -330,7 +330,7 @@ export default [
   },
   {
     path: '/',
-    redirect: '/dashboard/analysis',
+    redirect: '/system/user',
   },
   {
     component: './404',

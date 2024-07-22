@@ -1,13 +1,14 @@
-import { AvatarDropdown, AvatarName, Footer, Question, SelectLang } from '@/components';
-import { LinkOutlined } from '@ant-design/icons';
-import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { SettingDrawer } from '@ant-design/pro-components';
-import type { RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
-import { history, Link } from '@umijs/max';
+import {AvatarDropdown, AvatarName, Footer, Question, SelectLang} from '@/components';
+import {LinkOutlined} from '@ant-design/icons';
+import type {Settings as LayoutSettings} from '@ant-design/pro-components';
+import {SettingDrawer} from '@ant-design/pro-components';
+import type {RequestConfig, RunTimeLayoutConfig} from '@umijs/max';
+import {history, Link} from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
-import { errorConfig } from './requestErrorConfig';
+import {errorConfig} from './requestErrorConfig';
 import {currentUser as queryCurrentUser, getRoutersInfo} from './services/ant-design-pro/api';
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
+import {ReactElement, JSXElementConstructor, ReactNode, ReactPortal} from 'react';
+import routes from "../config/routes";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -65,9 +66,9 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     waterMarkProps: {
       content: initialState?.currentUser?.userName,
     },
-    footerRender: () => <Footer />,
+    footerRender: () => <Footer/>,
     onPageChange: () => {
-      const { location } = history;
+      const {location} = history;
       // 如果没有登录，重定向到 login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
@@ -95,14 +96,14 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
     ],
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined/>
+          <span>OpenAPI 文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
-    menu:{
+    menu: {
       locale: false,
       // 每当 initialState?.currentUser?.userid 发生修改时重新执行 request
       params: {

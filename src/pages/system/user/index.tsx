@@ -1,14 +1,14 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal, Row, Col } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal, Row, Col} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import WrapContent from '@/components/WrapContent';
 import Card from 'antd/es/card';
-import type { UserType, UserListParams } from './data.d';
+import type {UserType, UserListParams} from './data.d';
 import {
   getUserList,
   getUser,
@@ -20,12 +20,13 @@ import {
   getDeptTree,
 } from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
+import {getDict} from '../dict/service';
 import ResetPwd from './components/ResetPwd';
 import DeptTree from './components/DeptTree';
-import type { DataNode } from 'antd/lib/tree';
-import { getPostList } from '../post/service';
-import { getRoleList } from '../role/service';
+import type {DataNode} from 'antd/lib/tree';
+import {getPostList} from '../post/service';
+import {getRoleList} from '../role/service';
+import {PageContainer} from "@ant-design/pro-components";
 
 /* *
  *
@@ -42,7 +43,7 @@ import { getRoleList } from '../role/service';
 const handleAdd = async (fields: UserType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addUser({ ...fields });
+    const resp = await addUser({...fields});
     hide();
     if (resp.code === 200) {
       message.success('添加成功');
@@ -153,7 +154,7 @@ const UserTableList: React.FC = () => {
   const [currentRow, setCurrentRow] = useState<UserType>();
   const [selectedRowsState, setSelectedRows] = useState<UserType[]>([]);
 
-  const [selectDept, setSelectDept] = useState<any>({ id: 0 });
+  const [selectDept, setSelectDept] = useState<any>({id: 0});
 
   const [sexOptions, setSexOptions] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
@@ -192,45 +193,45 @@ const UserTableList: React.FC = () => {
 
   const columns: ProColumns<UserType>[] = [
     {
-      title: <FormattedMessage id="system.User.user_id" defaultMessage="编号" />,
+      title: <FormattedMessage id="system.User.user_id" defaultMessage="编号"/>,
       dataIndex: 'userId',
       valueType: 'textarea',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.User.dept_id" defaultMessage="部门ID" />,
+      title: <FormattedMessage id="system.User.dept_id" defaultMessage="部门ID"/>,
       dataIndex: 'deptId',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.User.user_name" defaultMessage="用户账号" />,
+      title: <FormattedMessage id="system.User.user_name" defaultMessage="用户账号"/>,
       dataIndex: 'userName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.User.nick_name" defaultMessage="用户昵称" />,
+      title: <FormattedMessage id="system.User.nick_name" defaultMessage="用户昵称"/>,
       dataIndex: 'nickName',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.User.email" defaultMessage="用户邮箱" />,
+      title: <FormattedMessage id="system.User.email" defaultMessage="用户邮箱"/>,
       dataIndex: 'email',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.User.phonenumber" defaultMessage="手机号码" />,
+      title: <FormattedMessage id="system.User.phonenumber" defaultMessage="手机号码"/>,
       dataIndex: 'phonenumber',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.User.status" defaultMessage="帐号状态" />,
+      title: <FormattedMessage id="system.User.status" defaultMessage="帐号状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -270,7 +271,7 @@ const UserTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -295,7 +296,7 @@ const UserTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
         <Button
           type="link"
@@ -307,7 +308,7 @@ const UserTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="system.User.reset.password" defaultMessage="密码重置" />
+          <FormattedMessage id="system.User.reset.password" defaultMessage="密码重置"/>
         </Button>,
       ],
     },
@@ -382,8 +383,8 @@ const UserTableList: React.FC = () => {
                   }
                 }}
               >
-                <PlusOutlined />{' '}
-                <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+                <PlusOutlined/>{' '}
+                <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
               </Button>,
               <Button
                 type="primary"
@@ -397,8 +398,8 @@ const UserTableList: React.FC = () => {
                   }
                 }}
               >
-                <DeleteOutlined />
-                <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+                <DeleteOutlined/>
+                <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
               </Button>,
               <Button
                 type="primary"
@@ -408,12 +409,12 @@ const UserTableList: React.FC = () => {
                   handleExport();
                 }}
               >
-                <PlusOutlined />
-                <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
+                <PlusOutlined/>
+                <FormattedMessage id="pages.searchTable.export" defaultMessage="导出"/>
               </Button>,
             ]}
             request={(params) =>
-              getUserList({ ...params, deptId: selectDept.id } as UserListParams).then((res) => {
+              getUserList({...params, deptId: selectDept.id} as UserListParams).then((res) => {
                 return {
                   data: res.rows,
                   total: res.total,
@@ -434,9 +435,9 @@ const UserTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -459,7 +460,7 @@ const UserTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -467,9 +468,9 @@ const UserTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.userId) {
-            success = await handleUpdate({ ...values } as UserType);
+            success = await handleUpdate({...values} as UserType);
           } else {
-            success = await handleAdd({ ...values } as UserType);
+            success = await handleAdd({...values} as UserType);
           }
           if (success) {
             setModalVisible(false);
