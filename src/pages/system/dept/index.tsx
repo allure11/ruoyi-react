@@ -1,13 +1,13 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
 import WrapContent from '@/components/WrapContent';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { DeptType, DeptListParams } from './data.d';
+import type {DeptType, DeptListParams} from './data.d';
 import {
   getDeptList,
   getDeptListExcludeChild,
@@ -16,8 +16,9 @@ import {
   updateDept,
 } from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
-import { buildTreeData } from '@/utils/utils';
+import {getDict} from '../dict/service';
+import {buildTreeData} from '@/utils/utils';
+import {DataNode} from "antd/lib/tree";
 
 
 /* *
@@ -36,9 +37,9 @@ import { buildTreeData } from '@/utils/utils';
 const handleAdd = async (fields: DeptType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addDept({ ...fields });
+    const resp = await addDept({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -61,7 +62,7 @@ const handleUpdate = async (fields: DeptType) => {
   try {
     const resp = await updateDept(fields);
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -85,7 +86,7 @@ const handleRemove = async (selectedRows: DeptType[]) => {
   try {
     const resp = await removeDept(selectedRows.map((row) => row.deptId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -105,7 +106,7 @@ const handleRemoveOne = async (selectedRow: DeptType) => {
     const params = [selectedRow.deptId];
     const resp = await removeDept(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -150,38 +151,38 @@ const DeptTableList: React.FC = () => {
 
   const columns: ProColumns<DeptType>[] = [
     {
-      title: <FormattedMessage id="system.Dept.dept_name" defaultMessage="部门名称" />,
+      title: <FormattedMessage id="system.Dept.dept_name" defaultMessage="部门名称"/>,
       dataIndex: 'deptName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Dept.order_num" defaultMessage="显示顺序" />,
+      title: <FormattedMessage id="system.Dept.order_num" defaultMessage="显示顺序"/>,
       dataIndex: 'orderNum',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Dept.leader" defaultMessage="负责人" />,
+      title: <FormattedMessage id="system.Dept.leader" defaultMessage="负责人"/>,
       dataIndex: 'leader',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Dept.phone" defaultMessage="联系电话" />,
+      title: <FormattedMessage id="system.Dept.phone" defaultMessage="联系电话"/>,
       dataIndex: 'phone',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Dept.email" defaultMessage="邮箱" />,
+      title: <FormattedMessage id="system.Dept.email" defaultMessage="邮箱"/>,
       dataIndex: 'email',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Dept.status" defaultMessage="部门状态" />,
+      title: <FormattedMessage id="system.Dept.status" defaultMessage="部门状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -195,8 +196,8 @@ const DeptTableList: React.FC = () => {
             getDeptListExcludeChild(record.deptId).then((res) => {
               if (res.code === 200) {
                 let depts = buildTreeData(res.data, 'deptId', 'deptName', '', '', '');
-                if(depts.length === 0) {
-                  depts = [{ id: 0, title: '无上级', children: undefined, key: 0, value: 0 }];
+                if (depts.length === 0) {
+                  depts = [{id: 0, title: '无上级', children: undefined, key: 0, value: 0}];
                 }
                 setDeptTree(depts);
                 setModalVisible(true);
@@ -207,7 +208,7 @@ const DeptTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -232,7 +233,7 @@ const DeptTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ],
     },
@@ -240,7 +241,7 @@ const DeptTableList: React.FC = () => {
 
   return (
     <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<DeptType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -261,7 +262,11 @@ const DeptTableList: React.FC = () => {
               onClick={async () => {
                 getDeptList().then((res) => {
                   if (res.code === 200) {
-                    setDeptTree(buildTreeData(res.data, 'deptId', 'deptName', '', '', ''));
+                    const dept = {id: 0, label: '无上级', children: [] as DataNode[], value: 0};
+                    dept.children = buildTreeData(res.data, 'deptId', 'deptName', '', '', '');
+                    const deptTree: any[] = [];
+                    deptTree.push(dept);
+                    setDeptTree(deptTree);
                     setCurrentRow(undefined);
                     setModalVisible(true);
                   } else {
@@ -270,7 +275,7 @@ const DeptTableList: React.FC = () => {
                 });
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -284,12 +289,12 @@ const DeptTableList: React.FC = () => {
                 }
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>
           ]}
           request={(params) =>
-            getDeptList({ ...params } as DeptListParams).then((res) => {
+            getDeptList({...params} as DeptListParams).then((res) => {
               return {
                 data: buildTreeData(res.data, 'deptId', '', '', '', ''),
                 total: res.data.length,
@@ -309,9 +314,9 @@ const DeptTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -334,7 +339,7 @@ const DeptTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -342,9 +347,9 @@ const DeptTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success;
           if (values.deptId) {
-            success = await handleUpdate({ ...values } as DeptType);
+            success = await handleUpdate({...values} as DeptType);
           } else {
-            success = await handleAdd({ ...values } as DeptType);
+            success = await handleAdd({...values} as DeptType);
           }
           if (success) {
             setModalVisible(false);
