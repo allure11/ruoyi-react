@@ -49,3 +49,47 @@ export const layout = ({initialState, setInitialState}) => {
   }
 }
 ```
+
+## 多级菜单
+
+页面中多级菜单中的路由地址不要以 `/` 开头，父级地址和子级地址之间的 `/` 需要去掉。
+
+注意：父级地址 + 子级地址 + 子级地址 = 路由地址
+
+### 例如
+
+```tsx
+// routes.tex 配置
+export default [{
+  path: '/system',
+  icon: 'BugOutlined',
+  routes:
+    [
+      {
+        name: 'dictdata',
+        icon: 'PartitionOutlined',
+        path: '/system/dict/data/:id',
+        component: 'system/dictData/index',
+        access: 'authorize',
+        KeepAlive: true,
+        title: 'menu.title.dictData'
+      },
+    ]
+}]
+```
+
+二级菜单路配置：
+
+```text
+一级菜单-路由地址：system
+二级菜单-路由地址：dict/data/:id
+```
+
+三级菜单路配置：
+
+```text
+一级菜单-路由地址：system
+二级菜单-路由地址：dict
+三级菜单-路由地址：data/:id
+```
+

@@ -107,7 +107,7 @@ export default [
       {
         name: 'dictData',
         icon: 'PartitionOutlined',
-        path: '/system/dict-data/index/:id?',
+        path: '/system/dict-data/index/:id',
         component: 'system/dictData/index',
         access: 'authorize',
         KeepAlive: true,
