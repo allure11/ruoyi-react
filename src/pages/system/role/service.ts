@@ -1,12 +1,12 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { RoleType, RoleListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {RoleType, RoleListParams} from './data.d';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -57,7 +57,7 @@ export async function removeRole(ids: string) {
 
 // 导出角色信息
 export async function exportRole(params?: RoleListParams) {
-  return downLoadXlsx(`/system/role/export`, { params }, `role_${new Date().getTime()}.xlsx`)
+  return downLoadXlsx(`/system/role/export`, {params}, `role_${new Date().getTime()}.xlsx`)
 }
 
 // 获取角色菜单列表

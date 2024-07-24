@@ -1,13 +1,13 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { LogininforType, LogininforListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {LogininforType, LogininforListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -58,7 +58,7 @@ export async function removeLogininfor(ids: string) {
 
 // 导出系统访问记录
 export function exportLogininfor(params?: LogininforListParams) {
-  return downLoadXlsx(`/monitor/logininfor/export`, { params }, `login_infor_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/monitor/logininfor/export`, {params}, `login_infor_${new Date().getTime()}.xlsx`);
 }
 
 // 清空登录日志

@@ -1,11 +1,11 @@
-import request from '@/utils/request';
-import type { OnlineUserListParams } from './data.d';
+import {request} from '@umijs/max';
+import type {OnlineUserListParams} from './data.d';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 // 查询在线用户列表

@@ -1,11 +1,10 @@
-import request from '@/utils/request';
-
+import {request} from '@umijs/max';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 

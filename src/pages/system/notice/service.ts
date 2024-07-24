@@ -1,12 +1,12 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { NoticeType, NoticeListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {NoticeType, NoticeListParams} from './data.d';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 // 查询通知公告列表
@@ -56,5 +56,5 @@ export async function removeNotice(ids: string) {
 
 // 导出通知公告
 export function exportNotice(params?: NoticeListParams) {
-  return downLoadXlsx(`/system/notice/export`, { params }, `notice_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/system/notice/export`, {params}, `notice_${new Date().getTime()}.xlsx`);
 }

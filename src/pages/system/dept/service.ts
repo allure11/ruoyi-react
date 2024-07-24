@@ -1,13 +1,13 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { DeptType, DeptListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {DeptType, DeptListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -65,5 +65,5 @@ export async function removeDept(ids: string) {
 
 // 导出部门
 export function exportDept(params?: DeptListParams) {
-  return downLoadXlsx(`/system/dept/export`, { params }, `dept_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/system/dept/export`, {params}, `dept_${new Date().getTime()}.xlsx`);
 }

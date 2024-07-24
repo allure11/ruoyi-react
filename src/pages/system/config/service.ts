@@ -1,13 +1,13 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { ConfigType, ConfigListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {ConfigType, ConfigListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -58,5 +58,5 @@ export async function removeConfig(ids: string) {
 
 // 导出参数配置
 export function exportConfig(params?: ConfigListParams) {
-  return downLoadXlsx(`/system/config/export`, { params }, `config_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/system/config/export`, {params}, `config_${new Date().getTime()}.xlsx`);
 }

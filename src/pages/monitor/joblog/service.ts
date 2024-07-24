@@ -1,13 +1,13 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { JobLogType, JobLogListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {JobLogType, JobLogListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -58,7 +58,7 @@ export async function removeJobLog(ids: string) {
 
 // 导出定时任务调度日志
 export function exportJobLog(params?: JobLogListParams) {
-  return downLoadXlsx(`/monitor/jobLog/export`, { params }, `job_log_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/monitor/jobLog/export`, {params}, `job_log_${new Date().getTime()}.xlsx`);
 }
 
 // 清空调度日志

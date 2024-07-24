@@ -1,13 +1,13 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { JobType, JobListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {JobType, JobListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 // 查询定时任务调度列表
@@ -57,7 +57,7 @@ export async function removeJob(ids: string) {
 
 // 导出定时任务调度
 export function exportJob(params?: JobListParams) {
-  return downLoadXlsx(`/monitor/job/export`, { params }, `job_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/monitor/job/export`, {params}, `job_${new Date().getTime()}.xlsx`);
 }
 
 // 定时任务立即执行一次

@@ -1,12 +1,12 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import type { DictDataType, DictDataListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import type {DictDataType, DictDataListParams} from './data.d';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -57,5 +57,5 @@ export async function removeDictData(ids: string) {
 
 // 导出字典数据
 export function exportDictData(params?: DictDataListParams) {
-  return downLoadXlsx(`/system/dict/data/export`, { params }, `dict_data_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/system/dict/data/export`, {params}, `dict_data_${new Date().getTime()}.xlsx`);
 }

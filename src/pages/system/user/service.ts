@@ -1,15 +1,15 @@
-import { downLoadXlsx } from '@/utils/downloadfile';
-import request from '@/utils/request';
-import { formatTreeSelectData } from '@/utils/utils';
-import type { DataNode } from 'antd/lib/tree';
-import type { UserType, UserListParams } from './data.d';
+import {downLoadXlsx} from '@/utils/downloadfile';
+import {request} from '@umijs/max';
+import {formatTreeSelectData} from '@/utils/utils';
+import type {DataNode} from 'antd/lib/tree';
+import type {UserType, UserListParams} from './data.d';
 
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -60,7 +60,7 @@ export async function removeUser(ids: string) {
 
 // 导出用户信息
 export function exportUser(params?: UserListParams) {
-  return downLoadXlsx(`/system/user/export`, { params }, `user_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`/system/user/export`, {params}, `user_${new Date().getTime()}.xlsx`);
 }
 
 export function updateUserProfile(data: API.CurrentUser) {
@@ -97,7 +97,7 @@ export function getDeptTree(params: any): Promise<DataNode[]> {
     request(`/system/user/deptTree?${queryString}`, {
       method: 'get',
     }).then((res) => {
-      if(res && res.code === 200) {
+      if (res && res.code === 200) {
         const treeData = formatTreeSelectData(res.data);
         resolve(treeData);
       } else {
