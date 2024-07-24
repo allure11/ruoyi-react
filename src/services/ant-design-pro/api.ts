@@ -1,9 +1,7 @@
 import {request} from '@umijs/max';
 import {MenuDataItem} from "@umijs/route-utils";
 import {createIcon} from "@/utils/IconUtil";
-
-const SYSTEM_BASEURL: string = '/system';
-const AUTH_BASEURL: string = '/auth';
+import {AUTH_PATH, SYSTEM_PATH} from "../../../config/modulePath";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -11,7 +9,7 @@ export async function currentUser(options?: { [key: string]: any }) {
     permissions?: [],
     roles?: [],
     user: API.CurrentUser;
-  }>(SYSTEM_BASEURL + '/user/getInfo', {
+  }>(SYSTEM_PATH + '/user/getInfo', {
     method: 'GET',
     ...(options || {}),
   });
@@ -19,7 +17,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>(AUTH_BASEURL + '/logout', {
+  return request<Record<string, any>>(AUTH_PATH + '/logout', {
     method: 'DELETE',
     ...(options || {}),
   });
@@ -33,7 +31,7 @@ export async function login(body: {
   uuid: string;
   username?: string
 }, options?: { [p: string]: any }) {
-  return request<API.LoginResult>(AUTH_BASEURL + '/login', {
+  return request<API.LoginResult>(AUTH_PATH + '/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -75,7 +73,7 @@ export async function getMobileCaptcha(mobile: string) {
 
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
-  return request<API.NoticeIconList>(AUTH_BASEURL + '/notices', {
+  return request<API.NoticeIconList>(AUTH_PATH + '/notices', {
     method: 'GET',
     ...(options || {}),
   });
@@ -92,7 +90,7 @@ export async function rule(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>(AUTH_BASEURL + '/rule', {
+  return request<API.RuleList>(AUTH_PATH + '/rule', {
     method: 'GET',
     params: {
       ...params,
@@ -103,7 +101,7 @@ export async function rule(
 
 /** 更新规则 PUT /api/rule */
 export async function updateRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>(AUTH_BASEURL + '/rule', {
+  return request<API.RuleListItem>(AUTH_PATH + '/rule', {
     method: 'POST',
     data: {
       method: 'update',
@@ -114,7 +112,7 @@ export async function updateRule(options?: { [key: string]: any }) {
 
 /** 新建规则 POST /api/rule */
 export async function addRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>(AUTH_BASEURL + '/rule', {
+  return request<API.RuleListItem>(AUTH_PATH + '/rule', {
     method: 'POST',
     data: {
       method: 'post',
@@ -124,12 +122,12 @@ export async function addRule(options?: { [key: string]: any }) {
 }
 
 export async function getRouters(): Promise<API.GetRoutersResult> {
-  return request(SYSTEM_BASEURL + '/menu/getRouters');
+  return request(SYSTEM_PATH + '/menu/getRouters');
 }
 
 /** 删除规则 DELETE /api/rule */
 export async function removeRule(options?: { [key: string]: any }) {
-  return request<Record<string, any>>(AUTH_BASEURL + '/rule', {
+  return request<Record<string, any>>(AUTH_PATH + '/rule', {
     method: 'POST',
     data: {
       method: 'delete',

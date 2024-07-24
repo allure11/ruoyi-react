@@ -1,19 +1,12 @@
 import {downLoadXlsx} from '@/utils/downloadfile';
 import {request} from '@umijs/max';
 import type {RoleType, RoleListParams} from './data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
+import {SYSTEM_PATH} from "../../../../config/modulePath";
 
 // 查询角色信息列表
 export async function getRoleList(params?: RoleListParams) {
   const queryString = new URLSearchParams(params).toString();
-  return request(`/system/role/list?${queryString}`, {
+  return request(`${SYSTEM_PATH}/role/list?${queryString}`, {
     data: params,
     method: 'GET',
     headers: {
@@ -24,14 +17,14 @@ export async function getRoleList(params?: RoleListParams) {
 
 // 查询角色信息详细
 export function getRole(roleId: number) {
-  return request(`/system/role/${roleId}`, {
+  return request(`${SYSTEM_PATH}/role/${roleId}`, {
     method: 'GET',
   });
 }
 
 // 新增角色信息
 export async function addRole(params: RoleType) {
-  return request('/system/role', {
+  return request(`${SYSTEM_PATH}/role`, {
     method: 'POST',
     data: params,
   });
@@ -39,7 +32,7 @@ export async function addRole(params: RoleType) {
 
 // 修改角色信息
 export async function updateRole(params: RoleType) {
-  return request('/system/role', {
+  return request(`${SYSTEM_PATH}/role`, {
     method: 'PUT',
     data: params,
   });
@@ -47,7 +40,7 @@ export async function updateRole(params: RoleType) {
 
 // 删除角色信息
 export async function removeRole(ids: string) {
-  return request(`/system/role/${ids}`, {
+  return request(`${SYSTEM_PATH}/role/${ids}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -57,12 +50,12 @@ export async function removeRole(ids: string) {
 
 // 导出角色信息
 export async function exportRole(params?: RoleListParams) {
-  return downLoadXlsx(`/system/role/export`, {params}, `role_${new Date().getTime()}.xlsx`)
+  return downLoadXlsx(`${SYSTEM_PATH}/role/export`, {params}, `role_${new Date().getTime()}.xlsx`)
 }
 
 // 获取角色菜单列表
 export function getRoleMenuList(id: number) {
-  return request(`/system/menu/roleMenuTreeselect/${id}`, {
+  return request(`${SYSTEM_PATH}/menu/roleMenuTreeselect/${id}`, {
     method: 'get',
   });
 }

@@ -1,20 +1,12 @@
 import {downLoadXlsx} from '@/utils/downloadfile';
 import {request} from '@umijs/max';
 import type {DeptType, DeptListParams} from './data.d';
-
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
+import {SYSTEM_PATH} from "../../../../config/modulePath";
 
 // 查询部门列表
 export async function getDeptList(params?: DeptListParams) {
   const queryString = new URLSearchParams(params).toString();
-  return request(`/system/dept/list?${queryString}`, {
+  return request(`${SYSTEM_PATH}/dept/list?${queryString}`, {
     data: params,
     method: 'GET',
     headers: {
@@ -25,21 +17,21 @@ export async function getDeptList(params?: DeptListParams) {
 
 // 查询部门列表（排除节点）
 export function getDeptListExcludeChild(deptId: number) {
-  return request(`/system/dept/list/exclude/${deptId}`, {
+  return request(`${SYSTEM_PATH}/dept/list/exclude/${deptId}`, {
     method: 'get',
   });
 }
 
 // 查询部门详细
 export function getDept(deptId: number) {
-  return request(`/system/dept/${deptId}`, {
+  return request(`${SYSTEM_PATH}/dept/${deptId}`, {
     method: 'GET',
   });
 }
 
 // 新增部门
 export async function addDept(params: DeptType) {
-  return request('/system/dept', {
+  return request(`${SYSTEM_PATH}/dept`, {
     method: 'POST',
     data: params,
   });
@@ -47,7 +39,7 @@ export async function addDept(params: DeptType) {
 
 // 修改部门
 export async function updateDept(params: DeptType) {
-  return request('/system/dept', {
+  return request(`${SYSTEM_PATH}/dept`, {
     method: 'PUT',
     data: params,
   });
@@ -55,7 +47,7 @@ export async function updateDept(params: DeptType) {
 
 // 删除部门
 export async function removeDept(ids: string) {
-  return request(`/system/dept/${ids}`, {
+  return request(`${SYSTEM_PATH}/dept/${ids}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -65,5 +57,5 @@ export async function removeDept(ids: string) {
 
 // 导出部门
 export function exportDept(params?: DeptListParams) {
-  return downLoadXlsx(`/system/dept/export`, {params}, `dept_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`${SYSTEM_PATH}/dept/export`, {params}, `dept_${new Date().getTime()}.xlsx`);
 }

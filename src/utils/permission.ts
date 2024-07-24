@@ -1,5 +1,5 @@
-export function matchPermission (permissions: string[]|undefined, value: any): boolean {
-  if(permissions === undefined) 
+export function matchPermission(permissions: string[] | undefined, value: any): boolean {
+  if (permissions === undefined)
     return false;
   const type = typeof value;
   if (type === 'string') {
@@ -13,7 +13,7 @@ export function matchPermission (permissions: string[]|undefined, value: any): b
 //  * @param {Array} value 校验值
 //  * @returns {Boolean}
 //  */
-export function matchPerms (permissions: string[], value: string[]) {
+export function matchPerms(permissions: string[], value: string[]) {
   if (value && value instanceof Array && value.length > 0) {
     const permissionDatas = value;
     const all_permission = '*:*:*';
@@ -29,7 +29,7 @@ export function matchPerms (permissions: string[], value: string[]) {
   return false;
 }
 
-export function matchPerm (permissions: string[], value: string) {
+export function matchPerm(permissions: string[], value: string) {
   if (value && value.length > 0) {
     const permissionDatas = value;
     const all_permission = '*:*:*';
@@ -47,14 +47,15 @@ export function matchPerm (permissions: string[], value: string) {
 
 /**
  * 角色权限校验
+ * @param roles
  * @param {Array} value 校验值
  * @returns {Boolean}
  */
-export function checkRole (roles: API.Role[]|undefined, value: string[]) {
-  if (roles && value && value.length > 0) { 
-    for(let i = 0; i< roles?.length; i ++) {
-      for(let j = 0; j< value?.length; j ++) {
-        if(value[j] === roles[i].roleKey) {          
+export function checkRole(roles: API.Role[] | undefined, value: string[]) {
+  if (roles && value && value.length > 0) {
+    for (let i = 0; i < roles?.length; i++) {
+      for (let j = 0; j < value?.length; j++) {
+        if (value[j] === roles[i].roleKey) {
           return true;
         }
       }

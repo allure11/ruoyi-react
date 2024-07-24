@@ -48,6 +48,7 @@ export async function downLoadXlsx(url: string, params: any, fileName: string) {
     const aLink = document.createElement('a');
     const blob = data; // new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     aLink.style.display = 'none';
+    // @ts-ignore
     aLink.href = URL.createObjectURL(blob);
     aLink.setAttribute('download', fileName); // 设置下载文件名称
     document.body.appendChild(aLink);

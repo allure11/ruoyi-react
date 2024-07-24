@@ -3,6 +3,7 @@ import {request} from '@umijs/max';
 import {formatTreeSelectData} from '@/utils/utils';
 import type {DataNode} from 'antd/lib/tree';
 import type {UserType, UserListParams} from './data.d';
+import {SYSTEM_PATH} from "../../../../config/modulePath";
 
 
 /* *
@@ -12,11 +13,10 @@ import type {UserType, UserListParams} from './data.d';
  *
  * */
 
-
 // 查询用户信息列表
 export async function getUserList(params?: UserListParams) {
   const queryString = new URLSearchParams(params).toString();
-  return request(`/system/user/list?${queryString}`, {
+  return request(`${SYSTEM_PATH}/user/list?${queryString}`, {
     data: params,
     method: 'GET',
     headers: {
@@ -27,14 +27,14 @@ export async function getUserList(params?: UserListParams) {
 
 // 查询用户信息详细
 export function getUser(userId: number) {
-  return request(`/system/user/${userId}`, {
+  return request(`${SYSTEM_PATH}/user/${userId}`, {
     method: 'GET',
   });
 }
 
 // 新增用户信息
 export async function addUser(params: UserType) {
-  return request('/system/user', {
+  return request(`${SYSTEM_PATH}/user`, {
     method: 'POST',
     data: params,
   });
@@ -42,7 +42,7 @@ export async function addUser(params: UserType) {
 
 // 修改用户信息
 export async function updateUser(params: UserType) {
-  return request('/system/user', {
+  return request(`${SYSTEM_PATH}/user`, {
     method: 'PUT',
     data: params,
   });
@@ -50,7 +50,7 @@ export async function updateUser(params: UserType) {
 
 // 删除用户信息
 export async function removeUser(ids: string) {
-  return request(`/system/user/${ids}`, {
+  return request(`${SYSTEM_PATH}/user/${ids}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8',
@@ -60,11 +60,11 @@ export async function removeUser(ids: string) {
 
 // 导出用户信息
 export function exportUser(params?: UserListParams) {
-  return downLoadXlsx(`/system/user/export`, {params}, `user_${new Date().getTime()}.xlsx`);
+  return downLoadXlsx(`${SYSTEM_PATH}/user/export`, {params}, `user_${new Date().getTime()}.xlsx`);
 }
 
 export function updateUserProfile(data: API.CurrentUser) {
-  return request('/system/user/profile', {
+  return request(`${SYSTEM_PATH}/user/profile`, {
     method: 'put',
     data: data
   })
@@ -76,7 +76,7 @@ export function updateUserPwd(oldPassword: string, newPassword: string) {
     oldPassword,
     newPassword
   }
-  return request('/system/user/profile/updatePwd', {
+  return request(`${SYSTEM_PATH}/user/profile/updatePwd`, {
     method: 'put',
     params: data
   })
@@ -84,7 +84,7 @@ export function updateUserPwd(oldPassword: string, newPassword: string) {
 
 // 用户头像上传
 export function uploadAvatar(data: any) {
-  return request('/system/user/profile/avatar', {
+  return request(`${SYSTEM_PATH}/user/profile/avatar`, {
     method: 'post',
     data: data
   })
@@ -94,7 +94,7 @@ export function uploadAvatar(data: any) {
 export function getDeptTree(params: any): Promise<DataNode[]> {
   return new Promise((resolve) => {
     const queryString = new URLSearchParams(params).toString();
-    request(`/system/user/deptTree?${queryString}`, {
+    request(`${SYSTEM_PATH}/user/deptTree?${queryString}`, {
       method: 'get',
     }).then((res) => {
       if (res && res.code === 200) {
