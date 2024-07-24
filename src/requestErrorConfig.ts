@@ -1,6 +1,6 @@
-﻿import type { RequestOptions } from '@@/plugin-request/request';
-import type { RequestConfig } from '@umijs/max';
-import { message, notification } from 'antd';
+﻿import type {RequestOptions} from '@@/plugin-request/request';
+import type {RequestConfig} from '@umijs/max';
+import {message, notification} from 'antd';
 import {clearSessionToken, getAccessToken, getRefreshToken, getTokenExpireTime} from "@/access";
 import {history} from "@@/core/history";
 import {LoginPageUrl} from "@/utils/utils";
@@ -14,6 +14,7 @@ enum ErrorShowType {
   NOTIFICATION = 3,
   REDIRECT = 9,
 }
+
 // 与后端约定的响应数据格式
 interface ResponseStructure {
   success: boolean;
@@ -21,6 +22,8 @@ interface ResponseStructure {
   errorCode?: number;
   errorMessage?: string;
   showType?: ErrorShowType;
+  code?: number;
+  msg?: string;
 }
 
 const codeMessage: Record<number, string> = {
@@ -54,12 +57,12 @@ export const errorConfig: RequestConfig = {
   errorConfig: {
     // 错误抛出
     errorThrower: (res) => {
-      const { success, data, errorCode, errorMessage, showType } =
+      const {success, data, errorCode, errorMessage, showType} =
         res as unknown as ResponseStructure;
       if (!success) {
         const error: any = new Error(errorMessage);
         error.name = 'BizError';
-        error.info = { errorCode, errorMessage, showType, data };
+        error.info = {errorCode, errorMessage, showType, data};
         throw error; // 抛出自制的错误
       }
     },
@@ -70,7 +73,7 @@ export const errorConfig: RequestConfig = {
       if (error.name === 'BizError') {
         const errorInfo: ResponseStructure | undefined = error.info;
         if (errorInfo) {
-          const { errorMessage, errorCode } = errorInfo;
+          const {errorMessage, errorCode} = errorInfo;
           switch (errorInfo.showType) {
             case ErrorShowType.SILENT:
               // do nothing
@@ -112,7 +115,6 @@ export const errorConfig: RequestConfig = {
   // 请求拦截器
   requestInterceptors: [
     (url: string, options: any) => {
-      // console.log('request:', url);
       const headers = options.headers ? options.headers : [];
       if (headers['Authorization'] === '' || headers['Authorization'] == null) {
         const expireTime = getTokenExpireTime();
@@ -134,7 +136,6 @@ export const errorConfig: RequestConfig = {
           clearSessionToken();
           history.push(LoginPageUrl);
         }
-        // console.log(headers)
         return {
           url,
           options: {...options, headers},
@@ -154,6 +155,13 @@ export const errorConfig: RequestConfig = {
       if (status === 401 || status === 403) {
         const msg = codeMessage[status] || codeMessage[10000]
         message.warning(`${status} ${msg}`)
+      }
+      return response;
+    },
+    (response) => {
+      const {code, msg} = response.data as ResponseStructure
+      if (code === 500) {
+        message.warning(msg)
       }
       return response;
     }

@@ -1,14 +1,14 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import {request} from '@umijs/max';
 import {MenuDataItem} from "@umijs/route-utils";
 import {createIcon} from "@/utils/IconUtil";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
-    permissions?:[],
-    roles?:[],
+    permissions?: [],
+    roles?: [],
     user: API.CurrentUser;
   }>('/system/user/getInfo', {
     method: 'GET',
@@ -18,7 +18,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/auth/login/outLogin', {
+  return request<Record<string, any>>('/auth/logout', {
     method: 'POST',
     ...(options || {}),
   });
@@ -129,8 +129,8 @@ export async function getRoutersInfo(): Promise<MenuDataItem[]> {
   });
 }
 
-export function getMatchMenuItem(path: string, menuData: MenuDataItem[]|undefined): MenuDataItem[] {
-  if(!menuData)
+export function getMatchMenuItem(path: string, menuData: MenuDataItem[] | undefined): MenuDataItem[] {
+  if (!menuData)
     return [];
   let items: MenuDataItem[] = [];
   menuData.forEach((item) => {
@@ -142,13 +142,13 @@ export function getMatchMenuItem(path: string, menuData: MenuDataItem[]|undefine
       if (path.length >= item.path?.length) {
         const exp = `${item.path}/*`;
         if (path.match(exp)) {
-          if(item.routes) {
-            const subpath = path.substr(item.path.length+1);
+          if (item.routes) {
+            const subpath = path.substr(item.path.length + 1);
             const subItem: MenuDataItem[] = getMatchMenuItem(subpath, item.routes);
             items = items.concat(subItem);
           } else {
             const paths = path.split('/');
-            if(paths.length >= 2 && paths[0] === item.path && paths[1] === 'index') {
+            if (paths.length >= 2 && paths[0] === item.path && paths[1] === 'index') {
               items.push(item);
             }
           }

@@ -1,5 +1,5 @@
-import type { DataNode } from 'antd/lib/tree';
-import { parse } from 'querystring';
+import type {DataNode} from 'antd/lib/tree';
+import {parse} from 'querystring';
 
 export const LoginPageUrl = '/user/login';
 
@@ -9,6 +9,7 @@ const reg =
 export const isUrl = (path: string): boolean => reg.test(path);
 
 export const isAntDesignPro = (): boolean => {
+  // @ts-ignore
   if (ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site') {
     return true;
   }
@@ -17,7 +18,7 @@ export const isAntDesignPro = (): boolean => {
 
 // 给官方演示站点用，用于关闭真实开发环境不需要使用的特性
 export const isAntDesignProOrDev = (): boolean => {
-  const { NODE_ENV } = process.env;
+  const {NODE_ENV} = process.env;
   if (NODE_ENV === 'development') {
     return true;
   }
@@ -25,14 +26,16 @@ export const isAntDesignProOrDev = (): boolean => {
 };
 
 export function trim(x: string) {
-  return x.replace(/^\s+|\s+$/gm,'');  
+  return x.replace(/^\s+|\s+$/gm, '');
 }
 
 /**
  * 构造树型结构数据
  * @param {*} data 数据源
  * @param {*} id id字段 默认 'id'
+ * @param name 名称字段
  * @param {*} parentId 父节点字段 默认 'parentId'
+ * @param parentName 父节点名称字段
  * @param {*} children 孩子节点字段 默认 'children'
  */
 export function buildTreeData(
@@ -93,6 +96,7 @@ export function buildTreeData(
       });
     }
   }
+
   return tree;
 }
 
@@ -115,5 +119,5 @@ export function formatTreeSelectData(arrayList: any): DataNode[] {
 }
 
 export function download(fileName: string) {
-	window.location.href = `/common/download?fileName=${encodeURI(fileName)}&delete=${  true}`;
+  window.location.href = `/common/download?fileName=${encodeURI(fileName)}&delete=${true}`;
 }

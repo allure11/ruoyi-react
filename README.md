@@ -4,6 +4,11 @@
 
 [Ant Design Pro](https://pro.ant.design/) 是基于 Ant Design 设计体系的 React UI 组件库，主要用于快速开发企业后台产品原型。
 
+## 开发分支
+
+boot：单体应用
+cloud：微服务应用
+
 ## 微服务切换
 
 1、配置 config/proxy.ts 中的代理
