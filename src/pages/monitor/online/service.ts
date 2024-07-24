@@ -1,5 +1,6 @@
 import {request} from '@umijs/max';
 import type {OnlineUserListParams} from './data.d';
+import {SYSTEM_PATH} from "../../../../config/modulePath";
 
 /* *
  *
@@ -11,7 +12,7 @@ import type {OnlineUserListParams} from './data.d';
 // 查询在线用户列表
 export async function getOnlineUserList(params?: OnlineUserListParams) {
   const queryString = new URLSearchParams(params).toString();
-  return request(`/monitor/online/list?${queryString}`, {
+  return request(`${SYSTEM_PATH}/online/list?${queryString}`, {
     data: params,
     method: 'GET',
   });
@@ -19,7 +20,7 @@ export async function getOnlineUserList(params?: OnlineUserListParams) {
 
 // 强退用户
 export async function forceLogout(tokenId: string) {
-  return request(`/monitor/online/${tokenId}`, {
+  return request(`${SYSTEM_PATH}/online/${tokenId}`, {
     method: 'DELETE',
   });
 }
