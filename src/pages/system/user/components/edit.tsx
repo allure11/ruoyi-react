@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ProForm,
   ProFormDigit,
@@ -7,10 +7,10 @@ import {
   ProFormTextArea,
   ProFormTreeSelect,
 } from '@ant-design/pro-form';
-import { Modal } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { UserType } from '../data.d';
-import type { DataNode } from 'antd/lib/tree';
+import {Modal} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {UserType} from '../data.d';
+import type {DataNode} from 'antd/lib/tree';
 
 /* *
  *
@@ -41,8 +41,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
 
   const [userId, setUserId] = useState<any>('');
 
-  const { sexOptions, statusOptions } = props;
-  const { roles, posts, depts } = props;
+  const {sexOptions, statusOptions} = props;
+  const {roles, posts, depts} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -102,7 +102,9 @@ const UserForm: React.FC<UserFormProps> = (props) => {
         grid={true}
         layout="horizontal"
         labelAlign="right"
-        onFinish={handleFinish} initialValues={props.values}>
+        submitter={false}
+        onFinish={handleFinish}
+        initialValues={props.values}>
         <ProFormDigit
           name="userId"
           label={intl.formatMessage({
@@ -115,7 +117,7 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage defaultMessage="请输入用户ID！" />,
+              message: <FormattedMessage id="userId" defaultMessage="请输入用户ID！"/>,
             },
           ]}
         />
@@ -126,12 +128,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
             defaultMessage: '用户昵称',
           })}
           placeholder="请输入用户昵称"
-          colProps={{ xs: 24, md: 12, xl: 12 }}
+          colProps={{xs: 24, md: 12, xl: 12}}
           rules={[
             {
               required: true,
               message: (
-                <FormattedMessage defaultMessage="请输入用户昵称！" />
+                <FormattedMessage id="nick_name" defaultMessage="请输入用户昵称！"/>
               ),
             },
           ]}
@@ -146,12 +148,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
             return depts;
           }}
           placeholder="请输入用户部门"
-          colProps={{ md: 12, xl: 12}}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: true,
               message: (
-                <FormattedMessage defaultMessage="请输入用户部门！" />
+                <FormattedMessage id="dept_id" defaultMessage="请输入用户部门！"/>
               ),
             },
           ]}
@@ -163,12 +165,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
             defaultMessage: '手机号码',
           })}
           placeholder="请输入手机号码"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: false,
               message: (
-                <FormattedMessage defaultMessage="请输入手机号码！" />
+                <FormattedMessage id="phonenumber" defaultMessage="请输入手机号码！"/>
               ),
             },
           ]}
@@ -181,12 +183,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           width="xl"
           placeholder="请输入用户邮箱"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: false,
               message: (
-                <FormattedMessage defaultMessage="请输入用户邮箱！" />
+                <FormattedMessage id="email" defaultMessage="请输入用户邮箱！"/>
               ),
             },
           ]}
@@ -200,12 +202,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           width="xl"
           hidden={userId}
           placeholder="请输入用户账号"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: true,
               message: (
-                <FormattedMessage defaultMessage="请输入用户账号！" />
+                <FormattedMessage id="user_name" defaultMessage="请输入用户账号！"/>
               ),
             },
           ]}
@@ -219,11 +221,11 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           width="xl"
           hidden={userId}
           placeholder="请输入密码"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: false,
-              message: <FormattedMessage defaultMessage="请输入密码！" />,
+              message: <FormattedMessage id="password" defaultMessage="请输入密码！"/>,
             },
           ]}
         />
@@ -236,12 +238,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           width="xl"
           placeholder="请输入用户性别"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: false,
               message: (
-                <FormattedMessage defaultMessage="请输入用户性别！" />
+                <FormattedMessage id="sex" defaultMessage="请输入用户性别！"/>
               ),
             },
           ]}
@@ -255,12 +257,12 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           width="xl"
           placeholder="请输入帐号状态"
-          colProps={{ md: 12, xl: 12 }}
+          colProps={{md: 12, xl: 12}}
           rules={[
             {
               required: false,
               message: (
-                <FormattedMessage defaultMessage="请输入帐号状态！" />
+                <FormattedMessage id="status" defaultMessage="请输入帐号状态！"/>
               ),
             },
           ]}
@@ -275,8 +277,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           options={posts}
           placeholder="请选择岗位"
-          colProps={{ md: 12, xl: 12 }}
-          rules={[{ required: true, message: '请选择岗位!' }]}
+          colProps={{md: 12, xl: 12}}
+          rules={[{required: true, message: '请选择岗位!'}]}
         />
         <ProFormSelect
           name="roleIds"
@@ -288,8 +290,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           options={roles}
           placeholder="请选择角色"
-          colProps={{ md: 12, xl: 12 }}
-          rules={[{ required: true, message: '请选择角色!' }]}
+          colProps={{md: 12, xl: 12}}
+          rules={[{required: true, message: '请选择角色!'}]}
         />
         <ProFormTextArea
           name="remark"
@@ -299,16 +301,16 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           })}
           width="xl"
           placeholder="请输入备注"
-          colProps={{ md: 24, xl: 24 }}
+          colProps={{md: 24, xl: 24}}
           rules={[
             {
               required: false,
-              message: <FormattedMessage defaultMessage="请输入备注！" />,
+              message: <FormattedMessage id="remark" defaultMessage="请输入备注！"/>,
             },
           ]}
         />
       </ProForm>
-    </Modal >
+    </Modal>
   );
 };
 
