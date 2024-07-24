@@ -14,7 +14,7 @@ const { TextArea } = Input;
  *
  * @author whiteshader@163.com
  * @datetime  2022/06/27
- * 
+ *
  * */
 
 
@@ -64,8 +64,8 @@ const CacheList: React.FC = () => {
   const onClearAllFailed = (errorInfo: any) => {
     message.error('Failed:', errorInfo);
   };
-  
-  const refreshCacheNames = () => {    
+
+  const refreshCacheNames = () => {
     getCacheNames();
     message.success("刷新缓存列表成功");
   };

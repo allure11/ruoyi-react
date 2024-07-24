@@ -1,16 +1,10 @@
 import {request} from '@umijs/max';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
+import {MONITOR_PATH} from "../../../../config/modulePath";
 
 
 // 获取服务器信息
 export async function getCacheInfo() {
-  return request('/monitor/cache', {
+  return request(`${MONITOR_PATH}/cache`, {
     method: 'GET',
   });
 }
