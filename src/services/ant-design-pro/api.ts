@@ -1,7 +1,7 @@
 import {request} from '@umijs/max';
 import {MenuDataItem} from "@umijs/route-utils";
 import {createIcon} from "@/utils/IconUtil";
-import {AUTH_PATH, SYSTEM_PATH, USER_PATH} from "../../../config/modulePath";
+import {AUTH_PATH, CAPTCHA_IMAGE_URL, SYSTEM_PATH, GET_INFO_URL} from "../../../config/modulePath";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -9,7 +9,7 @@ export async function currentUser(options?: { [key: string]: any }) {
     permissions?: [],
     roles?: [],
     user: API.CurrentUser;
-  }>(USER_PATH + '/getInfo', {
+  }>(GET_INFO_URL + '/getInfo', {
     method: 'GET',
     ...(options || {}),
   });
@@ -61,7 +61,7 @@ export async function getFakeCaptcha(
 
 /** 获取验证码 */
 export async function getCaptchaImage() {
-  return request('/captchaImage', {
+  return request(CAPTCHA_IMAGE_URL, {
     headers: {},
   })
 }
@@ -122,7 +122,7 @@ export async function addRule(options?: { [key: string]: any }) {
 }
 
 export async function getRouters(): Promise<API.GetRoutersResult> {
-  return request(USER_PATH + '/getRouters');
+  return request(`${SYSTEM_PATH}/menu/getRouters`);
 }
 
 /** 删除规则 DELETE /api/rule */

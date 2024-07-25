@@ -22,6 +22,7 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
   menus?: any[];
+  authToken: Function;
 }> {
   const fetchUserInfo = async () => {
     try {
@@ -44,11 +45,15 @@ export async function getInitialState(): Promise<{
       fetchUserInfo,
       currentUser,
       settings: defaultSettings as Partial<LayoutSettings>,
+      // token 获取函数，用于自定义登录时获取返回的 token
+      authToken: (msg: API.LoginResult): string => msg.data?.access_token || '',
     };
   }
   return {
     fetchUserInfo,
     settings: defaultSettings as Partial<LayoutSettings>,
+    // token 获取函数，用于自定义登录时获取返回的 token
+    authToken: (msg: API.LoginResult): string => msg.data?.access_token || '',
   };
 }
 
@@ -117,6 +122,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         // initialState.currentUser 中包含了所有用户信息
         const menus = await getRoutersInfo();
         setInitialState((preInitialState) => ({
+          ...initialState,
           ...preInitialState,
           menus,
         }));
@@ -140,6 +146,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
               settings={initialState?.settings}
               onSettingChange={(settings) => {
                 setInitialState((preInitialState) => ({
+                  authToken: initialState?.authToken || (() => ''),
                   ...preInitialState,
                   settings,
                 }));

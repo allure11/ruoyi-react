@@ -141,7 +141,8 @@ const Login: React.FC = () => {
         const current = new Date();
         const expireTime = current.setTime(current.getTime() + 1000 * 12 * 60 * 60);
         // 登录成功后设置token
-        setSessionToken(msg.token, msg.token, expireTime);
+        const token = initialState?.authToken(msg);
+        setSessionToken(token, token, expireTime);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         window.location.href = urlParams.get('redirect') || '/';

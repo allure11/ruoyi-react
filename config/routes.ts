@@ -191,7 +191,7 @@ export default [
       {
         name: 'joblog',
         icon: 'PartitionOutlined',
-        path: '/monitor/job-log/index/:jobId?',
+        path: '/monitor/job-log/index/:jobId',
         component: 'monitor/joblog',
         access: 'authorize',
         KeepAlive: true,
