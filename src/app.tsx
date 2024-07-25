@@ -37,24 +37,22 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
-  const {location} = history;
-  if (![loginPath, '/user/register', '/user/register-result'].includes(location.pathname)) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-      // token 获取函数，用于自定义登录时获取返回的 token
-      authToken: (msg: API.LoginResult): string => msg.data?.access_token || '',
-    };
-  }
-  return {
+  const initState = {
     fetchUserInfo,
     settings: defaultSettings as Partial<LayoutSettings>,
     // token 获取函数，用于自定义登录时获取返回的 token
     authToken: (msg: API.LoginResult): string => msg.data?.access_token || '',
   };
+  // 如果不是登录页面，执行
+  const {location} = history;
+  if (![loginPath, '/user/register', '/user/register-result'].includes(location.pathname)) {
+    const currentUser = await fetchUserInfo();
+    return {
+      currentUser,
+      ...initState
+    };
+  }
+  return initState;
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
@@ -146,9 +144,9 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
               settings={initialState?.settings}
               onSettingChange={(settings) => {
                 setInitialState((preInitialState) => ({
-                  authToken: initialState?.authToken || (() => ''),
                   ...preInitialState,
                   settings,
+                  authToken: initialState?.authToken || (() => '')
                 }));
               }}
             />

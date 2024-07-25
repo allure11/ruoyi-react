@@ -116,6 +116,7 @@ const Login: React.FC = () => {
         setInitialState((s) => ({
           ...s,
           currentUser: userInfo,
+          authToken: initialState?.authToken || (() => '')
         }));
       });
     }
