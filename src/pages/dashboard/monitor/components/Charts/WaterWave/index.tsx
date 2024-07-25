@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import autoHeight from '../autoHeight';
+import styles from "rmc-picker/es/PopupStyles";
 
 /* eslint no-return-assign: 0 */
 /* eslint no-mixed-operators: 0 */
@@ -12,6 +13,7 @@ export type WaterWaveProps = {
   percent: number;
   style?: React.CSSProperties;
 };
+
 class WaterWave extends Component<WaterWaveProps> {
   state = {
     radio: 1,
@@ -19,6 +21,7 @@ class WaterWave extends Component<WaterWaveProps> {
   timer: number = 0;
   root: HTMLDivElement | undefined | null = null;
   node: HTMLCanvasElement | undefined | null = null;
+
   componentDidMount() {
     this.renderChart();
     this.resize();
@@ -32,13 +35,15 @@ class WaterWave extends Component<WaterWaveProps> {
       },
     );
   }
+
   componentDidUpdate(props: WaterWaveProps) {
-    const { percent } = this.props;
+    const {percent} = this.props;
     if (props.percent !== percent) {
       // 不加这个会造成绘制缓慢
       this.renderChart('update');
     }
   }
+
   componentWillUnmount() {
     cancelAnimationFrame(this.timer);
     if (this.node) {
@@ -46,17 +51,19 @@ class WaterWave extends Component<WaterWaveProps> {
     }
     window.removeEventListener('resize', this.resize);
   }
+
   resize = () => {
     if (this.root) {
-      const { height = 1 } = this.props;
-      const { offsetWidth } = this.root.parentNode as HTMLElement;
+      const {height = 1} = this.props;
+      const {offsetWidth} = this.root.parentNode as HTMLElement;
       this.setState({
         radio: offsetWidth < height ? offsetWidth / height : 1,
       });
     }
   };
+
   renderChart(type?: string) {
-    const { percent, color = '#1890FF' } = this.props;
+    const {percent, color = '#1890FF'} = this.props;
     const data = percent / 100;
     cancelAnimationFrame(this.timer);
     if (!this.node || (data !== 0 && !data)) {
@@ -179,9 +186,10 @@ class WaterWave extends Component<WaterWaveProps> {
     };
     render();
   }
+
   render() {
-    const { radio } = this.state;
-    const { percent, title, height = 1 } = this.props;
+    const {radio} = this.state;
+    const {percent, title, height = 1} = this.props;
     return (
       <div
         className={styles.waterWave}
@@ -217,4 +225,5 @@ class WaterWave extends Component<WaterWaveProps> {
     );
   }
 }
+
 export default autoHeight()(WaterWave);
