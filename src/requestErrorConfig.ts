@@ -1,10 +1,8 @@
-﻿import type {RequestOptions} from '@@/plugin-request/request';
-import type {RequestConfig} from '@umijs/max';
+﻿import type {RequestConfig} from '@umijs/max';
 import {message, notification} from 'antd';
 import {clearSessionToken, getAccessToken, getRefreshToken, getTokenExpireTime} from "@/access";
 import {history} from "@@/core/history";
 import {LoginPageUrl} from "@/utils/utils";
-import defaultSettings from "../config/defaultSettings";
 
 // 错误处理方案： 错误类型
 enum ErrorShowType {
@@ -52,6 +50,7 @@ const codeMessage: Record<number, string> = {
  */
 // 更换令牌的时间区间
 const checkRegion = 5 * 60 * 1000;
+export const loginPath = '/user/login';
 export const errorConfig: RequestConfig = {
   // 错误处理： umi@3 的错误处理方案。
   errorConfig: {
@@ -160,6 +159,11 @@ export const errorConfig: RequestConfig = {
     },
     (response) => {
       const {code, msg} = response.data as ResponseStructure
+      if (code === 401) {
+        const msg = codeMessage[code] || codeMessage[10000]
+        message.warning(`${code} ${msg}`)
+        history.push(loginPath)
+      }
       if (code === 500) {
         message.warning(msg)
       }

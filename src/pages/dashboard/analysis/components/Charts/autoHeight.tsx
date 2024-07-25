@@ -1,12 +1,11 @@
 import React from 'react';
 
 export type IReactComponent<P = any> =
-  | React.StatelessComponent<P>
-  | React.ComponentClass<P>
-  | React.ClassicComponentClass<P>;
+  | React.FunctionComponent<P>
+  | React.ComponentClass<P>;
 
 function computeHeight(node: HTMLDivElement) {
-  const { style } = node;
+  const {style} = node;
   style.height = '100%';
   const totalHeight = parseInt(`${getComputedStyle(node).height}`, 10);
   const padding =
@@ -47,13 +46,13 @@ function autoHeight() {
       root: HTMLDivElement | undefined = undefined;
 
       componentDidMount() {
-        const { height } = this.props;
+        const {height} = this.props;
         if (!height) {
           let h = getAutoHeight(this.root);
-          this.setState({ computedHeight: h });
+          this.setState({computedHeight: h});
           if (h < 1) {
             h = getAutoHeight(this.root);
-            this.setState({ computedHeight: h });
+            this.setState({computedHeight: h});
           }
         }
       }
@@ -63,17 +62,19 @@ function autoHeight() {
       };
 
       render() {
-        const { height } = this.props;
-        const { computedHeight } = this.state;
+        const {height} = this.props;
+        const {computedHeight} = this.state;
         const h = height || computedHeight;
         return (
           <div ref={this.handleRoot}>
-            {h > 0 && <WrappedComponent {...this.props} height={h} />}
+            {h > 0 && <WrappedComponent {...this.props} height={h}/>}
           </div>
         );
       }
     }
+
     return AutoHeightComponent;
   };
 }
+
 export default autoHeight;

@@ -5,13 +5,12 @@ import {PageContainer, ProBreadcrumb, SettingDrawer} from '@ant-design/pro-compo
 import type {RequestConfig, RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
-import {errorConfig} from './requestErrorConfig';
+import {errorConfig, loginPath} from './requestErrorConfig';
 import {currentUser as queryCurrentUser, getRoutersInfo} from './services/ant-design-pro/api';
 import React, {ReactElement, JSXElementConstructor, ReactNode, ReactPortal} from 'react';
 import {PageLoading} from "@ant-design/pro-layout";
 
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
