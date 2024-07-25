@@ -41,7 +41,7 @@ export async function getInitialState(): Promise<{
     fetchUserInfo,
     settings: defaultSettings as Partial<LayoutSettings>,
     // token 获取函数，用于自定义登录时获取返回的 token
-    authToken: (msg: API.LoginResult): string => msg.data?.access_token || '',
+    authToken: (msg: API.LoginResult): string => msg.token || '',
   };
   // 如果不是登录页面，执行
   const {location} = history;
