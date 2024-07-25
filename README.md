@@ -8,7 +8,7 @@
 
 1、配置 `config/proxy.ts` 中的代理
 
-2、请根据实际情况修改 `config/modulePath.tsx` 相关模块路径
+2、请根据实际情况修改 `config/modulePath.ts` 相关模块路径
 
 ## 安装依赖
 
