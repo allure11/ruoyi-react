@@ -3,7 +3,7 @@
 
 declare namespace API {
   type CurrentUser = {
-    userId?:number;
+    userId?: number;
     userName?: string;
     avatar?: string;
     userid?: string;
@@ -25,10 +25,13 @@ declare namespace API {
     roles?: any[];
     permissions?: any[];
     nickName?: string;
+    phonenumber?: string;
+    sex?: string;
+    dept?: any;
   };
 
   type LoginResult = {
-    data?:{access_token:string,expires_in?: long}
+    data?: { access_token: string, expires_in?: long }
     code?: number;
     token?: string;
     status?: string;

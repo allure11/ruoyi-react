@@ -1,14 +1,15 @@
+import { Radar } from '@ant-design/plots';
+import { PageContainer } from '@ant-design/pro-components';
+import { Link, useRequest } from '@umijs/max';
+import { Avatar, Card, Col, List, Row, Skeleton, Statistic } from 'antd';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
-import { Radar } from '@ant-design/charts';
-
-import { Link, useRequest } from 'umi';
-import { PageContainer } from '@ant-design/pro-layout';
-import moment from 'moment';
 import EditableLinkGroup from './components/EditableLinkGroup';
-import styles from './style.less';
 import type { ActivitiesType, CurrentUser } from './data.d';
-import { queryProjectNotice, queryActivities, fakeChartData } from './service';
+import { fakeChartData, queryActivities, queryProjectNotice } from './service';
+import useStyles from './style.style';
+dayjs.extend(relativeTime);
 
 const links = [
   {
@@ -36,11 +37,21 @@ const links = [
     href: '',
   },
 ];
-
-const PageHeaderContent: FC<{ currentUser: Partial<CurrentUser> }> = ({ currentUser }) => {
+const PageHeaderContent: FC<{
+  currentUser: Partial<CurrentUser>;
+}> = ({ currentUser }) => {
+  const { styles } = useStyles();
   const loading = currentUser && Object.keys(currentUser).length;
   if (!loading) {
-    return <Skeleton avatar paragraph={{ rows: 1 }} active />;
+    return (
+      <Skeleton
+        avatar
+        paragraph={{
+          rows: 1,
+        }}
+        active
+      />
+    );
   }
   return (
     <div className={styles.pageHeaderContent}>
@@ -60,32 +71,34 @@ const PageHeaderContent: FC<{ currentUser: Partial<CurrentUser> }> = ({ currentU
     </div>
   );
 };
-
-const ExtraContent: FC<Record<string, any>> = () => (
-  <div className={styles.extraContent}>
-    <div className={styles.statItem}>
-      <Statistic title="项目数" value={56} />
+const ExtraContent: FC<Record<string, any>> = () => {
+  const { styles } = useStyles();
+  return (
+    <div className={styles.extraContent}>
+      <div className={styles.statItem}>
+        <Statistic title="项目数" value={56} />
+      </div>
+      <div className={styles.statItem}>
+        <Statistic title="团队内排名" value={8} suffix="/ 24" />
+      </div>
+      <div className={styles.statItem}>
+        <Statistic title="项目访问" value={2223} />
+      </div>
     </div>
-    <div className={styles.statItem}>
-      <Statistic title="团队内排名" value={8} suffix="/ 24" />
-    </div>
-    <div className={styles.statItem}>
-      <Statistic title="项目访问" value={2223} />
-    </div>
-  </div>
-);
-
+  );
+};
 const Workplace: FC = () => {
+  const { styles } = useStyles();
   const { loading: projectLoading, data: projectNotice = [] } = useRequest(queryProjectNotice);
   const { loading: activitiesLoading, data: activities = [] } = useRequest(queryActivities);
   const { data } = useRequest(fakeChartData);
-
   const renderActivities = (item: ActivitiesType) => {
     const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-      if (item[key]) {
+      if (item[key as keyof ActivitiesType]) {
+        const value = item[key as 'user'];
         return (
-          <a href={item[key].link} key={item[key].name}>
-            {item[key].name}
+          <a href={value?.link} key={value?.name}>
+            {value.name}
           </a>
         );
       }
@@ -104,7 +117,7 @@ const Workplace: FC = () => {
           }
           description={
             <span className={styles.datetime} title={item.updatedAt}>
-              {moment(item.updatedAt).fromNow()}
+              {dayjs(item.updatedAt).fromNow()}
             </span>
           }
         />
@@ -133,30 +146,39 @@ const Workplace: FC = () => {
         <Col xl={16} lg={24} md={24} sm={24} xs={24}>
           <Card
             className={styles.projectList}
-            style={{ marginBottom: 24 }}
+            style={{
+              marginBottom: 24,
+            }}
             title="进行中的项目"
             bordered={false}
             extra={<Link to="/">全部项目</Link>}
             loading={projectLoading}
-            bodyStyle={{ padding: 0 }}
+            bodyStyle={{
+              padding: 0,
+            }}
           >
             {projectNotice.map((item) => (
               <Card.Grid className={styles.projectGrid} key={item.id}>
-                <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                <Card
+                  bodyStyle={{
+                    padding: 0,
+                  }}
+                  bordered={false}
+                >
                   <Card.Meta
                     title={
                       <div className={styles.cardTitle}>
                         <Avatar size="small" src={item.logo} />
-                        <Link to={item.href}>{item.title}</Link>
+                        <Link to={item.href || '/'}>{item.title}</Link>
                       </div>
                     }
                     description={item.description}
                   />
                   <div className={styles.projectItemContent}>
-                    <Link to={item.memberLink}>{item.member || ''}</Link>
+                    <Link to={item.memberLink || '/'}>{item.member || ''}</Link>
                     {item.updatedAt && (
                       <span className={styles.datetime} title={item.updatedAt}>
-                        {moment(item.updatedAt).fromNow()}
+                        {dayjs(item.updatedAt).fromNow()}
                       </span>
                     )}
                   </div>
@@ -165,7 +187,9 @@ const Workplace: FC = () => {
             ))}
           </Card>
           <Card
-            bodyStyle={{ padding: 0 }}
+            bodyStyle={{
+              padding: 0,
+            }}
             bordered={false}
             className={styles.activeCard}
             title="动态"
@@ -182,54 +206,73 @@ const Workplace: FC = () => {
         </Col>
         <Col xl={8} lg={24} md={24} sm={24} xs={24}>
           <Card
-            style={{ marginBottom: 24 }}
+            style={{
+              marginBottom: 24,
+            }}
             title="快速开始 / 便捷导航"
             bordered={false}
-            bodyStyle={{ padding: 0 }}
+            bodyStyle={{
+              padding: 0,
+            }}
           >
             <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
           </Card>
           <Card
-            style={{ marginBottom: 24 }}
+            style={{
+              marginBottom: 24,
+            }}
             bordered={false}
             title="XX 指数"
             loading={data?.radarData?.length === 0}
           >
-            <div className={styles.chart}>
+            <div>
               <Radar
                 height={343}
                 data={data?.radarData || []}
-                angleField="label"
-                seriesField="name"
-                radiusField="value"
+                xField="label"
+                colorField="name"
+                yField="value"
+                shapeField="smooth"
                 area={{
-                  visible: false,
+                  style: {
+                    fillOpacity: 0.4,
+                  },
                 }}
-                point={{
-                  visible: true,
+                axis={{
+                  y: {
+                    gridStrokeOpacity: 0.5,
+                  },
                 }}
                 legend={{
-                  position: 'bottom-center',
+                  color: {
+                    position: 'bottom',
+                    layout: { justifyContent: 'center' },
+                  },
                 }}
               />
             </div>
           </Card>
           <Card
-            bodyStyle={{ paddingTop: 12, paddingBottom: 12 }}
+            bodyStyle={{
+              paddingTop: 12,
+              paddingBottom: 12,
+            }}
             bordered={false}
             title="团队"
             loading={projectLoading}
           >
             <div className={styles.members}>
               <Row gutter={48}>
-                {projectNotice.map((item) => (
-                  <Col span={12} key={`members-item-${item.id}`}>
-                    <Link to={item.href}>
-                      <Avatar src={item.logo} size="small" />
-                      <span className={styles.member}>{item.member}</span>
-                    </Link>
-                  </Col>
-                ))}
+                {projectNotice.map((item) => {
+                  return (
+                    <Col span={12} key={`members-item-${item.id}`}>
+                      <a>
+                        <Avatar src={item.logo} size="small" />
+                        <span className={styles.member}>{item.member.substring(0, 3)}</span>
+                      </a>
+                    </Col>
+                  );
+                })}
               </Row>
             </div>
           </Card>
@@ -238,5 +281,4 @@ const Workplace: FC = () => {
     </PageContainer>
   );
 };
-
 export default Workplace;

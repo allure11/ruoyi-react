@@ -61,7 +61,8 @@
     "react-cropper": "^2.3.3",
     "react-dom": "^18.2.0",
     "react-fittext": "^1.0.0",
-    "react-sortable-hoc": "^2.0.0"
+    "react-sortable-hoc": "^2.0.0",
+    "tyarn": "^0.3.8"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.5",

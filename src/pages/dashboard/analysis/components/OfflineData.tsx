@@ -1,10 +1,8 @@
+import { Line, Tiny } from '@ant-design/plots';
 import { Card, Col, Row, Tabs } from 'antd';
-import { RingProgress, Line } from '@ant-design/charts';
-import type { OfflineDataType, DataItem } from '../data.d';
-
+import type { DataItem, OfflineDataType } from '../data.d';
+import useStyles from '../style.style';
 import NumberInfo from './NumberInfo';
-import styles from '../style.less';
-
 const CustomTab = ({
   data,
   currentTabKey: currentKey,
@@ -12,7 +10,13 @@ const CustomTab = ({
   data: OfflineDataType;
   currentTabKey: string;
 }) => (
-  <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
+  <Row
+    gutter={8}
+    style={{
+      width: 138,
+      margin: '8px 0',
+    }}
+  >
     <Col span={12}>
       <NumberInfo
         title={data.name}
@@ -22,13 +26,16 @@ const CustomTab = ({
         theme={currentKey !== data.name ? 'light' : undefined}
       />
     </Col>
-    <Col span={12} style={{ paddingTop: 36 }}>
-      <RingProgress forceFit height={60} width={60} percent={data.cvr} />
+    <Col
+      span={12}
+      style={{
+        paddingTop: 36,
+      }}
+    >
+      <Tiny.Ring height={60} width={60} percent={data.cvr} color={['#E8EEF4', '#5FABF4']} />
     </Col>
   </Row>
 );
-
-const { TabPane } = Tabs;
 
 const OfflineData = ({
   activeKey,
@@ -42,35 +49,51 @@ const OfflineData = ({
   offlineData: OfflineDataType[];
   offlineChartData: DataItem[];
   handleTabChange: (activeKey: string) => void;
-}) => (
-  <Card loading={loading} className={styles.offlineCard} bordered={false} style={{ marginTop: 32 }}>
-    <Tabs activeKey={activeKey} onChange={handleTabChange}>
-      {offlineData.map((shop) => (
-        <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
-          <div style={{ padding: '0 24px' }}>
-            <Line
-              forceFit
-              height={400}
-              data={offlineChartData}
-              responsive
-              xField="date"
-              yField="value"
-              seriesField="type"
-              interactions={[
-                {
-                  type: 'slider',
-                  cfg: {},
-                },
-              ]}
-              legend={{
-                position: 'top-center',
+}) => {
+  const { styles } = useStyles();
+  return (
+    <Card
+      loading={loading}
+      className={styles.offlineCard}
+      bordered={false}
+      style={{
+        marginTop: 32,
+      }}
+    >
+      <Tabs
+        activeKey={activeKey}
+        onChange={handleTabChange}
+        items={offlineData.map((shop) => ({
+          key: shop.name,
+          label: <CustomTab data={shop} currentTabKey={activeKey} />,
+          children: (
+            <div
+              style={{
+                padding: '0 24px',
               }}
-            />
-          </div>
-        </TabPane>
-      ))}
-    </Tabs>
-  </Card>
-);
-
+            >
+              <Line
+                height={400}
+                data={offlineChartData}
+                xField="date"
+                yField="value"
+                colorField="type"
+                slider={{ x: true }}
+                axis={{
+                  x: { title: false },
+                  y: { title: false, gridLineDash: null, gridStroke: '#ccc', gridStrokeOpacity: 1 },
+                }}
+                legend={{
+                  color: {
+                    layout: { justifyContent: 'center' },
+                  },
+                }}
+              />
+            </div>
+          ),
+        }))}
+      />
+    </Card>
+  );
+};
 export default OfflineData;

@@ -1,7 +1,7 @@
 import {request} from '@umijs/max';
 import {MenuDataItem} from "@umijs/route-utils";
 import {createIcon} from "@/utils/IconUtil";
-import {AUTH_PATH, CAPTCHA_IMAGE_URL, SYSTEM_PATH, GET_INFO_URL} from "../../../config/modulePath";
+import {AUTH_PATH, CAPTCHA_IMAGE_URL, SYSTEM_PATH, GET_INFO_URL, GET_ROUTERS_URL} from "../../../config/modulePath";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -122,7 +122,7 @@ export async function addRule(options?: { [key: string]: any }) {
 }
 
 export async function getRouters(): Promise<API.GetRoutersResult> {
-  return request(`${SYSTEM_PATH}/menu/getRouters`);
+  return request(`${GET_ROUTERS_URL}/getRouters`);
 }
 
 /** 删除规则 DELETE /api/rule */

@@ -1,9 +1,9 @@
-import { Chart, Coord, Geom, Tooltip } from 'bizcharts';
-import React, { Component } from 'react';
+import {Chart, Coord, Geom, Tooltip} from 'bizcharts';
+import React, {Component} from 'react';
 
-import { DataView } from '@antv/data-set';
+import DataSet from '@antv/data-set';
 import Debounce from 'lodash.debounce';
-import { Divider } from 'antd';
+import {Divider} from 'antd';
 import ReactFitText from 'react-fittext';
 import classNames from 'classnames';
 import autoHeight from '../autoHeight';
@@ -38,6 +38,7 @@ type PieState = {
   legendData: { checked: boolean; x: string; color: string; percent: number; y: string }[];
   legendBlock: boolean;
 };
+
 class Pie extends Component<PieProps, PieState> {
   state: PieState = {
     legendData: [],
@@ -52,8 +53,8 @@ class Pie extends Component<PieProps, PieState> {
 
   // for window resize auto responsive legend
   resize = Debounce(() => {
-    const { hasLegend } = this.props;
-    const { legendBlock } = this.state;
+    const {hasLegend} = this.props;
+    const {legendBlock} = this.state;
     if (!hasLegend || !this.root) {
       window.removeEventListener('resize', this.resize);
       return;
@@ -81,12 +82,12 @@ class Pie extends Component<PieProps, PieState> {
       () => {
         this.requestRef = requestAnimationFrame(() => this.resize());
       },
-      { passive: true },
+      {passive: true},
     );
   }
 
   componentDidUpdate(preProps: PieProps) {
-    const { data } = this.props;
+    const {data} = this.props;
     if (data !== preProps.data) {
       // because of charts data create when rendered
       // so there is a trick for get rendered time
@@ -140,7 +141,7 @@ class Pie extends Component<PieProps, PieState> {
     const newItem = item;
     newItem.checked = !newItem.checked;
 
-    const { legendData } = this.state;
+    const {legendData} = this.state;
     legendData[i] = newItem;
 
     const filteredLegendData = legendData.filter((l) => l.checked).map((l) => l.x);
@@ -172,7 +173,7 @@ class Pie extends Component<PieProps, PieState> {
       lineWidth = 1,
     } = this.props;
 
-    const { legendData, legendBlock } = this.state;
+    const {legendData, legendBlock} = this.state;
     const pieClassName = classNames(styles.pie, className, {
       [styles.hasLegend]: !!hasLegend,
       [styles.legendBlock]: legendBlock,
@@ -236,8 +237,8 @@ class Pie extends Component<PieProps, PieState> {
 
     const padding = [12, 0, 12, 0] as [number, number, number, number];
 
-    const dv = new DataView();
-    dv.source(data).transform({
+    const dv = new DataSet.View().source(data);
+    dv.transform({
       type: 'percent',
       field: 'y',
       dimension: 'x',
@@ -257,10 +258,10 @@ class Pie extends Component<PieProps, PieState> {
               animate={animate}
               onGetG2Instance={this.getG2Instance}
             >
-              {!!tooltip && <Tooltip showTitle={false} />}
-              <Coord type="theta" innerRadius={inner} />
+              {!!tooltip && <Tooltip showTitle={false}/>}
+              <Coord type="theta" innerRadius={inner}/>
               <Geom
-                style={{ lineWidth, stroke: '#fff' }}
+                style={{lineWidth, stroke: '#fff'}}
                 tooltip={tooltip ? tooltipFormat : undefined}
                 type="intervalStack"
                 position="percent"
@@ -292,7 +293,7 @@ class Pie extends Component<PieProps, PieState> {
                   }}
                 />
                 <span className={styles.legendTitle}>{item.x}</span>
-                <Divider type="vertical" />
+                <Divider type="vertical"/>
                 <span className={styles.percent}>
                   {`${(Number.isNaN(item.percent) ? 0 : item.percent * 100).toFixed(2)}%`}
                 </span>
