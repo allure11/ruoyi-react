@@ -1,7 +1,7 @@
 import {AvatarDropdown, AvatarName, Footer, Question, SelectLang} from '@/components';
 import {LinkOutlined} from '@ant-design/icons';
 import type {Settings as LayoutSettings} from '@ant-design/pro-components';
-import {PageContainer, ProBreadcrumb, SettingDrawer} from '@ant-design/pro-components';
+import {ProBreadcrumb, SettingDrawer} from '@ant-design/pro-components';
 import type {RequestConfig, RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
@@ -22,7 +22,7 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
   menus?: any[];
-  authToken: Function;
+  authToken: (obj: API.LoginResult) => string;
 }> {
   const fetchUserInfo = async () => {
     try {
