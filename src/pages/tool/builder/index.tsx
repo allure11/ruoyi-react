@@ -1,6 +1,7 @@
 import {Card} from 'antd';
-import WrapContent from '@/components/WrapContent';
 import React from 'react';
+import GanttChart from "@/components/GanttChart";
+import GanttForG2 from "@/components/GanttForG2";
 
 /**
  *
@@ -13,7 +14,8 @@ export type FormBuilderProps = {};
 const FormBuilder: React.FC<FormBuilderProps> = () => {
   return (
     <>
-      <Card title="Developing"/>
+      <GanttChart/>
+      <GanttForG2/>
     </>
   );
 };
