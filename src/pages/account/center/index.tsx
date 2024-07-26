@@ -6,11 +6,11 @@ import {
   MobileOutlined,
   ManOutlined,
 } from '@ant-design/icons';
-import { Card, Col, Divider, List, Row } from 'antd';
-import React, { useState } from 'react';
-import { useRequest } from 'umi';
-import type { tabKeyType } from './data.d';
-import { queryCurrentUserInfo } from './service';
+import {Card, Col, Divider, List, Row} from 'antd';
+import React, {useState} from 'react';
+import {useRequest} from 'umi';
+import type {tabKeyType} from './data.d';
+import {queryCurrentUserInfo} from './service';
 import styles from './Center.less';
 import BaseInfo from './components/BaseInfo';
 import ResetPassword from './components/ResetPassword';
@@ -38,13 +38,13 @@ const operationTabList = [
 ];
 
 const Center: React.FC = () => {
-  
+
   const [tabKey, setTabKey] = useState<tabKeyType>('base');
-  
+
   const [cropperModalVisible, setCropperModalVisible] = useState<boolean>(false);
-  
+
   //  获取用户信息
-  const { data: userInfo, loading } = useRequest(() => {
+  const {data: userInfo, loading} = useRequest(() => {
     return queryCurrentUserInfo();
   });
 
@@ -52,12 +52,12 @@ const Center: React.FC = () => {
 
   //  渲染用户信息
   const renderUserInfo = ({
-    userName,
-    phonenumber,
-    email,
-    sex,
-    dept,
-  }: Partial<API.CurrentUser>) => {
+                            userName,
+                            phonenumber,
+                            email,
+                            sex,
+                            dept,
+                          }: Partial<API.CurrentUser>) => {
     return (
       <List>
         <List.Item>
@@ -122,20 +122,20 @@ const Center: React.FC = () => {
   // 渲染tab切换
   const renderChildrenByTabKey = (tabValue: tabKeyType) => {
     if (tabValue === 'base') {
-      return <BaseInfo values={currentUser} />;
+      return <BaseInfo values={currentUser}/>;
     }
     if (tabValue === 'password') {
-      return <ResetPassword />;
+      return <ResetPassword/>;
     }
     return null;
   };
 
   if (!currentUser) {
-    return <PageLoading />;
+    return <PageLoading/>;
   }
 
   return (
-    <WrapContent>
+    <>
       <Row gutter={[16, 24]}>
         <Col lg={6} md={24}>
           <Card
@@ -144,12 +144,14 @@ const Center: React.FC = () => {
             loading={loading}
           >
             {!loading && (
-              <div style={{ textAlign: "center"}}>
-                <div className={styles.avatarHolder} onClick={()=>{setCropperModalVisible(true)}}>
-                  <img alt="" src={currentUser.avatar} />
+              <div style={{textAlign: "center"}}>
+                <div className={styles.avatarHolder} onClick={() => {
+                  setCropperModalVisible(true)
+                }}>
+                  <img alt="" src={currentUser.avatar}/>
                 </div>
                 {renderUserInfo(currentUser)}
-                <Divider dashed />
+                <Divider dashed/>
                 <div className={styles.team}>
                   <div className={styles.teamTitle}>角色</div>
                   <Row gutter={36}>
@@ -185,12 +187,12 @@ const Center: React.FC = () => {
       </Row>
       <AvatarCropper
         onFinished={() => {
-          setCropperModalVisible(false);     
+          setCropperModalVisible(false);
         }}
         visible={cropperModalVisible}
         data={currentUser.avatar}
       />
-    </WrapContent>
+    </>
   );
 };
 

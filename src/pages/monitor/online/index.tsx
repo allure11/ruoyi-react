@@ -1,11 +1,11 @@
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { OnlineUserType, OnlineUserListParams } from './data.d';
-import { getOnlineUserList, forceLogout } from './service';
+import type {OnlineUserType, OnlineUserListParams} from './data.d';
+import {getOnlineUserList, forceLogout} from './service';
 import WrapContent from '@/components/WrapContent';
 
 
@@ -13,7 +13,7 @@ import WrapContent from '@/components/WrapContent';
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -37,49 +37,50 @@ const OnlineUserTableList: React.FC = () => {
   const access = useAccess();
   const intl = useIntl();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+  }, []);
 
   const columns: ProColumns<OnlineUserType>[] = [
     {
-      title: <FormattedMessage id="monitor.OnlineUser.token_id" defaultMessage="会话编号" />,
+      title: <FormattedMessage id="monitor.OnlineUser.token_id" defaultMessage="会话编号"/>,
       dataIndex: 'tokenId',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.user_name" defaultMessage="用户账号" />,
+      title: <FormattedMessage id="monitor.OnlineUser.user_name" defaultMessage="用户账号"/>,
       dataIndex: 'userName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.dept_name" defaultMessage="部门名称" />,
+      title: <FormattedMessage id="monitor.OnlineUser.dept_name" defaultMessage="部门名称"/>,
       dataIndex: 'deptName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.ipaddr" defaultMessage="登录IP地址" />,
+      title: <FormattedMessage id="monitor.OnlineUser.ipaddr" defaultMessage="登录IP地址"/>,
       dataIndex: 'ipaddr',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.login_location" defaultMessage="登录地点" />,
+      title: <FormattedMessage id="monitor.OnlineUser.login_location" defaultMessage="登录地点"/>,
       dataIndex: 'loginLocation',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.browser" defaultMessage="浏览器类型" />,
+      title: <FormattedMessage id="monitor.OnlineUser.browser" defaultMessage="浏览器类型"/>,
       dataIndex: 'browser',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.os" defaultMessage="操作系统" />,
+      title: <FormattedMessage id="monitor.OnlineUser.os" defaultMessage="操作系统"/>,
       dataIndex: 'os',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.OnlineUser.login_time" defaultMessage="登录时间" />,
+      title: <FormattedMessage id="monitor.OnlineUser.login_time" defaultMessage="登录时间"/>,
       dataIndex: 'loginTime',
       valueType: 'dateRange',
       render: (_, record) => <span>{record.loginTime}</span>,
@@ -93,7 +94,7 @@ const OnlineUserTableList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -128,8 +129,8 @@ const OnlineUserTableList: React.FC = () => {
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<OnlineUserType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -143,7 +144,7 @@ const OnlineUserTableList: React.FC = () => {
             labelWidth: 120,
           }}
           request={(params) =>
-            getOnlineUserList({ ...params } as OnlineUserListParams).then((res) => {
+            getOnlineUserList({...params} as OnlineUserListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,
@@ -155,7 +156,7 @@ const OnlineUserTableList: React.FC = () => {
           columns={columns}
         />
       </div>
-    </WrapContent>
+    </>
   );
 };
 

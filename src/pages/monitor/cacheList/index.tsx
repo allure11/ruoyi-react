@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { clearCacheAll, clearCacheKey, clearCacheName, getCacheValue, listCacheKey, listCacheName } from './service';
-import { Button, Card, Col, Form, Input, message, Row, Table } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {clearCacheAll, clearCacheKey, clearCacheName, getCacheValue, listCacheKey, listCacheName} from './service';
+import {Button, Card, Col, Form, Input, message, Row, Table} from 'antd';
 import styles from './index.less';
-import type { CacheNamesResponseType, CacheDataType } from './data';
+import type {CacheNamesResponseType, CacheDataType} from './data';
 import WrapContent from '@/components/WrapContent';
-import { FormattedMessage } from 'umi';
-import { ReloadOutlined } from '@ant-design/icons';
+import {FormattedMessage} from 'umi';
+import {ReloadOutlined} from '@ant-design/icons';
 
-const { TextArea } = Input;
+const {TextArea} = Input;
 
 
 /* *
@@ -16,7 +16,6 @@ const { TextArea } = Input;
  * @datetime  2022/06/27
  *
  * */
-
 
 
 const CacheList: React.FC = () => {
@@ -55,7 +54,7 @@ const CacheList: React.FC = () => {
 
   const onClearAll = () => {
     clearCacheAll().then(res => {
-      if(res.code === 200) {
+      if (res.code === 200) {
         message.success("清理全部缓存成功");
       }
     });
@@ -90,7 +89,7 @@ const CacheList: React.FC = () => {
       key: 'remark',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -101,14 +100,14 @@ const CacheList: React.FC = () => {
           key="remove"
           onClick={() => {
             clearCacheName(record.cacheName).then(res => {
-              if(res.code === 200) {
+              if (res.code === 200) {
                 message.success("清理缓存名称[" + record.cacheName + "]成功");
                 getCacheKeys(currentCacheName);
               }
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ]
     }
@@ -129,7 +128,7 @@ const CacheList: React.FC = () => {
       }
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -141,24 +140,26 @@ const CacheList: React.FC = () => {
           onClick={() => {
             console.log(record)
             clearCacheKey(record.cacheKey).then(res => {
-              if(res.code === 200) {
+              if (res.code === 200) {
                 message.success("清理缓存键名[" + record.cacheKey + "]成功");
                 getCacheKeys(currentCacheName);
               }
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ]
     }
   ];
 
   return (
-    <WrapContent>
+    <>
       <Row gutter={[24, 24]}>
         <Col span={8}>
-          <Card title="缓存列表" extra={<Button icon={<ReloadOutlined />} onClick={()=>{ refreshCacheNames()}} type="link" />} className={styles.card}>
+          <Card title="缓存列表" extra={<Button icon={<ReloadOutlined/>} onClick={() => {
+            refreshCacheNames()
+          }} type="link"/>} className={styles.card}>
             <Table
               dataSource={cacheNames}
               columns={columns}
@@ -174,7 +175,9 @@ const CacheList: React.FC = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="键名列表" extra={<Button icon={<ReloadOutlined />} onClick={()=>{ refreshCacheKeys()}} type="link" />} className={styles.card}>
+          <Card title="键名列表" extra={<Button icon={<ReloadOutlined/>} onClick={() => {
+            refreshCacheKeys()
+          }} type="link"/>} className={styles.card}>
             <Table
               dataSource={cacheKeys}
               columns={cacheKeysColumns}
@@ -200,13 +203,15 @@ const CacheList: React.FC = () => {
           </Card>
         </Col>
         <Col span={8}>
-          <Card title="缓存内容" extra={<Button icon={<ReloadOutlined />} onClick={()=>{ onClearAll()}} type="link" >清理全部</Button>} className={styles.card}>
+          <Card title="缓存内容" extra={<Button icon={<ReloadOutlined/>} onClick={() => {
+            onClearAll()
+          }} type="link">清理全部</Button>} className={styles.card}>
             <Form
               name="basic"
               form={form}
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              initialValues={{ cacheName: cacheContent?.cacheName }}
+              labelCol={{span: 8}}
+              wrapperCol={{span: 16}}
+              initialValues={{cacheName: cacheContent?.cacheName}}
               onFinish={onClearAll}
               onFinishFailed={onClearAllFailed}
               autoComplete="off"
@@ -214,29 +219,29 @@ const CacheList: React.FC = () => {
               <Form.Item
                 label="cacheName"
                 name="cacheName"
-                rules={[{ required: true }]}
+                rules={[{required: true}]}
               >
-                <Input />
+                <Input/>
               </Form.Item>
               <Form.Item
                 label="cacheKey"
                 name="cacheKey"
-                rules={[{ required: true }]}
+                rules={[{required: true}]}
               >
-                <Input />
+                <Input/>
               </Form.Item>
               <Form.Item
                 label="cacheValue"
                 name="cacheValue"
-                rules={[{ required: true }]}
+                rules={[{required: true}]}
               >
-                <TextArea autoSize={{ minRows: 2 }} />
+                <TextArea autoSize={{minRows: 2}}/>
               </Form.Item>
             </Form>
           </Card>
         </Col>
       </Row>
-    </WrapContent>
+    </>
   );
 };
 

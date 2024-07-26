@@ -315,7 +315,7 @@ const UserTableList: React.FC = () => {
   ];
 
   return (
-    <WrapContent>
+    <>
       <Row gutter={[16, 24]}>
         <Col lg={6} md={24}>
           <Card>
@@ -513,7 +513,7 @@ const UserTableList: React.FC = () => {
         resetPwdModalVisible={resetPwdModalVisible}
         values={currentRow || {}}
       />
-    </WrapContent>
+    </>
   );
 };
 

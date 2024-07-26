@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { getCacheInfo } from './service';
-import { Card, Col, Row, Table } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {getCacheInfo} from './service';
+import {Card, Col, Row, Table} from 'antd';
 import styles from './index.less';
-import type { CacheInfoResponseType } from './data';
+import type {CacheInfoResponseType} from './data';
 import WrapContent from '@/components/WrapContent';
-import type { VisitDataType } from '@/pages/dashboard/analysis/data';
+import type {VisitDataType} from '@/pages/dashboard/analysis/data';
 import Gauge from '@/pages/dashboard/monitor/components/Charts/Gauge';
 import Pie from '@/pages/dashboard/analysis/components/Charts/Pie';
-
 
 
 /* *
@@ -135,7 +134,7 @@ const CacheInfo: React.FC = () => {
   }, []);
 
   return (
-    <WrapContent>
+    <>
       <Row gutter={[24, 24]}>
         <Col span={24}>
           <Card title="基本信息" className={styles.card}>
@@ -151,7 +150,7 @@ const CacheInfo: React.FC = () => {
       <Row gutter={[24, 24]}>
         <Col span={12}>
           <Card title="命令统计" className={styles.card}>
-            <Pie hasLegend data={cmdInfoData} height={320} lineWidth={4} />
+            <Pie hasLegend data={cmdInfoData} height={320} lineWidth={4}/>
           </Card>
         </Col>
         <Col span={12}>
@@ -165,7 +164,7 @@ const CacheInfo: React.FC = () => {
           </Card>
         </Col>
       </Row>
-    </WrapContent>
+    </>
   );
 };
 

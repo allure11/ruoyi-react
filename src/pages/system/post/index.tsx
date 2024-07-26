@@ -1,22 +1,22 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
 import WrapContent from '@/components/WrapContent';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { PostType, PostListParams } from './data.d';
-import { getPostList, removePost, addPost, updatePost, exportPost } from './service';
+import type {PostType, PostListParams} from './data.d';
+import {getPostList, removePost, addPost, updatePost, exportPost} from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
+import {getDict} from '../dict/service';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -28,9 +28,9 @@ import { getDict } from '../dict/service';
 const handleAdd = async (fields: PostType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addPost({ ...fields });
+    const resp = await addPost({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -53,7 +53,7 @@ const handleUpdate = async (fields: PostType) => {
   try {
     const resp = await updatePost(fields);
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -77,7 +77,7 @@ const handleRemove = async (selectedRows: PostType[]) => {
   try {
     const resp = await removePost(selectedRows.map((row) => row.postId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -97,7 +97,7 @@ const handleRemoveOne = async (selectedRow: PostType) => {
     const params = [selectedRow.postId];
     const resp = await removePost(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -118,7 +118,7 @@ const handleRemoveOne = async (selectedRow: PostType) => {
 const handleExport = async () => {
   const hide = message.loading('正在导出');
   try {
-    await exportPost();    
+    await exportPost();
     hide();
     message.success('导出成功');
     return true;
@@ -159,34 +159,34 @@ const PostTableList: React.FC = () => {
 
   const columns: ProColumns<PostType>[] = [
     {
-      title: <FormattedMessage id="system.Post.post_code" defaultMessage="岗位编码" />,
+      title: <FormattedMessage id="system.Post.post_code" defaultMessage="岗位编码"/>,
       dataIndex: 'postCode',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Post.post_name" defaultMessage="岗位名称" />,
+      title: <FormattedMessage id="system.Post.post_name" defaultMessage="岗位名称"/>,
       dataIndex: 'postName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Post.post_sort" defaultMessage="显示顺序" />,
+      title: <FormattedMessage id="system.Post.post_sort" defaultMessage="显示顺序"/>,
       dataIndex: 'postSort',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Post.status" defaultMessage="状态" />,
+      title: <FormattedMessage id="system.Post.status" defaultMessage="状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="system.Post.remark" defaultMessage="备注" />,
+      title: <FormattedMessage id="system.Post.remark" defaultMessage="备注"/>,
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -201,7 +201,7 @@ const PostTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -226,15 +226,15 @@ const PostTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ],
     },
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<PostType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -257,7 +257,7 @@ const PostTableList: React.FC = () => {
                 setModalVisible(true);
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -271,8 +271,8 @@ const PostTableList: React.FC = () => {
                 }
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>,
             <Button
               type="primary"
@@ -282,12 +282,12 @@ const PostTableList: React.FC = () => {
                 handleExport();
               }}
             >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
+              <PlusOutlined/>
+              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出"/>
             </Button>,
           ]}
           request={(params) =>
-            getPostList({ ...params } as PostListParams).then((res) => {
+            getPostList({...params} as PostListParams).then((res) => {
               return {
                 data: res.rows,
                 total: res.total,
@@ -307,9 +307,9 @@ const PostTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -332,7 +332,7 @@ const PostTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -340,9 +340,9 @@ const PostTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.postId) {
-            success = await handleUpdate({ ...values } as PostType);
+            success = await handleUpdate({...values} as PostType);
           } else {
-            success = await handleAdd({ ...values } as PostType);
+            success = await handleAdd({...values} as PostType);
           }
           if (success) {
             setModalVisible(false);
@@ -360,7 +360,7 @@ const PostTableList: React.FC = () => {
         values={currentRow || {}}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

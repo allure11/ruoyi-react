@@ -1,12 +1,12 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { RoleType, RoleListParams } from './data.d';
+import type {RoleType, RoleListParams} from './data.d';
 import {
   getRoleList,
   removeRole,
@@ -16,17 +16,17 @@ import {
   getRoleMenuList,
 } from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
-import type { DataNode } from 'antd/lib/tree';
-import { getMenuTree } from '../menu/service';
-import { formatTreeSelectData } from '@/utils/utils';
+import {getDict} from '../dict/service';
+import type {DataNode} from 'antd/lib/tree';
+import {getMenuTree} from '../menu/service';
+import {formatTreeSelectData} from '@/utils/utils';
 import WrapContent from '@/components/WrapContent';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -38,9 +38,9 @@ import WrapContent from '@/components/WrapContent';
 const handleAdd = async (fields: RoleType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addRole({ ...fields });
+    const resp = await addRole({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -63,7 +63,7 @@ const handleUpdate = async (fields: RoleType) => {
   try {
     const resp = await updateRole(fields);
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -87,7 +87,7 @@ const handleRemove = async (selectedRows: RoleType[]) => {
   try {
     const resp = await removeRole(selectedRows.map((row) => row.roleId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -107,7 +107,7 @@ const handleRemoveOne = async (selectedRow: RoleType) => {
     const params = [selectedRow.roleId];
     const resp = await removeRole(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -128,7 +128,7 @@ const handleRemoveOne = async (selectedRow: RoleType) => {
 const handleExport = async () => {
   const hide = message.loading('正在导出');
   try {
-    await exportRole();   
+    await exportRole();
     hide();
     message.success('导出成功');
     return true;
@@ -172,34 +172,34 @@ const RoleTableList: React.FC = () => {
 
   const columns: ProColumns<RoleType>[] = [
     {
-      title: <FormattedMessage id="system.Role.role_id" defaultMessage="角色ID" />,
+      title: <FormattedMessage id="system.Role.role_id" defaultMessage="角色ID"/>,
       dataIndex: 'roleId',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Role.role_name" defaultMessage="角色名称" />,
+      title: <FormattedMessage id="system.Role.role_name" defaultMessage="角色名称"/>,
       dataIndex: 'roleName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Role.role_key" defaultMessage="角色权限字符串" />,
+      title: <FormattedMessage id="system.Role.role_key" defaultMessage="角色权限字符串"/>,
       dataIndex: 'roleKey',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Role.role_sort" defaultMessage="显示顺序" />,
+      title: <FormattedMessage id="system.Role.role_sort" defaultMessage="显示顺序"/>,
       dataIndex: 'roleSort',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Role.status" defaultMessage="角色状态" />,
+      title: <FormattedMessage id="system.Role.status" defaultMessage="角色状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="system.Role.create_time" defaultMessage="创建时间" />,
+      title: <FormattedMessage id="system.Role.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateRange',
       render: (_, record) => <span>{record.createTime}</span>,
@@ -214,13 +214,13 @@ const RoleTableList: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Role.remark" defaultMessage="备注" />,
+      title: <FormattedMessage id="system.Role.remark" defaultMessage="备注"/>,
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -244,7 +244,7 @@ const RoleTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -269,15 +269,15 @@ const RoleTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ],
     },
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<RoleType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -309,7 +309,7 @@ const RoleTableList: React.FC = () => {
                 });
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -323,8 +323,8 @@ const RoleTableList: React.FC = () => {
                 }
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>,
             <Button
               type="primary"
@@ -334,12 +334,12 @@ const RoleTableList: React.FC = () => {
                 handleExport();
               }}
             >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
+              <PlusOutlined/>
+              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出"/>
             </Button>,
           ]}
           request={(params) =>
-            getRoleList({ ...params } as RoleListParams).then((res) => {
+            getRoleList({...params} as RoleListParams).then((res) => {
               return {
                 data: res.rows,
                 total: res.total,
@@ -359,9 +359,9 @@ const RoleTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -384,7 +384,7 @@ const RoleTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -392,9 +392,9 @@ const RoleTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.roleId) {
-            success = await handleUpdate({ ...values } as RoleType);
+            success = await handleUpdate({...values} as RoleType);
           } else {
-            success = await handleAdd({ ...values } as RoleType);
+            success = await handleAdd({...values} as RoleType);
           }
           if (success) {
             setModalVisible(false);
@@ -414,7 +414,7 @@ const RoleTableList: React.FC = () => {
         menuCheckedKeys={menuIds || []}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

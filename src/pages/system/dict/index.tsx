@@ -250,7 +250,7 @@ const DictTypeTableList: React.FC = () => {
   ];
 
   return (
-    <WrapContent>
+    <>
       <div style={{width: '100%', float: 'right'}}>
         <ProTable<DictTypeType>
           headerTitle={intl.formatMessage({
@@ -378,7 +378,7 @@ const DictTypeTableList: React.FC = () => {
         values={currentRow || {}}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

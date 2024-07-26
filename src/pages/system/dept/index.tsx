@@ -240,7 +240,7 @@ const DeptTableList: React.FC = () => {
   ];
 
   return (
-    <WrapContent>
+    <>
       <div style={{width: '100%', float: 'right'}}>
         <ProTable<DeptType>
           headerTitle={intl.formatMessage({
@@ -368,7 +368,7 @@ const DeptTableList: React.FC = () => {
         deptTree={deptTree}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

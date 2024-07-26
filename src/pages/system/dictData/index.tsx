@@ -296,7 +296,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
   ];
 
   return (
-    <WrapContent>
+    <>
       <div style={{width: '100%', float: 'right'}}>
         <ProTable<DictDataType>
           headerTitle={intl.formatMessage({
@@ -440,7 +440,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
         dictType={dictType}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

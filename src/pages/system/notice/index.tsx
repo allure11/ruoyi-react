@@ -1,23 +1,23 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useAccess } from 'umi';
-import { useIntl, FormattedMessage } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useAccess} from 'umi';
+import {useIntl, FormattedMessage} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
 import WrapContent from '@/components/WrapContent';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { NoticeType, NoticeListParams } from './data.d';
-import { getNoticeList, removeNotice, addNotice, updateNotice } from './service';
+import type {NoticeType, NoticeListParams} from './data.d';
+import {getNoticeList, removeNotice, addNotice, updateNotice} from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
+import {getDict} from '../dict/service';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -29,9 +29,9 @@ import { getDict } from '../dict/service';
 const handleAdd = async (fields: NoticeType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addNotice({ ...fields });
+    const resp = await addNotice({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -53,8 +53,8 @@ const handleUpdate = async (fields: NoticeType) => {
   const hide = message.loading('正在配置');
   try {
     const resp = await updateNotice(fields);
-    hide();   
-    if(resp.code === 200) {
+    hide();
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -78,7 +78,7 @@ const handleRemove = async (selectedRows: NoticeType[]) => {
   try {
     const resp = await removeNotice(selectedRows.map((row) => row.noticeId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -98,7 +98,7 @@ const handleRemoveOne = async (selectedRow: NoticeType) => {
     const params = [selectedRow.noticeId];
     const resp = await removeNotice(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -151,42 +151,42 @@ const NoticeTableList: React.FC = () => {
 
   const columns: ProColumns<NoticeType>[] = [
     {
-      title: <FormattedMessage id="system.Notice.notice_id" defaultMessage="公告ID" />,
+      title: <FormattedMessage id="system.Notice.notice_id" defaultMessage="公告ID"/>,
       dataIndex: 'noticeId',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Notice.notice_title" defaultMessage="公告标题" />,
+      title: <FormattedMessage id="system.Notice.notice_title" defaultMessage="公告标题"/>,
       dataIndex: 'noticeTitle',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Notice.notice_type" defaultMessage="公告类型" />,
+      title: <FormattedMessage id="system.Notice.notice_type" defaultMessage="公告类型"/>,
       dataIndex: 'noticeType',
       valueType: 'select',
       valueEnum: noticeTypeOptions,
     },
     {
-      title: <FormattedMessage id="system.Notice.status" defaultMessage="公告状态" />,
+      title: <FormattedMessage id="system.Notice.status" defaultMessage="公告状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Notice.create_by" defaultMessage="创建者" />,
+      title: <FormattedMessage id="system.Notice.create_by" defaultMessage="创建者"/>,
       dataIndex: 'createBy',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Notice.create_time" defaultMessage="创建时间" />,
+      title: <FormattedMessage id="system.Notice.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -201,7 +201,7 @@ const NoticeTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -226,15 +226,15 @@ const NoticeTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ],
     },
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<NoticeType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -257,7 +257,7 @@ const NoticeTableList: React.FC = () => {
                 setModalVisible(true);
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -271,12 +271,12 @@ const NoticeTableList: React.FC = () => {
                 }
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>
           ]}
           request={(params) =>
-            getNoticeList({ ...params } as NoticeListParams).then((res) => {
+            getNoticeList({...params} as NoticeListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,
@@ -297,9 +297,9 @@ const NoticeTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -322,7 +322,7 @@ const NoticeTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -330,9 +330,9 @@ const NoticeTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.noticeId) {
-            success = await handleUpdate({ ...values } as NoticeType);
+            success = await handleUpdate({...values} as NoticeType);
           } else {
-            success = await handleAdd({ ...values } as NoticeType);
+            success = await handleAdd({...values} as NoticeType);
           }
           if (success) {
             setModalVisible(false);
@@ -351,7 +351,7 @@ const NoticeTableList: React.FC = () => {
         noticeTypeOptions={noticeTypeOptions}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

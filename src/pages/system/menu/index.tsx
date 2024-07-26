@@ -1,25 +1,25 @@
-import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
+import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import type {FormInstance} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
 import WrapContent from '@/components/WrapContent';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { MenuType, MenuListParams } from './data.d';
-import { getMenuList, removeMenu, addMenu, updateMenu } from './service';
+import type {MenuType, MenuListParams} from './data.d';
+import {getMenuList, removeMenu, addMenu, updateMenu} from './service';
 import UpdateForm from './components/edit';
-import { getDict } from '../dict/service';
-import { buildTreeData } from '@/utils/utils';
-import type { DataNode } from 'antd/lib/tree';
-import { createIcon } from '@/utils/IconUtil';
+import {getDict} from '../dict/service';
+import {buildTreeData} from '@/utils/utils';
+import type {DataNode} from 'antd/lib/tree';
+import {createIcon} from '@/utils/IconUtil';
 
 /* *
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -31,9 +31,9 @@ import { createIcon } from '@/utils/IconUtil';
 const handleAdd = async (fields: MenuType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addMenu({ ...fields });
+    const resp = await addMenu({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -56,7 +56,7 @@ const handleUpdate = async (fields: MenuType) => {
   try {
     const resp = await updateMenu(fields);
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -80,7 +80,7 @@ const handleRemove = async (selectedRows: MenuType[]) => {
   try {
     const resp = await removeMenu(selectedRows.map((row) => row.menuId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -100,7 +100,7 @@ const handleRemoveOne = async (selectedRow: MenuType) => {
     const params = [selectedRow.menuId];
     const resp = await removeMenu(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -154,42 +154,42 @@ const MenuTableList: React.FC = () => {
 
   const columns: ProColumns<MenuType>[] = [
     {
-      title: <FormattedMessage id="system.Menu.menu_name" defaultMessage="菜单名称" />,
+      title: <FormattedMessage id="system.Menu.menu_name" defaultMessage="菜单名称"/>,
       dataIndex: 'menuName',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Menu.icon" defaultMessage="菜单图标" />,
+      title: <FormattedMessage id="system.Menu.icon" defaultMessage="菜单图标"/>,
       dataIndex: 'icon',
       valueType: 'text',
       hideInSearch: true,
       render: (text) => createIcon(text),
     },
     {
-      title: <FormattedMessage id="system.Menu.order_num" defaultMessage="显示顺序" />,
+      title: <FormattedMessage id="system.Menu.order_num" defaultMessage="显示顺序"/>,
       dataIndex: 'orderNum',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Menu.perms" defaultMessage="权限标识" />,
+      title: <FormattedMessage id="system.Menu.perms" defaultMessage="权限标识"/>,
       dataIndex: 'perms',
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Menu.path" defaultMessage="路由地址" />,
+      title: <FormattedMessage id="system.Menu.path" defaultMessage="路由地址"/>,
       dataIndex: 'path',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Menu.component" defaultMessage="组件路径" />,
+      title: <FormattedMessage id="system.Menu.component" defaultMessage="组件路径"/>,
       dataIndex: 'component',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="system.Menu.menu_type" defaultMessage="菜单类型" />,
+      title: <FormattedMessage id="system.Menu.menu_type" defaultMessage="菜单类型"/>,
       dataIndex: 'menuType',
       valueType: 'select',
       valueEnum: {
@@ -200,13 +200,13 @@ const MenuTableList: React.FC = () => {
       hideInTable: true,
     },
     {
-      title: <FormattedMessage id="system.Menu.status" defaultMessage="菜单状态" />,
+      title: <FormattedMessage id="system.Menu.status" defaultMessage="菜单状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -221,7 +221,7 @@ const MenuTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑" />
+          <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
         </Button>,
         <Button
           type="link"
@@ -246,15 +246,15 @@ const MenuTableList: React.FC = () => {
             });
           }}
         >
-          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
         </Button>,
       ],
     },
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<MenuType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -277,7 +277,7 @@ const MenuTableList: React.FC = () => {
                 setModalVisible(true);
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -291,13 +291,13 @@ const MenuTableList: React.FC = () => {
                 }
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>
           ]}
           request={(params) =>
-            getMenuList({ ...params } as MenuListParams).then((res) => {
-              const menu = { id: 0, label: '主类目', children: [] as DataNode[], value: 0 };
+            getMenuList({...params} as MenuListParams).then((res) => {
+              const menu = {id: 0, label: '主类目', children: [] as DataNode[], value: 0};
               const memuData = buildTreeData(res.data, 'menuId', 'menuName', '', '', '');
               menu.children = memuData;
               const treeData: any = [];
@@ -322,9 +322,9 @@ const MenuTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -347,7 +347,7 @@ const MenuTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -355,9 +355,9 @@ const MenuTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.menuId) {
-            success = await handleUpdate({ ...values } as MenuType);
+            success = await handleUpdate({...values} as MenuType);
           } else {
-            success = await handleAdd({ ...values } as MenuType);
+            success = await handleAdd({...values} as MenuType);
           }
           if (success) {
             setModalVisible(false);
@@ -377,7 +377,7 @@ const MenuTableList: React.FC = () => {
         statusOptions={statusOptions}
         menuTree={menuTree}
       />
-    </WrapContent>
+    </>
   );
 };
 

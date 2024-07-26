@@ -4,19 +4,19 @@ import {
   ExclamationCircleOutlined,
   DownOutlined,
 } from '@ant-design/icons';
-import type { FormInstance } from 'antd';
-import { Dropdown, Menu } from 'antd';
-import { Button, message, Modal } from 'antd';
-import React, { useState, useRef, useEffect } from 'react';
-import { useIntl, FormattedMessage, history, useAccess } from 'umi';
-import { FooterToolbar } from '@ant-design/pro-layout';
-import type { ProColumns, ActionType } from '@ant-design/pro-table';
+import type {FormInstance} from 'antd';
+import {Dropdown, Menu} from 'antd';
+import {Button, message, Modal} from 'antd';
+import React, {useState, useRef, useEffect} from 'react';
+import {useIntl, FormattedMessage, history, useAccess} from 'umi';
+import {FooterToolbar} from '@ant-design/pro-layout';
+import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import type { JobType, JobListParams } from './data.d';
-import { getJobList, removeJob, addJob, updateJob, exportJob, runJob } from './service';
+import type {JobType, JobListParams} from './data.d';
+import {getJobList, removeJob, addJob, updateJob, exportJob, runJob} from './service';
 import UpdateForm from './components/edit';
 import DetailForm from './components/detail';
-import { getDict } from '@/pages/system/dict/service';
+import {getDict} from '@/pages/system/dict/service';
 import WrapContent from '@/components/WrapContent';
 
 /* *
@@ -34,9 +34,9 @@ import WrapContent from '@/components/WrapContent';
 const handleAdd = async (fields: JobType) => {
   const hide = message.loading('正在添加');
   try {
-    const resp = await addJob({ ...fields });
+    const resp = await addJob({...fields});
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('添加成功');
     } else {
       message.error(resp.msg);
@@ -59,7 +59,7 @@ const handleUpdate = async (fields: JobType) => {
   try {
     const resp = await updateJob(fields);
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('配置成功');
     } else {
       message.error(resp.msg);
@@ -83,7 +83,7 @@ const handleRemove = async (selectedRows: JobType[]) => {
   try {
     const resp = await removeJob(selectedRows.map((row) => row.jobId).join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -103,7 +103,7 @@ const handleRemoveOne = async (selectedRow: JobType) => {
     const params = [selectedRow.jobId];
     const resp = await removeJob(params.join(','));
     hide();
-    if(resp.code === 200) {
+    if (resp.code === 200) {
       message.success('删除成功，即将刷新');
     } else {
       message.error(resp.msg);
@@ -176,13 +176,13 @@ const JobTableList: React.FC = () => {
 
   const columns: ProColumns<JobType>[] = [
     {
-      title: <FormattedMessage id="monitor.Job.job_id" defaultMessage="任务ID" />,
+      title: <FormattedMessage id="monitor.Job.job_id" defaultMessage="任务ID"/>,
       dataIndex: 'jobId',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.Job.job_name" defaultMessage="任务名称" />,
+      title: <FormattedMessage id="monitor.Job.job_name" defaultMessage="任务名称"/>,
       dataIndex: 'jobName',
       valueType: 'text',
       render: (dom, record) => {
@@ -199,31 +199,31 @@ const JobTableList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="monitor.Job.job_group" defaultMessage="任务组名" />,
+      title: <FormattedMessage id="monitor.Job.job_group" defaultMessage="任务组名"/>,
       dataIndex: 'jobGroup',
       valueType: 'text',
       valueEnum: jobGroupOptions,
     },
     {
-      title: <FormattedMessage id="monitor.Job.invoke_target" defaultMessage="调用目标字符串" />,
+      title: <FormattedMessage id="monitor.Job.invoke_target" defaultMessage="调用目标字符串"/>,
       dataIndex: 'invokeTarget',
       valueType: 'textarea',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.Job.cron_expression" defaultMessage="cron执行表达式" />,
+      title: <FormattedMessage id="monitor.Job.cron_expression" defaultMessage="cron执行表达式"/>,
       dataIndex: 'cronExpression',
       valueType: 'text',
       hideInSearch: true,
     },
     {
-      title: <FormattedMessage id="monitor.Job.status" defaultMessage="状态" />,
+      title: <FormattedMessage id="monitor.Job.status" defaultMessage="状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作" />,
+      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
       width: '220px',
       valueType: 'option',
@@ -324,7 +324,7 @@ const JobTableList: React.FC = () => {
         >
           <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
             更多
-            <DownOutlined />
+            <DownOutlined/>
           </a>
         </Dropdown>,
       ],
@@ -332,8 +332,8 @@ const JobTableList: React.FC = () => {
   ];
 
   return (
-    <WrapContent>
-      <div style={{ width: '100%', float: 'right' }}>
+    <>
+      <div style={{width: '100%', float: 'right'}}>
         <ProTable<JobType>
           headerTitle={intl.formatMessage({
             id: 'pages.searchTable.title',
@@ -356,7 +356,7 @@ const JobTableList: React.FC = () => {
                 setModalVisible(true);
               }}
             >
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建" />
+              <PlusOutlined/> <FormattedMessage id="pages.searchTable.new" defaultMessage="新建"/>
             </Button>,
             <Button
               type="primary"
@@ -365,7 +365,7 @@ const JobTableList: React.FC = () => {
               onClick={async () => {
                 Modal.confirm({
                   title: '是否确认删除所选数据项?',
-                  icon: <ExclamationCircleOutlined />,
+                  icon: <ExclamationCircleOutlined/>,
                   content: '请谨慎操作',
                   async onOk() {
                     const success = await handleRemove(selectedRowsState);
@@ -377,8 +377,8 @@ const JobTableList: React.FC = () => {
                 });
               }}
             >
-              <DeleteOutlined />
-              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+              <DeleteOutlined/>
+              <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
             </Button>,
             <Button
               type="primary"
@@ -388,12 +388,12 @@ const JobTableList: React.FC = () => {
                 handleExport();
               }}
             >
-              <PlusOutlined />
-              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出" />
+              <PlusOutlined/>
+              <FormattedMessage id="pages.searchTable.export" defaultMessage="导出"/>
             </Button>,
           ]}
           request={(params) =>
-            getJobList({ ...params } as JobListParams).then((res) => {
+            getJobList({...params} as JobListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,
@@ -414,9 +414,9 @@ const JobTableList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择" />
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="已选择"/>
+              <a style={{fontWeight: 600}}>{selectedRowsState.length}</a>
+              <FormattedMessage id="pages.searchTable.item" defaultMessage="项"/>
             </div>
           }
         >
@@ -439,7 +439,7 @@ const JobTableList: React.FC = () => {
               });
             }}
           >
-            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除" />
+            <FormattedMessage id="pages.searchTable.batchDeletion" defaultMessage="批量删除"/>
           </Button>
         </FooterToolbar>
       )}
@@ -447,9 +447,9 @@ const JobTableList: React.FC = () => {
         onSubmit={async (values) => {
           let success = false;
           if (values.jobId) {
-            success = await handleUpdate({ ...values } as JobType);
+            success = await handleUpdate({...values} as JobType);
           } else {
-            success = await handleAdd({ ...values } as JobType);
+            success = await handleAdd({...values} as JobType);
           }
           if (success) {
             setModalVisible(false);
@@ -476,7 +476,7 @@ const JobTableList: React.FC = () => {
         values={currentRow || {}}
         statusOptions={statusOptions}
       />
-    </WrapContent>
+    </>
   );
 };
 

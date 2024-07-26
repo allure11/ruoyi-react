@@ -1,6 +1,6 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
-import { GridContent } from '@ant-design/pro-layout';
-import { Menu } from 'antd';
+import React, {useState, useRef, useLayoutEffect} from 'react';
+import {GridContent} from '@ant-design/pro-layout';
+import {Menu} from 'antd';
 import WrapContent from '@/components/WrapContent';
 import BaseView from './components/base';
 import BindingView from './components/binding';
@@ -8,7 +8,7 @@ import NotificationView from './components/notification';
 import SecurityView from './components/security';
 import styles from './style.less';
 
-const { Item } = Menu;
+const {Item} = Menu;
 
 type SettingsStateKeys = 'base' | 'security' | 'binding' | 'notification';
 type SettingsState = {
@@ -36,14 +36,14 @@ const Settings: React.FC = () => {
         return;
       }
       let mode: 'inline' | 'horizontal' = 'inline';
-      const { offsetWidth } = dom.current;
+      const {offsetWidth} = dom.current;
       if (dom.current.offsetWidth < 641 && offsetWidth > 400) {
         mode = 'horizontal';
       }
       if (window.innerWidth < 768 && offsetWidth > 400) {
         mode = 'horizontal';
       }
-      setInitConfig({ ...initConfig, mode: mode as SettingsState['mode'] });
+      setInitConfig({...initConfig, mode: mode as SettingsState['mode']});
     });
   };
 
@@ -62,23 +62,23 @@ const Settings: React.FC = () => {
   };
 
   const renderChildren = () => {
-    const { selectKey } = initConfig;
+    const {selectKey} = initConfig;
     switch (selectKey) {
       case 'base':
-        return <BaseView />;
+        return <BaseView/>;
       case 'security':
-        return <SecurityView />;
+        return <SecurityView/>;
       case 'binding':
-        return <BindingView />;
+        return <BindingView/>;
       case 'notification':
-        return <NotificationView />;
+        return <NotificationView/>;
       default:
         return null;
     }
   };
 
   return (
-    <WrapContent>
+    <>
       <GridContent>
         <div
           className={styles.main}
@@ -92,7 +92,7 @@ const Settings: React.FC = () => {
             <Menu
               mode={initConfig.mode}
               selectedKeys={[initConfig.selectKey]}
-              onClick={({ key }) => {
+              onClick={({key}) => {
                 setInitConfig({
                   ...initConfig,
                   selectKey: key as SettingsStateKeys,
@@ -108,7 +108,7 @@ const Settings: React.FC = () => {
           </div>
         </div>
       </GridContent>
-    </WrapContent>
+    </>
   );
 };
 export default Settings;

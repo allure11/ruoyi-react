@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getServerInfo } from './service';
-import { Card, Col, Row, Table } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {getServerInfo} from './service';
+import {Card, Col, Row, Table} from 'antd';
 import styles from './style.less';
-import { FormattedMessage } from 'umi';
-import type { CpuRowType, MemRowType, ServerInfoResponseType, DiskInfoType } from './data';
+import {FormattedMessage} from 'umi';
+import type {CpuRowType, MemRowType, ServerInfoResponseType, DiskInfoType} from './data';
 import WrapContent from '@/components/WrapContent';
 
 
@@ -11,7 +11,7 @@ import WrapContent from '@/components/WrapContent';
  *
  * @author whiteshader@163.com
  * @datetime  2021/09/16
- * 
+ *
  * */
 
 
@@ -71,37 +71,37 @@ const hostColumns = [
 
 const diskColumns = [
   {
-    title: <FormattedMessage id="monitor.server.disk.dirName" defaultMessage="盘符路径" />,
+    title: <FormattedMessage id="monitor.server.disk.dirName" defaultMessage="盘符路径"/>,
     dataIndex: 'dirName',
     key: 'dirName',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.sysTypeName" defaultMessage="文件系统" />,
+    title: <FormattedMessage id="monitor.server.disk.sysTypeName" defaultMessage="文件系统"/>,
     dataIndex: 'sysTypeName',
     key: 'sysTypeName',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.typeName" defaultMessage="盘符类型" />,
+    title: <FormattedMessage id="monitor.server.disk.typeName" defaultMessage="盘符类型"/>,
     dataIndex: 'typeName',
     key: 'typeName',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.total" defaultMessage="总大小" />,
+    title: <FormattedMessage id="monitor.server.disk.total" defaultMessage="总大小"/>,
     dataIndex: 'total',
     key: 'total',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.free" defaultMessage="可用大小" />,
+    title: <FormattedMessage id="monitor.server.disk.free" defaultMessage="可用大小"/>,
     dataIndex: 'free',
     key: 'free',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.used" defaultMessage="已用大小" />,
+    title: <FormattedMessage id="monitor.server.disk.used" defaultMessage="已用大小"/>,
     dataIndex: 'used',
     key: 'used',
   },
   {
-    title: <FormattedMessage id="monitor.server.disk.usage" defaultMessage="已用百分比" />,
+    title: <FormattedMessage id="monitor.server.disk.usage" defaultMessage="已用百分比"/>,
     dataIndex: 'usage',
     key: 'usage',
   },
@@ -127,10 +127,10 @@ const ServerInfo: React.FC = () => {
         // setCpuData(cpuinfo);
 
         const cpuinfo: CpuRowType[] = [];
-        cpuinfo.push({ name: '核心数', value: res.data.cpu.cpuNum });
-        cpuinfo.push({ name: '用户使用率', value: `${res.data.cpu.used}%` });
-        cpuinfo.push({ name: '系统使用率', value: `${res.data.cpu.sys}%` });
-        cpuinfo.push({ name: '当前空闲率', value: `${res.data.cpu.free}%` });
+        cpuinfo.push({name: '核心数', value: res.data.cpu.cpuNum});
+        cpuinfo.push({name: '用户使用率', value: `${res.data.cpu.used}%`});
+        cpuinfo.push({name: '系统使用率', value: `${res.data.cpu.sys}%`});
+        cpuinfo.push({name: '当前空闲率', value: `${res.data.cpu.free}%`});
 
         setCpuData(cpuinfo);
 
@@ -210,11 +210,11 @@ const ServerInfo: React.FC = () => {
   }, []);
 
   return (
-    <WrapContent>
+    <>
       <Row gutter={[24, 24]}>
         <Col span={12}>
           <Card title="CPU" className={styles.card}>
-            <Table pagination={false} showHeader={false} dataSource={cpuData} columns={columns} />
+            <Table pagination={false} showHeader={false} dataSource={cpuData} columns={columns}/>
           </Card>
         </Col>
         <Col span={12}>
@@ -255,11 +255,11 @@ const ServerInfo: React.FC = () => {
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <Card title="磁盘状态" className={styles.card}>
-            <Table pagination={false} dataSource={diskData} columns={diskColumns} />
+            <Table pagination={false} dataSource={diskData} columns={diskColumns}/>
           </Card>
         </Col>
       </Row>
-    </WrapContent>
+    </>
   );
 };
 

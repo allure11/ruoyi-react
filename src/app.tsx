@@ -9,6 +9,7 @@ import {errorConfig, loginPath} from './requestErrorConfig';
 import {currentUser as queryCurrentUser, getRoutersInfo} from './services/ant-design-pro/api';
 import React, {ReactElement, JSXElementConstructor, ReactNode, ReactPortal} from 'react';
 import {PageLoading} from "@ant-design/pro-layout";
+import WrapContent from "@/components/WrapContent";
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -135,7 +136,9 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
         <>
           {/*面包屑*/}
           <ProBreadcrumb/>
-          {children}
+          <WrapContent>
+            {children}
+          </WrapContent>
           {isDev && (
             <SettingDrawer
               disableUrlParams
