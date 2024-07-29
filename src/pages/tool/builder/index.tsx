@@ -14,7 +14,7 @@ export type FormBuilderProps = {};
 const FormBuilder: React.FC<FormBuilderProps> = () => {
   return (
     <>
-      <GanttChart/>
+      {/*<GanttChart/>*/}
       <GanttForG2/>
     </>
   );
