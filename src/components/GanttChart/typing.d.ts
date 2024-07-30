@@ -25,6 +25,10 @@ declare namespace GanttType {
      */
     onExpandedChange?: (expandedRows) => void;
     /**
+     * 选中回调
+     */
+    handleSelect?: (task: Task, isSelected: boolean)=>void;
+    /**
      * 视图模式
      */
     viewMode?: ViewMode;

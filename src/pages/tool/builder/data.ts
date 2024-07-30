@@ -21,8 +21,10 @@ export const GanttData: GanttType.GanttDataType<any>[] = [
         // 完成度
         progress: 10,
         name: "task2",
+        dependencies: ['Task1'],
+        project: 'Task1',
         start: new Date("2018-04-18 03:27:49"),
-        end: new Date("2018-04-18 03:41:50"),
+        end: new Date("2018-04-18 04:41:50"),
         styles: {
           backgroundColor: '#ffde82'
         }
@@ -34,8 +36,10 @@ export const GanttData: GanttType.GanttDataType<any>[] = [
         // 完成度
         progress: 10,
         name: "task3",
-        start: new Date("2018-04-18 03:27:49"),
-        end: new Date("2018-04-18 03:41:50"),
+        dependencies: ['Task1'],
+        project: 'Task1',
+        start: new Date("2018-04-18 04:27:49"),
+        end: new Date("2018-04-18 07:41:50"),
         styles: {
           backgroundColor: '#ffde82'
         }
@@ -47,8 +51,10 @@ export const GanttData: GanttType.GanttDataType<any>[] = [
         // 完成度
         progress: 10,
         name: "task4",
-        start: new Date("2018-04-18 03:27:49"),
-        end: new Date("2018-04-18 03:41:50"),
+        dependencies: ['Task1'],
+        project: 'Task1',
+        start: new Date("2018-04-18 06:27:49"),
+        end: new Date("2018-04-18 07:41:50"),
         styles: {
           backgroundColor: '#ffde82'
         }

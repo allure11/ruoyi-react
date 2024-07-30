@@ -10,6 +10,7 @@ export default ({
                   defaultExpandedRowKeys = [],
                   onExpandedChange = (expandedRows) => {
                   },
+                  handleSelect = (task, isSelected)=>{},
                   viewMode = ViewMode.Day
                 }: GanttType.GanttProps): React.JSX.Element => {
 
@@ -63,6 +64,7 @@ export default ({
    * @param task
    */
   const handleTaskChange = (task: Task) => {
+    console.log(tasks)
     console.log("On date change Id:" + task.id);
     let newTasks = tasks.map((t) => (t.id === task.id ? task : t));
     if (task.project) {
@@ -86,6 +88,7 @@ export default ({
   return (<>
     <Gantt tasks={tasks}
            onDateChange={handleTaskChange}
+           onSelect={handleSelect}
            locale='zh'
            viewMode={viewMode}
            headerHeight={55}

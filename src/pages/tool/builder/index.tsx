@@ -41,7 +41,11 @@ const FormBuilder: React.FC<FormBuilderProps> = () => {
                   defaultExpandedRowKeys={['Task1']}
                   onExpandedChange={(expandedRows) => {
                     console.log(expandedRows, 111)
-                  }}/>
+                  }}
+                  handleSelect={(task, isSelected)=>{
+                    console.log(task, isSelected)
+                  }}
+      />
     </>
   );
 };
