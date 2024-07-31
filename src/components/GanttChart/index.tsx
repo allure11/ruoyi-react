@@ -28,7 +28,7 @@ export default ({
    */
   const handleExpanderClick = () => {
     const newTask: Task[] = []
-    data.forEach(task => {
+    newData.forEach((task: GanttType.GanttDataType<any>) => {
       newTask.push(task)
       if (expandedRows.includes(task.id)) {
         task.children.forEach((children: Task) => {
