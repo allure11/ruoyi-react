@@ -13,6 +13,10 @@ declare namespace GanttType {
      */
     tableColumns: TableColumnsType<T>;
     /**
+     * 表格宽度
+     */
+    tableWidth?: number;
+    /**
      * 数据
      */
     data: GanttDataType<T>[];
@@ -27,10 +31,14 @@ declare namespace GanttType {
     /**
      * 选中回调
      */
-    handleSelect?: (task: Task, isSelected: boolean)=>void;
+    handleSelect?: (task: Task, isSelected: boolean) => void;
     /**
      * 视图模式
      */
     viewMode?: ViewMode;
+    /**
+     * 数据修改回调
+     */
+    onDataChange?: (data: GanttDataType<T>[]) => void;
   }
 }

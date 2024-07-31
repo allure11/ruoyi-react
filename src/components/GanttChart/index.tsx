@@ -1,22 +1,27 @@
 import {Gantt, Task, ViewMode} from 'gantt-task-react';
 import "gantt-task-react/dist/index.css";
-import React, {Key, useEffect, useState} from "react";
+import React, {Key, useEffect, useRef, useState} from "react";
 import {Table} from "antd";
 import {GanttType} from "@/components/GanttChart/typing";
 
 export default ({
                   tableColumns,
+                  tableWidth = 300,
                   data,
                   defaultExpandedRowKeys = [],
                   onExpandedChange = (expandedRows) => {
                   },
-                  handleSelect = (task, isSelected)=>{},
+                  handleSelect = (task, isSelected) => {
+                  },
+                  onDataChange = (data) => {
+                  },
                   viewMode = ViewMode.Day
                 }: GanttType.GanttProps): React.JSX.Element => {
-
-
-  const [tasks, setTasks] = useState(data)
+  const [tasks, setTasks] = useState<GanttType.GanttDataType<any>>(data)
   const [expandedRows, setExpandedRows] = useState<readonly Key[]>(defaultExpandedRowKeys);
+  const [newData, setNewData] = useState<GanttType.GanttDataType<any>>(data)
+
+  const tableRef = useRef();
 
   /**
    * 展开
@@ -36,6 +41,9 @@ export default ({
   useEffect(() => {
     handleExpanderClick()
   }, [expandedRows]);
+  useEffect(() => {
+    onDataChange(newData);
+  }, [newData]);
 
 
   /**
@@ -64,25 +72,39 @@ export default ({
    * @param task
    */
   const handleTaskChange = (task: Task) => {
-    console.log(tasks)
-    console.log("On date change Id:" + task.id);
-    let newTasks = tasks.map((t) => (t.id === task.id ? task : t));
+    let newTasks = tasks.map((t: Task) => (t.id === task.id ? task : t));
+    setNewData(changeData(task, data))
     if (task.project) {
       const [start, end] = getStartEndDateForProject(newTasks, task.project);
       const project =
-        newTasks[newTasks.findIndex((t) => t.id === task.project)];
-      if (
-        project.start.getTime() !== start.getTime() ||
-        project.end.getTime() !== end.getTime()
-      ) {
+        newTasks[newTasks.findIndex((t: Task) => t.id === task.project)];
+      if (project.start.getTime() !== start.getTime() || project.end.getTime() !== end.getTime()) {
         const changedProject = {...project, start, end};
-        newTasks = newTasks.map((t) =>
+        setNewData(changeData(changedProject, data))
+        newTasks = newTasks.map((t: Task) =>
           t.id === task.project ? changedProject : t
         );
       }
     }
     setTasks(newTasks);
   };
+
+  const changeData = (task: GanttType.GanttDataType<any>, children: GanttType.GanttDataType<any>[]) => {
+    // 检查输入是否有效
+    if (!children || !Array.isArray(children)) {
+      throw new Error("Invalid input: children must be an array.");
+    }
+    return children.map((item) => {
+      if (item.id === task.id) {
+        return {...item, start: task.start, end: task.end};
+      } else {
+        if (item.children && Array.isArray(children)) {
+          item.children = changeData(task, item.children);
+        }
+        return item;
+      }
+    });
+  }
 
 
   return (<>
@@ -96,8 +118,8 @@ export default ({
            TaskListHeader={() => <></>}
            TaskListTable={(params) => {
              return <Table columns={tableColumns}
-                           dataSource={data}
-                           style={{width: 300}}
+                           dataSource={newData}
+                           style={{width: tableWidth}}
                            pagination={false}
                            expandable={{
                              expandedRowKeys: expandedRows,
