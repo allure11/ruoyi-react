@@ -5,12 +5,6 @@ import {GanttType} from "@/components/GanttChart/typing";
 import {ViewMode} from "gantt-task-react";
 import GanttChart from "@/components/GanttChart";
 
-/**
- *
- * @author whiteshader@163.com
- *
- * */
-
 export type FormBuilderProps = {};
 
 const FormBuilder: React.FC<FormBuilderProps> = () => {

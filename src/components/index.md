@@ -270,3 +270,315 @@ RightContent 是以上几个组件的组合，同时新增了 plugins 的 `Selec
   <SelectLang className={styles.action} />
 </Space>
 ```
+
+# 通用组件
+
+## StepCustom 步骤条
+
+![image-20240816160357209](https://zym-notes.oss-cn-shenzhen.aliyuncs.com/img/image-20240816160357209.png)
+
+| 参数  | 说明     | 类型                  | 默认值 |
+| ----- | -------- | --------------------- | ------ |
+| style | css样式  | `React.CSSProperties` | -      |
+| items | 步骤节点 | `stepItemDataType`    | []     |
+
+stepItemDataType 类型
+
+| 参数        | 说明             | 类型                       | 默认值 |
+| ----------- | ---------------- | -------------------------- | ------ |
+| title       | 标题             | `string`                   | -      |
+| statusName  | 状态名称         | `string`                   | -      |
+| status      | 状态             | `boolean`                  | -      |
+| textColor   | 审批状态文字颜色 | `string`                   | -      |
+| description | 子节点           | `string | React.ReactNode` | -      |
+
+```tsx
+const itemsData = [{
+  title: '审批名称',
+  statusName: '审核通过',
+  status: 'true',
+  textColor: 'green',
+  description: <div style={{color: getTypeName(item.operationType).color}}>
+    <div style={{display: "flex", justifyContent: "space-between"}}>
+      <span>李四&nbsp;</span><span>2019-08-07 15:34:16</span>
+    </div>
+    <div>备注</div>
+  </div>
+},
+{
+  title: '审批名称1',
+  statusName: '审核通过',
+  status: 'true',
+  textColor: 'green',
+  description: <div style={{color: getTypeName(item.operationType).color}}>
+    <div style={{display: "flex", justifyContent: "space-between"}}>
+      <span>王五&nbsp;</span><span>2019-08-07 15:34:16</span>
+    </div>
+    <div>备注</div>
+  </div>
+},
+{
+  title: '审批名称2',
+  statusName: '未通过',
+  status: 'false',
+  description: <div style={{color: getTypeName(item.operationType).color}}>
+    <div style={{display: "flex", justifyContent: "space-between"}}>
+      <span>赵六&nbsp;</span><span>2019-08-07 15:34:16</span>
+    </div>
+    <div>备注</div>
+  </div>
+}]
+
+export default (): React.ReactNode => {
+    return <StepCustom
+              style={{marginTop: 10, height: 40}}
+              items={changeDetails.routing?.beforeAlter?.map((item: procedureDataType) => {
+                return {
+                  title: item.stepName,
+                  status: true
+                }
+              }) || []
+              }
+            />
+}
+```
+
+##   LeftAndRightContent 左右分隔布局
+
+![image-20240816162052072](https://zym-notes.oss-cn-shenzhen.aliyuncs.com/img/image-20240816162052072.png)
+
+| 参数    | 说明     | 类型                                             | 默认值 |
+| ------- | -------- | ------------------------------------------------ | ------ |
+| bgColor | 背景颜色 | `string`                                         | -      |
+| left    | 左侧内容 | `{ title: string, content: React.ReactElement }` | {}     |
+| right   | 右侧内容 | `{ title: string, content: React.ReactElement }` | {}     |
+
+```tsx
+<LeftAndRightContent
+    left={{
+        title: '变更前',
+        content: <>
+        	<div>
+            <Descriptions
+              title={<div style={{borderBottom: `1px solid ${token.colorPrimary}`, color: token.colorPrimary}}>
+                基本信息
+              </div>}
+              size={"small"}
+              column={2}>
+              <Descriptions.Item label="工艺路线编码">RT001</Descriptions.Item>
+              <Descriptions.Item label="工艺路线名称">工艺001</Descriptions.Item>
+              <Descriptions.Item label="工艺模型编码">MD001</Descriptions.Item>
+              <Descriptions.Item label="工艺模型名称">模型001</Descriptions.Item>
+              <Descriptions.Item
+                label="类型">实验</Descriptions.Item>
+            </Descriptions>
+          </div>
+        </>
+    }}
+    right={{
+        title: '变更后',
+        content: <>
+        	<div>
+            <Descriptions
+              title={<div style={{borderBottom: `1px solid ${token.colorPrimary}`, color: token.colorPrimary}}>
+                基本信息
+              </div>}
+              size={"small"}
+              column={2}>
+              <Descriptions.Item label="工艺路线编码">RT001</Descriptions.Item>
+              <Descriptions.Item label="工艺路线名称">工艺001</Descriptions.Item>
+              <Descriptions.Item label="工艺模型编码">MD001</Descriptions.Item>
+              <Descriptions.Item label="工艺模型名称">模型001</Descriptions.Item>
+              <Descriptions.Item label="变更时间">2019-08-07 15:34:16</Descriptions.Item>
+              <Descriptions.Item label="申请人">李四</Descriptions.Item>
+            </Descriptions>
+          </div>
+        </>
+    }}
+/>
+```
+
+##  DoubleClickInput 点击切换输入框
+
+![recording](https://zym-notes.oss-cn-shenzhen.aliyuncs.com/img/recording.gif)
+
+| 参数  | 说明 | 类型  | 默认值 |
+| ----- | ---- | ----- | ------ |
+| value | 值   | `any` | -      |
+
+| 事件     | 说明         | 类型       | 默认值                |
+| -------- | ------------ | ---------- | --------------------- |
+| onChange | 数据变化回调 | `Function` | (value: string) => {} |
+
+```tsx
+const columns = [{
+    title: '标准值',
+    dataIndex: 'standardValue',
+    valueType: 'text',
+    render: (_, record) => <DoubleClickInput
+      value={record.standardValue}
+      onChange={(value) => {
+        record.standardValue = value
+      }}
+    />,
+    width: 50,
+}]
+
+export default (): React.ReactNode => {
+    return <Table
+              size="small"
+              dataSource={[{
+                  standardValue:1
+              }]}
+            />
+}
+```
+
+## GanttChart 甘特图
+
+![recording](https://zym-notes.oss-cn-shenzhen.aliyuncs.com/img/recording1.gif)
+
+| 参数                   | 说明                    | 类型                                             | 默认值       |
+| ---------------------- | ----------------------- | ------------------------------------------------ | ------------ |
+| data                   | 数据                    |                                                  |              |
+| tableColumns           | 左侧表格展示的列columns | `TableColumnsType<GanttType.GanttDataType<any>>` | -            |
+| tableWidth             | 左侧表格宽度            | `number`                                         | -            |
+| viewMode               | 试图模式                | `ViewMode`                                       | ViewMode.Day |
+| defaultExpandedRowKeys | 默认展开的行            | `string []`                                      |              |
+
+| 事件             | 说明             | 类型                                       | 默认值                   |
+| ---------------- | ---------------- | ------------------------------------------ | ------------------------ |
+| onExpandedChange | 展开的行变化回调 | (expandedRows) => void;                    | (expandedRows) => {}     |
+| handleSelect     | 选择的行变化回调 | (task: Task, isSelected: boolean) => void; | (task, isSelected) => {} |
+| onDataChange     | 数据变化回调     | (data: GanttDataType<T>[]) => void;        | (data) => {}             |
+
+ViewMode
+
+| 参数       | 说明                |
+| ---------- | ------------------- |
+| Hour       | 小时                |
+| QuarterDay |                     |
+| HalfDay    |                     |
+| Day        | 天                  |
+| Week       | 周（ISO-8601 week） |
+| Month      | 月                  |
+| Year       | 年                  |
+
+```tsx
+const FormBuilder: React.FC<FormBuilderProps> = () => {
+    
+  const GanttData: GanttType.GanttDataType<any>[] = [
+      {
+        key: 'Task1',
+        id: 'Task1',
+        type: 'project',
+        // 完成度
+        progress: 45,
+        name: "task1",
+        start: new Date("2018-04-18 03:27:49"),
+        end: new Date("2018-04-18 04:34:50"),
+        styles: {
+          backgroundColor: '#ffde82'
+        },
+        children: [
+          {
+            key: 'Task2',
+            id: 'Task2',
+            type: 'task',
+            // 完成度
+            progress: 10,
+            name: "task2",
+            dependencies: ['Task1'],
+            project: 'Task1',
+            start: new Date("2018-04-18 03:27:49"),
+            end: new Date("2018-04-18 04:41:50"),
+            styles: {
+              backgroundColor: '#ffde82'
+            }
+          },
+          {
+            key: 'Task3',
+            id: 'Task3',
+            type: 'task',
+            // 完成度
+            progress: 10,
+            name: "task3",
+            dependencies: ['Task1'],
+            project: 'Task1',
+            start: new Date("2018-04-18 04:27:49"),
+            end: new Date("2018-04-18 07:41:50"),
+            styles: {
+              backgroundColor: '#ffde82'
+            }
+          },
+          {
+            key: 'Task4',
+            id: 'Task4',
+            type: 'task',
+            // 完成度
+            progress: 10,
+            name: "task4",
+            dependencies: ['Task1'],
+            project: 'Task1',
+            start: new Date("2018-04-18 06:27:49"),
+            end: new Date("2018-04-18 07:41:50"),
+            styles: {
+              backgroundColor: '#ffde82'
+            }
+          }
+        ]
+      }
+    ];
+
+  const listColumns: TableColumnsType<GanttType.GanttDataType<any>> = [
+    {
+      title: '任务名称',
+      dataIndex: 'id',
+      width: 150,
+    },
+    {
+      title: '开始时间',
+      dataIndex: 'start',
+      width: 150,
+      ellipsis: true,
+      render: (start: Date) => {
+        return start.toLocaleString()
+      }
+    },
+    {
+      title: '结束时间',
+      dataIndex: 'end',
+      width: 150,
+      ellipsis: true,
+      render: (start: Date) => {
+        return start.toLocaleString()
+      }
+    }
+  ];
+  const [data, setData] = useState(GanttData);
+
+  return (
+    <>
+      {/*甘特图*/}
+      <GanttChart tableColumns={listColumns}
+                  tableWidth={450}
+                  data={data}
+                  viewMode={ViewMode.Hour}
+                  defaultExpandedRowKeys={['Task1']}
+                  onExpandedChange={(expandedRows) => {
+                    console.log(expandedRows, 111)
+                  }}
+                  handleSelect={(task, isSelected) => {
+                    console.log(task, isSelected)
+                  }}
+                  onDataChange={(data) => {
+                    console.log(data)
+                  }}
+      />
+    </>
+  );
+};
+
+export default FormBuilder;
+```
+
