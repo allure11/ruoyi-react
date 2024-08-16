@@ -1,0 +1,43 @@
+.steps {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: auto;
+  flex-wrap: nowrap;
+
+  .stepsItemContent:last-child {
+    flex-grow: 0;
+  }
+
+  .stepsItemContent {
+    display: flex;
+    flex-grow: 1;
+
+    .stepsItemLine {
+      flex-grow: 1;
+      min-width: 30px;
+      text-align: center;
+      height: 25px;
+      border-bottom: 3px solid #1F1FC7;
+      margin-bottom: 25px;
+    }
+
+    .stepsItem {
+      display: flex;
+      flex-shrink: 0;
+      height: 50px;
+      background-color: #1F1FC7;
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      border-radius: 4px;
+      margin-bottom: 10px;
+
+
+      .stepsItemTitle {
+        flex-grow: 1;
+        margin: 0 10px;
+        color: white;
+      }
+    }
+  }
+}
