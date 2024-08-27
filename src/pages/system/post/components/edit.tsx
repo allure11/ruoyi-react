@@ -1,15 +1,8 @@
-import React, { useEffect } from 'react';
-import { ProFormDigit, ProFormText, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form';
-import { Form, Modal, Row, Col } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { PostType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
+import React, {useEffect} from 'react';
+import {ProFormDigit, ProFormText, ProFormRadio, ProFormTextArea} from '@ant-design/pro-form';
+import {Form, Modal, Row, Col} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {PostType} from '../data.d';
 
 
 export type PostFormValueType = Record<string, unknown> & Partial<PostType>;
@@ -25,7 +18,7 @@ export type PostFormProps = {
 const PostForm: React.FC<PostFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { statusOptions } = props;
+  const {statusOptions} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -83,7 +76,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入岗位ID！" defaultMessage="请输入岗位ID！" />,
+                  message: <FormattedMessage id="请输入岗位ID！" defaultMessage="请输入岗位ID！"/>,
                 },
               ]}
             />
@@ -103,7 +96,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入岗位编码！" defaultMessage="请输入岗位编码！" />
+                    <FormattedMessage id="请输入岗位编码！" defaultMessage="请输入岗位编码！"/>
                   ),
                 },
               ]}
@@ -124,7 +117,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入岗位名称！" defaultMessage="请输入岗位名称！" />
+                    <FormattedMessage id="请输入岗位名称！" defaultMessage="请输入岗位名称！"/>
                   ),
                 },
               ]}
@@ -145,7 +138,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入显示顺序！" defaultMessage="请输入显示顺序！" />
+                    <FormattedMessage id="请输入显示顺序！" defaultMessage="请输入显示顺序！"/>
                   ),
                 },
               ]}
@@ -162,12 +155,12 @@ const PostForm: React.FC<PostFormProps> = (props) => {
                 defaultMessage: '状态',
               })}
               width="xl"
-              labelCol={{ span: 24 }}
+              labelCol={{span: 24}}
               placeholder="请输入状态"
               rules={[
                 {
                   required: true,
-                  message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！" />,
+                  message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！"/>,
                 },
               ]}
             />
@@ -186,7 +179,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
                 },
               ]}
             />

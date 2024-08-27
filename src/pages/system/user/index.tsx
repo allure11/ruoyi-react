@@ -213,6 +213,7 @@ const UserTableList: React.FC = () => {
       title: <FormattedMessage id="system.User.email" defaultMessage="用户邮箱"/>,
       dataIndex: 'email',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="system.User.phonenumber" defaultMessage="手机号码"/>,

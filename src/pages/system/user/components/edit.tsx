@@ -216,7 +216,7 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           colProps={{md: 12, xl: 12}}
           rules={[
             {
-              required: false,
+              required: true,
               message: <FormattedMessage id="password" defaultMessage="请输入密码！"/>,
             },
           ]}

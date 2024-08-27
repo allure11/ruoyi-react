@@ -182,6 +182,7 @@ const RoleTableList: React.FC = () => {
       title: <FormattedMessage id="system.Role.role_sort" defaultMessage="显示顺序"/>,
       dataIndex: 'roleSort',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="system.Role.status" defaultMessage="角色状态"/>,
@@ -193,7 +194,7 @@ const RoleTableList: React.FC = () => {
       title: <FormattedMessage id="system.Role.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateRange',
-      render: (_, record) => <span>{record.createTime}</span>,
+      render: (_, record) => <span>{record.createTime.toString()}</span>,
       search: {
         transform: (value) => {
           return {
@@ -230,7 +231,7 @@ const RoleTableList: React.FC = () => {
                 setModalVisible(true);
                 setCurrentRow(record);
               } else {
-                message.warn(res.msg);
+                message.warning(res.msg);
               }
             });
           }}
@@ -295,7 +296,7 @@ const RoleTableList: React.FC = () => {
                     setModalVisible(true);
                     setCurrentRow(undefined);
                   } else {
-                    message.warn(res.msg);
+                    message.warning(res.msg);
                   }
                 });
               }}

@@ -172,6 +172,7 @@ const PostTableList: React.FC = () => {
       title: <FormattedMessage id="system.Post.post_sort" defaultMessage="显示顺序"/>,
       dataIndex: 'postSort',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="system.Post.status" defaultMessage="状态"/>,
