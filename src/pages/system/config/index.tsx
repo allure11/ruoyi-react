@@ -164,6 +164,7 @@ const ConfigTableList: React.FC = () => {
       title: <FormattedMessage id="system.Config.config_value" defaultMessage="参数键值"/>,
       dataIndex: 'configValue',
       valueType: 'textarea',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="system.Config.config_type" defaultMessage="系统内置"/>,
