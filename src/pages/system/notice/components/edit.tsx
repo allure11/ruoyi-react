@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   ProFormDigit,
   ProFormText,
@@ -6,17 +6,9 @@ import {
   ProFormTextArea,
   ProFormRadio,
 } from '@ant-design/pro-form';
-import { Form, Modal, Row, Col } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { NoticeType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
-
+import {Form, Modal, Row, Col} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {NoticeType} from '../data.d';
 
 export type NoticeFormValueType = Record<string, unknown> & Partial<NoticeType>;
 
@@ -32,7 +24,7 @@ export type NoticeFormProps = {
 const NoticeForm: React.FC<NoticeFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { noticeTypeOptions, statusOptions } = props;
+  const {noticeTypeOptions, statusOptions} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -90,7 +82,7 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入公告ID！" defaultMessage="请输入公告ID！" />,
+                  message: <FormattedMessage id="请输入公告ID！" defaultMessage="请输入公告ID！"/>,
                 },
               ]}
             />
@@ -110,7 +102,7 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入公告标题！" defaultMessage="请输入公告标题！" />
+                    <FormattedMessage id="请输入公告标题！" defaultMessage="请输入公告标题！"/>
                   ),
                 },
               ]}
@@ -132,7 +124,7 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入公告类型！" defaultMessage="请输入公告类型！" />
+                    <FormattedMessage id="请输入公告类型！" defaultMessage="请输入公告类型！"/>
                   ),
                 },
               ]}
@@ -153,7 +145,7 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入公告内容！" defaultMessage="请输入公告内容！" />
+                    <FormattedMessage id="请输入公告内容！" defaultMessage="请输入公告内容！"/>
                   ),
                 },
               ]}
@@ -170,13 +162,13 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
                 defaultMessage: '公告状态',
               })}
               width="xl"
-              labelCol={{ span: 24 }}
+              labelCol={{span: 24}}
               placeholder="请输入公告状态"
               rules={[
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入公告状态！" defaultMessage="请输入公告状态！" />
+                    <FormattedMessage id="请输入公告状态！" defaultMessage="请输入公告状态！"/>
                   ),
                 },
               ]}
@@ -196,7 +188,7 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
                 },
               ]}
             />

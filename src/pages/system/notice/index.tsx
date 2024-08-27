@@ -5,20 +5,12 @@ import React, {useState, useRef, useEffect} from 'react';
 import {useAccess} from 'umi';
 import {useIntl, FormattedMessage} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {NoticeType, NoticeListParams} from './data.d';
 import {getNoticeList, removeNotice, addNotice, updateNotice} from './service';
 import UpdateForm from './components/edit';
 import {getDict} from '../dict/service';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 
 /**
@@ -347,7 +339,7 @@ const NoticeTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {}}
+        values={currentRow || {status: '0'}}
         noticeTypeOptions={noticeTypeOptions}
         statusOptions={statusOptions}
       />
