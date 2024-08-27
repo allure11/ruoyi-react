@@ -4,7 +4,6 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, history, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {DictTypeType, DictTypeListParams} from './data.d';
@@ -17,13 +16,6 @@ import {
   exportDictType,
 } from './service';
 import UpdateForm from './components/edit';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 /**
  * 添加节点
@@ -356,6 +348,7 @@ const DictTypeTableList: React.FC = () => {
       )}
       <UpdateForm
         onSubmit={async (values) => {
+          console.log(values)
           let success = false;
           if (values.dictId) {
             success = await handleUpdate({...values} as DictTypeType);
@@ -375,7 +368,7 @@ const DictTypeTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {}}
+        values={currentRow || {status: '0'}}
         statusOptions={statusOptions}
       />
     </>

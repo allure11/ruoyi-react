@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react';
-import { ProFormText, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form';
-import { Form, Modal } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { DictTypeType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
-
+import React, {useEffect, useRef} from 'react';
+import ProForm, {ProFormText, ProFormRadio, ProFormTextArea, ProFormInstance} from '@ant-design/pro-form';
+import {Form, Modal} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {DictTypeType} from '../data.d';
 
 export type DictTypeFormValueType = Record<string, unknown> & Partial<DictTypeType>;
 
@@ -23,13 +15,14 @@ export type DictTypeFormProps = {
 };
 
 const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
-  const [form] = Form.useForm();
 
-  const { statusOptions } = props;
+  const form = useRef<ProFormInstance>();
+
+  const {statusOptions} = props;
 
   useEffect(() => {
-    form.resetFields();
-    form.setFieldsValue({
+    form.current?.resetFields();
+    form.current?.setFieldsValue({
       dictId: props.values.dictId,
       dictName: props.values.dictName,
       dictType: props.values.dictType,
@@ -44,13 +37,14 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
 
   const intl = useIntl();
   const handleOk = () => {
-    form.submit();
+    form.current?.submit();
   };
   const handleCancel = () => {
     props.onCancel();
-    form.resetFields();
+    form.current?.resetFields();
   };
   const handleFinish = (values: Record<string, any>) => {
+    console.log(1)
     props.onSubmit(values as DictTypeFormValueType);
   };
 
@@ -66,7 +60,8 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <Form form={form} onFinish={handleFinish} initialValues={props.values}>
+      <ProForm formRef={form} onFinish={handleFinish} initialValues={props.values} layout={'horizontal'}
+               submitter={false}>
         <ProFormText
           name="dictId"
           label={intl.formatMessage({
@@ -80,7 +75,7 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典主键！" defaultMessage="请输入字典主键！" />,
+              message: <FormattedMessage id="请输入字典主键！" defaultMessage="请输入字典主键！"/>,
             },
           ]}
         />
@@ -94,8 +89,8 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
           placeholder="请输入字典名称"
           rules={[
             {
-              required: false,
-              message: <FormattedMessage id="请输入字典名称！" defaultMessage="请输入字典名称！" />,
+              required: true,
+              message: <FormattedMessage id="请输入字典名称！" defaultMessage="请输入字典名称！"/>,
             },
           ]}
         />
@@ -109,8 +104,8 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
           placeholder="请输入字典类型"
           rules={[
             {
-              required: false,
-              message: <FormattedMessage id="请输入字典类型！" defaultMessage="请输入字典类型！" />,
+              required: true,
+              message: <FormattedMessage id="请输入字典类型！" defaultMessage="请输入字典类型！"/>,
             },
           ]}
         />
@@ -122,12 +117,12 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
             defaultMessage: '状态',
           })}
           width="xl"
-          labelCol={{ span: 24 }}
+          labelCol={{span: 24}}
           placeholder="请输入状态"
           rules={[
             {
-              required: false,
-              message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！" />,
+              required: true,
+              message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！"/>,
             },
           ]}
         />
@@ -142,11 +137,11 @@ const DictTypeForm: React.FC<DictTypeFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+              message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
             },
           ]}
         />
-      </Form>
+      </ProForm>
     </Modal>
   );
 };
