@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Tree, message } from 'antd';
-import { getDeptTree } from '../service';
+import React, {useState, useEffect} from 'react';
+import {Tree, message} from 'antd';
+import {getDeptTree} from '../service';
 
-const { DirectoryTree } = Tree;
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
+const {DirectoryTree} = Tree;
 
 
 export type TreeProps = {

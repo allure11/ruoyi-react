@@ -26,14 +26,6 @@ import DeptTree from './components/DeptTree';
 import type {DataNode} from 'antd/lib/tree';
 import {getPostList} from '../post/service';
 import {getRoleList} from '../role/service';
-import {PageContainer} from "@ant-design/pro-components";
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 /**
  * 添加节点
@@ -202,6 +194,9 @@ const UserTableList: React.FC = () => {
       title: <FormattedMessage id="system.User.dept_id" defaultMessage="部门ID"/>,
       dataIndex: 'deptId',
       valueType: 'text',
+      render: (_, record) => {
+        return record.dept?.deptName;
+      },
     },
     {
       title: <FormattedMessage id="system.User.user_name" defaultMessage="用户账号"/>,

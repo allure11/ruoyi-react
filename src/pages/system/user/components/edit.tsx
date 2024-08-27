@@ -12,14 +12,6 @@ import {useIntl, FormattedMessage} from 'umi';
 import type {UserType} from '../data.d';
 import type {DataNode} from 'antd/lib/tree';
 
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
-
 export type UserFormValueType = Record<string, unknown> & Partial<UserType>;
 
 export type UserFormProps = {

@@ -5,14 +5,6 @@ import type {DataNode} from 'antd/lib/tree';
 import type {UserType, UserListParams} from './data.d';
 import {SYSTEM_PATH} from "../../../../config/modulePath";
 
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
 // 查询用户信息列表
 export async function getUserList(params?: UserListParams) {
   const queryString = new URLSearchParams(params).toString();
