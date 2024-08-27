@@ -257,7 +257,7 @@ const OperlogTableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="detaile" defaultMessage="Detail"/>
+          <FormattedMessage id="detaile" defaultMessage="详情"/>
         </Button>,
       ],
     },
