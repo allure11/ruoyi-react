@@ -364,7 +364,7 @@ const ConfigTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {configType: 'N'}}
+        values={currentRow || {configType: 'Y'}}
         configTypeOptions={configTypeOptions}
       />
     </>
