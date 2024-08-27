@@ -1,15 +1,8 @@
-import React, { useEffect } from 'react';
-import { ProFormDigit, ProFormText, ProFormTextArea, ProFormRadio } from '@ant-design/pro-form';
-import { Form, Modal, Row, Col } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { ConfigType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
+import React, {useEffect} from 'react';
+import {ProFormDigit, ProFormText, ProFormTextArea, ProFormRadio} from '@ant-design/pro-form';
+import {Form, Modal, Row, Col} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {ConfigType} from '../data.d';
 
 export type ConfigFormValueType = Record<string, unknown> & Partial<ConfigType>;
 
@@ -24,7 +17,7 @@ export type ConfigFormProps = {
 const ConfigForm: React.FC<ConfigFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { configTypeOptions } = props;
+  const {configTypeOptions} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -83,7 +76,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入参数主键！" defaultMessage="请输入参数主键！" />
+                    <FormattedMessage id="请输入参数主键！" defaultMessage="请输入参数主键！"/>
                   ),
                 },
               ]}
@@ -104,7 +97,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入参数名称！" defaultMessage="请输入参数名称！" />
+                    <FormattedMessage id="请输入参数名称！" defaultMessage="请输入参数名称！"/>
                   ),
                 },
               ]}
@@ -125,7 +118,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入参数键名！" defaultMessage="请输入参数键名！" />
+                    <FormattedMessage id="请输入参数键名！" defaultMessage="请输入参数键名！"/>
                   ),
                 },
               ]}
@@ -146,7 +139,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入参数键值！" defaultMessage="请输入参数键值！" />
+                    <FormattedMessage id="请输入参数键值！" defaultMessage="请输入参数键值！"/>
                   ),
                 },
               ]}
@@ -163,13 +156,13 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
                 defaultMessage: '系统内置',
               })}
               width="xl"
-              labelCol={{ span: 24 }}
+              labelCol={{span: 24}}
               placeholder="请输入系统内置"
               rules={[
                 {
                   required: false,
                   message: (
-                    <FormattedMessage id="请输入系统内置！" defaultMessage="请输入系统内置！" />
+                    <FormattedMessage id="请输入系统内置！" defaultMessage="请输入系统内置！"/>
                   ),
                 },
               ]}
@@ -189,7 +182,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
                 },
               ]}
             />

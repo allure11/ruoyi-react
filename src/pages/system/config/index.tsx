@@ -4,20 +4,12 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {ConfigType, ConfigListParams} from './data.d';
 import {getConfigList, removeConfig, addConfig, updateConfig, exportConfig} from './service';
 import UpdateForm from './components/edit';
 import {getDict} from '../dict/service';
-
-/**
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * */
-
 
 /**
  * 添加节点
@@ -189,7 +181,7 @@ const ConfigTableList: React.FC = () => {
       title: <FormattedMessage id="system.Config.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateRange',
-      render: (_, record) => <span>{record.createTime}</span>,
+      render: (_, record) => <span>{record.createTime?.toTimeString()}</span>,
       search: {
         transform: (value) => {
           return {
@@ -372,7 +364,7 @@ const ConfigTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {}}
+        values={currentRow || {configType: '1'}}
         configTypeOptions={configTypeOptions}
       />
     </>
