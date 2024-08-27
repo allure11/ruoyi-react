@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import ProForm, {
   ProFormDigit,
   ProFormText,
   ProFormRadio,
   ProFormTextArea,
 } from '@ant-design/pro-form';
-import { Form, Modal, Row, Col, Tree } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { RoleType } from '../data.d';
-import type { DataNode } from 'antd/lib/tree';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
+import {Form, Modal, Row, Col, Tree} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {RoleType} from '../data.d';
+import type {DataNode} from 'antd/lib/tree';
 
 export type RoleFormValueType = Record<string, unknown> & Partial<RoleType>;
 
@@ -32,10 +25,10 @@ export type RoleFormProps = {
 const RoleForm: React.FC<RoleFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { menuTree, menuCheckedKeys } = props;
-  const [menuIds, setMenuIds] = useState<any>();
-  const { statusOptions } = props;
-  
+  const {menuTree, menuCheckedKeys} = props;
+  const [menuIds, setMenuIds] = useState<any>(menuCheckedKeys);
+  const {statusOptions} = props;
+
   useEffect(() => {
     form.resetFields();
     form.setFieldsValue({
@@ -66,7 +59,8 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
     form.resetFields();
   };
   const handleFinish = (values: Record<string, any>) => {
-    props.onSubmit({ ...values, menuIds } as RoleFormValueType);
+    console.log(values, menuIds)
+    props.onSubmit({...values, menuIds} as RoleFormValueType);
   };
 
   return (
@@ -97,7 +91,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入角色ID！" defaultMessage="请输入角色ID！" />,
+                  message: <FormattedMessage id="请输入角色ID！" defaultMessage="请输入角色ID！"/>,
                 },
               ]}
             />
@@ -117,7 +111,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入角色名称！" defaultMessage="请输入角色名称！" />
+                    <FormattedMessage id="请输入角色名称！" defaultMessage="请输入角色名称！"/>
                   ),
                 },
               ]}
@@ -162,7 +156,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入显示顺序！" defaultMessage="请输入显示顺序！" />
+                    <FormattedMessage id="请输入显示顺序！" defaultMessage="请输入显示顺序！"/>
                   ),
                 },
               ]}
@@ -178,14 +172,14 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
                 id: 'system.Role.status',
                 defaultMessage: '角色状态',
               })}
-              labelCol={{ span: 24 }}
+              labelCol={{span: 24}}
               width="xl"
               placeholder="请输入角色状态"
               rules={[
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入角色状态！" defaultMessage="请输入角色状态！" />
+                    <FormattedMessage id="请输入角色状态！" defaultMessage="请输入角色状态！"/>
                   ),
                 },
               ]}
@@ -209,7 +203,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
                 defaultExpandAll={false}
                 treeData={menuTree}
                 defaultCheckedKeys={menuCheckedKeys}
-                onCheck={( keys: any) => {
+                onCheck={(keys: any) => {
                   setMenuIds(keys.checked);
                 }}
               />
@@ -229,7 +223,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
                 },
               ]}
             />

@@ -20,15 +20,6 @@ import {getDict} from '../dict/service';
 import type {DataNode} from 'antd/lib/tree';
 import {getMenuTree} from '../menu/service';
 import {formatTreeSelectData} from '@/utils/utils';
-import WrapContent from '@/components/WrapContent';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
 
 /**
  * 添加节点
