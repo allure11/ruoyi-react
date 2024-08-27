@@ -207,29 +207,9 @@ const OperlogTableList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.Operlog.operator_type" defaultMessage="操作类别"/>,
-      dataIndex: 'operatorType',
-      valueType: 'select',
-      valueEnum: operatorTypeOptions,
-      hideInTable: true,
-    },
-    {
       title: <FormattedMessage id="monitor.Operlog.oper_name" defaultMessage="操作人员"/>,
       dataIndex: 'operName',
       valueType: 'text',
-    },
-    {
-      title: <FormattedMessage id="monitor.Operlog.dept_name" defaultMessage="部门名称"/>,
-      dataIndex: 'deptName',
-      valueType: 'text',
-      hideInSearch: true,
-      hideInTable: true,
-    },
-    {
-      title: <FormattedMessage id="monitor.Operlog.oper_url" defaultMessage="请求URL"/>,
-      dataIndex: 'operUrl',
-      valueType: 'text',
-      hideInTable: true,
     },
     {
       title: <FormattedMessage id="monitor.Operlog.oper_ip" defaultMessage="主机地址"/>,
@@ -242,31 +222,10 @@ const OperlogTableList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="monitor.Operlog.oper_param" defaultMessage="请求参数"/>,
-      dataIndex: 'operParam',
-      valueType: 'textarea',
-      hideInSearch: true,
-      hideInTable: true,
-    },
-    {
-      title: <FormattedMessage id="monitor.Operlog.json_result" defaultMessage="返回参数"/>,
-      dataIndex: 'jsonResult',
-      valueType: 'textarea',
-      hideInSearch: true,
-      hideInTable: true,
-    },
-    {
       title: <FormattedMessage id="monitor.Operlog.status" defaultMessage="操作状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
-    },
-    {
-      title: <FormattedMessage id="monitor.Operlog.error_msg" defaultMessage="错误消息"/>,
-      dataIndex: 'errorMsg',
-      valueType: 'textarea',
-      hideInSearch: true,
-      hideInTable: true,
     },
     {
       title: <FormattedMessage id="monitor.Operlog.oper_time" defaultMessage="操作时间"/>,
