@@ -181,7 +181,7 @@ const ConfigTableList: React.FC = () => {
       title: <FormattedMessage id="system.Config.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateRange',
-      render: (_, record) => <span>{record.createTime?.toTimeString()}</span>,
+      render: (_, record) => <span>{record.createTime.toString()}</span>,
       search: {
         transform: (value) => {
           return {
@@ -364,7 +364,7 @@ const ConfigTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {configType: '1'}}
+        values={currentRow || {configType: 'N'}}
         configTypeOptions={configTypeOptions}
       />
     </>
