@@ -164,7 +164,7 @@ export const errorConfig: RequestConfig = {
         message.warning(`${code} ${msg}`)
         history.push(loginPath)
       }
-      if (code === 500) {
+      if (code !== 200 && msg !== undefined) {
         message.warning(msg)
       }
       return response;
