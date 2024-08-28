@@ -4,7 +4,6 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {MenuType, MenuListParams} from './data.d';
@@ -14,13 +13,6 @@ import {getDict} from '../dict/service';
 import {buildTreeData} from '@/utils/utils';
 import type {DataNode} from 'antd/lib/tree';
 import {createIcon} from '@/utils/IconUtil';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 
 /**
@@ -198,6 +190,7 @@ const MenuTableList: React.FC = () => {
         F: '按钮',
       },
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="system.Menu.status" defaultMessage="菜单状态"/>,

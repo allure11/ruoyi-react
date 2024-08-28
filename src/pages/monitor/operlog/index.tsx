@@ -285,7 +285,7 @@ const OperlogTableList: React.FC = () => {
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('monitor:operlog:remove')}
               onClick={async () => {
                 confirm({
-                  title: '是否确认删除选中的登录日志数据项?',
+                  title: '是否确认删除选中的操作日志数据项?',
                   icon: <ExclamationCircleOutlined/>,
                   content: '请谨慎操作',
                   async onOk() {
