@@ -223,7 +223,7 @@ const LogininforTableList: React.FC = () => {
             <Button
               type="primary"
               key="export"
-              hidden={selectedRowsState?.length !== 1 || !access.hasPerms('monitor:logininfor:export')}
+              hidden={selectedRowsState?.length !== 1 || !access.hasPerms('system:logininfor:unlock')}
               onClick={async () => {
                 console.log(selectedRowsState)
                 const {code} = await unlockLogininfor(selectedRowsState[0].userName);
