@@ -35,9 +35,9 @@ export const GET_INFO_URL: string = ``;
  */
 export const GET_ROUTERS_URL: string = `${AUTH_PATH}`;
 
-/**
- * 微服务版本路由
- */
+// /**
+//  * 微服务版本路由
+//  */
 // export const SYSTEM_PATH: string = `/system`;
 // export const MONITOR_PATH: string = `/monitor`;
 // export const LOG_PATH: string = `${SYSTEM_PATH}`;
@@ -46,6 +46,6 @@ export const GET_ROUTERS_URL: string = `${AUTH_PATH}`;
 // export const JOB_PATH: string = `/schedule`;
 // export const CAPTCHA_IMAGE_URL: string = `/code`;
 // export const GET_INFO_URL: string = `${SYSTEM_PATH}/user`;
-// export const GET_ROUTERS_URL: string = `${AUTH_PATH}/menu/`;
+// export const GET_ROUTERS_URL: string = `${SYSTEM_PATH}/menu`;
 
 
