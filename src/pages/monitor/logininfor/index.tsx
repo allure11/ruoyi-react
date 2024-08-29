@@ -11,17 +11,9 @@ import {
   getLogininforList,
   removeLogininfor,
   exportLogininfor,
-  cleanLogininfor,
+  cleanLogininfor, unlockLogininfor,
 } from './service';
 import {getDict} from '@/pages/system/dict/service';
-import WrapContent from '@/components/WrapContent';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 const {confirm} = Modal;
 
@@ -227,6 +219,20 @@ const LogininforTableList: React.FC = () => {
             >
               <PlusOutlined/>
               <FormattedMessage id="pages.searchTable.clear" defaultMessage="清空"/>
+            </Button>,
+            <Button
+              type="primary"
+              key="export"
+              hidden={selectedRowsState?.length !== 1 || !access.hasPerms('monitor:logininfor:export')}
+              onClick={async () => {
+                console.log(selectedRowsState)
+                const {code} = await unlockLogininfor(selectedRowsState[0].userName);
+                if (code === 200) {
+                  message.success('解锁成功');
+                }
+              }}
+            >
+              <FormattedMessage id="pages.searchTable.unlockUser" defaultMessage="解锁账户"/>
             </Button>,
             <Button
               type="primary"

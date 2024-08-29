@@ -60,3 +60,10 @@ export async function cleanLogininfor() {
     method: 'DELETE',
   });
 }
+
+// 解锁账户
+export async function unlockLogininfor(user: string) {
+  return request(`${LOG_PATH}/logininfor/unlock/${user}`, {
+    method: 'GET',
+  });
+}
