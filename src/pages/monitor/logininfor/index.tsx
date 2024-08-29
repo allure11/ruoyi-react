@@ -165,7 +165,7 @@ const LogininforTableList: React.FC = () => {
       title: <FormattedMessage id="monitor.Logininfor.login_time" defaultMessage="访问时间"/>,
       dataIndex: 'loginTime',
       valueType: 'dateRange',
-      render: (_, record) => <span>{record.loginTime}</span>,
+      render: (_, record) => <span>{record.loginTime.toString()}</span>,
       search: {
         transform: (value) => {
           return {
