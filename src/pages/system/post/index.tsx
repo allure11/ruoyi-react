@@ -4,20 +4,12 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {PostType, PostListParams} from './data.d';
 import {getPostList, removePost, addPost, updatePost, exportPost} from './service';
 import UpdateForm from './components/edit';
 import {getDict} from '../dict/service';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 
 /**
@@ -169,7 +161,7 @@ const PostTableList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: <FormattedMessage id="system.Post.post_sort" defaultMessage="显示顺序"/>,
+      title: <FormattedMessage id="system.Post.post_sort" defaultMessage="岗位排序"/>,
       dataIndex: 'postSort',
       valueType: 'text',
       hideInSearch: true,
