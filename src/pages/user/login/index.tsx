@@ -21,6 +21,7 @@ import React, {useEffect, useState} from 'react';
 import {flushSync} from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
 import {setSessionToken} from "@/access";
+import logo from "/public/logo.svg";
 
 const useStyles = createStyles(({token}) => {
   return {
@@ -187,7 +188,7 @@ const Login: React.FC = () => {
             minWidth: 280,
             maxWidth: '75vw',
           }}
-          logo={<img alt="logo" src="/logo.svg"/>}
+          logo={<img alt="logo" src={logo}/>}
           title="Ant Design"
           subTitle={intl.formatMessage({id: 'pages.layouts.userLayout.title'})}
           initialValues={{
