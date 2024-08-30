@@ -47,8 +47,6 @@ const handleUpdate = async (fields: PostType) => {
     hide();
     if (resp.code === 200) {
       message.success('配置成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
