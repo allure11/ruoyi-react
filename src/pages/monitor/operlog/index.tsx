@@ -337,13 +337,12 @@ const OperlogTableList: React.FC = () => {
             </Button>,
           ]}
           request={(params) =>
-            getOperlogList({...params} as OperlogListParams).then((res) => {
-              const result = {
+            getOperlogList({...params, pageNum: params.current} as OperlogListParams).then((res) => {
+              return {
                 data: res.rows,
                 total: res.total,
                 success: true,
               };
-              return result;
             })
           }
           columns={columns}
