@@ -195,7 +195,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col span={24} order={1}>
-            <ProFormDigit
+            <ProFormText
               name="phone"
               label={intl.formatMessage({
                 id: 'system.Dept.phone',
