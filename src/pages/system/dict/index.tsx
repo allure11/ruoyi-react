@@ -296,7 +296,7 @@ const DictTypeTableList: React.FC = () => {
             </Button>,
           ]}
           request={(params) =>
-            getDictTypeList({...params} as DictTypeListParams).then((res) => {
+            getDictTypeList({...params, pageNum: params.current} as DictTypeListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,

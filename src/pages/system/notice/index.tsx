@@ -268,7 +268,7 @@ const NoticeTableList: React.FC = () => {
             </Button>
           ]}
           request={(params) =>
-            getNoticeList({...params} as NoticeListParams).then((res) => {
+            getNoticeList({...params, pageNum: params.current} as NoticeListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,

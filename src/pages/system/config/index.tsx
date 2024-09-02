@@ -294,7 +294,7 @@ const ConfigTableList: React.FC = () => {
             </Button>,
           ]}
           request={(params) =>
-            getConfigList({...params} as ConfigListParams).then((res) => {
+            getConfigList({...params, pageNum: params.current} as ConfigListParams).then((res) => {
               const result = {
                 data: res.rows,
                 total: res.total,
