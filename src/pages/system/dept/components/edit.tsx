@@ -202,14 +202,11 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 defaultMessage: '联系电话',
               })}
               width="xl"
-              max={19999999999}
               placeholder="请输入联系电话"
               rules={[
                 {
-                  required: false,
-                  message: (
-                    <FormattedMessage defaultMessage="请输入联系电话！"/>
-                  ),
+                  pattern: /^1[3456789]\d{9}$/,
+                  message: '电话号码格式不正确！',
                 },
               ]}
             />
