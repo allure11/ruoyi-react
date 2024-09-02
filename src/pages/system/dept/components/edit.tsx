@@ -1,15 +1,8 @@
-import React, { useEffect } from 'react';
-import { ProFormDigit, ProFormText, ProFormRadio, ProFormTreeSelect } from '@ant-design/pro-form';
-import { Form, Modal, Row, Col } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { DeptType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
+import React, {useEffect} from 'react';
+import {ProFormDigit, ProFormText, ProFormRadio, ProFormTreeSelect} from '@ant-design/pro-form';
+import {Form, Modal, Row, Col} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {DeptType} from '../data.d';
 
 export type DeptFormValueType = Record<string, unknown> & Partial<DeptType>;
 
@@ -25,7 +18,7 @@ export type DeptFormProps = {
 const DeptForm: React.FC<DeptFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { statusOptions, deptTree } = props;
+  const {statusOptions, deptTree} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -87,7 +80,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage defaultMessage="请输入部门id！" />,
+                  message: <FormattedMessage defaultMessage="请输入部门id！"/>,
                 },
               ]}
             />
@@ -96,25 +89,25 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
         <Row gutter={[16, 16]}>
           <Col span={24} order={1}>
             <ProFormTreeSelect
-                name="parentId"
-                label={intl.formatMessage({
-                  id: 'system.Dept.parent_dept',
-                  defaultMessage: '上级部门:',
-                })}
-                request={async () => {
-                  return deptTree;
-                }}
-                width="xl"
-                placeholder="请选择上级部门"
-                rules={[
-                  {
-                    required: true,
-                    message: (
-                      <FormattedMessage defaultMessage="请选择上级部门!" />
-                    ),
-                  },
-                ]}
-              />
+              name="parentId"
+              label={intl.formatMessage({
+                id: 'system.Dept.parent_dept',
+                defaultMessage: '上级部门:',
+              })}
+              request={async () => {
+                return deptTree;
+              }}
+              width="xl"
+              placeholder="请选择上级部门"
+              rules={[
+                {
+                  required: true,
+                  message: (
+                    <FormattedMessage defaultMessage="请选择上级部门!"/>
+                  ),
+                },
+              ]}
+            />
           </Col>
         </Row>
         <Row gutter={[16, 16]}>
@@ -132,7 +125,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage defaultMessage="请输入祖级列表！" />
+                    <FormattedMessage defaultMessage="请输入祖级列表！"/>
                   ),
                 },
               ]}
@@ -153,7 +146,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage defaultMessage="请输入部门名称！" />
+                    <FormattedMessage defaultMessage="请输入部门名称！"/>
                   ),
                 },
               ]}
@@ -174,7 +167,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 {
                   required: false,
                   message: (
-                    <FormattedMessage defaultMessage="请输入显示顺序！" />
+                    <FormattedMessage defaultMessage="请输入显示顺序！"/>
                   ),
                 },
               ]}
@@ -194,7 +187,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage defaultMessage="请输入负责人！" />,
+                  message: <FormattedMessage defaultMessage="请输入负责人！"/>,
                 },
               ]}
             />
@@ -202,19 +195,20 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
         </Row>
         <Row gutter={[16, 16]}>
           <Col span={24} order={1}>
-            <ProFormText
+            <ProFormDigit
               name="phone"
               label={intl.formatMessage({
                 id: 'system.Dept.phone',
                 defaultMessage: '联系电话',
               })}
               width="xl"
+              max={19999999999}
               placeholder="请输入联系电话"
               rules={[
                 {
                   required: false,
                   message: (
-                    <FormattedMessage defaultMessage="请输入联系电话！" />
+                    <FormattedMessage defaultMessage="请输入联系电话！"/>
                   ),
                 },
               ]}
@@ -234,7 +228,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               rules={[
                 {
                   required: false,
-                  message: <FormattedMessage defaultMessage="请输入邮箱！" />,
+                  message: <FormattedMessage defaultMessage="请输入邮箱！"/>,
                 },
               ]}
             />
@@ -249,14 +243,14 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
                 id: 'system.Dept.status',
                 defaultMessage: '部门状态',
               })}
-              labelCol={{ span: 24 }}
+              labelCol={{span: 24}}
               width="xl"
               placeholder="请输入部门状态"
               rules={[
                 {
                   required: false,
                   message: (
-                    <FormattedMessage defaultMessage="请输入部门状态！" />
+                    <FormattedMessage defaultMessage="请输入部门状态！"/>
                   ),
                 },
               ]}
