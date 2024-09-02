@@ -271,11 +271,19 @@ const ConfigTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:config:remove')}
               onClick={async () => {
-                const success = await handleRemove(selectedRowsState);
-                if (success) {
-                  setSelectedRows([]);
-                  actionRef.current?.reloadAndRest?.();
-                }
+                Modal.confirm({
+                  title: '删除',
+                  content: '确定删除该项吗？',
+                  okText: '确认',
+                  cancelText: '取消',
+                  onOk: async () => {
+                    const success = await handleRemove(selectedRowsState);
+                    if (success) {
+                      setSelectedRows([]);
+                      actionRef.current?.reloadAndRest?.();
+                    }
+                  },
+                });
               }}
             >
               <DeleteOutlined/>

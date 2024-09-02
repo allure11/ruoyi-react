@@ -4,7 +4,6 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {DeptType, DeptListParams} from './data.d';
@@ -19,14 +18,6 @@ import UpdateForm from './components/edit';
 import {getDict} from '../dict/service';
 import {buildTreeData} from '@/utils/utils';
 import {DataNode} from "antd/lib/tree";
-
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
 
 
 /**
@@ -282,11 +273,19 @@ const DeptTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:dept:remove')}
               onClick={async () => {
-                const success = await handleRemove(selectedRowsState);
-                if (success) {
-                  setSelectedRows([]);
-                  actionRef.current?.reloadAndRest?.();
-                }
+                Modal.confirm({
+                  title: '删除',
+                  content: '确定删除该项吗？',
+                  okText: '确认',
+                  cancelText: '取消',
+                  onOk: async () => {
+                    const success = await handleRemove(selectedRowsState);
+                    if (success) {
+                      setSelectedRows([]);
+                      actionRef.current?.reloadAndRest?.();
+                    }
+                  },
+                });
               }}
             >
               <DeleteOutlined/>
