@@ -160,10 +160,8 @@ const UserForm: React.FC<UserFormProps> = (props) => {
           colProps={{md: 12, xl: 12}}
           rules={[
             {
-              required: false,
-              message: (
-                <FormattedMessage id="phonenumber" defaultMessage="请输入手机号码！"/>
-              ),
+              pattern: /^1[3456789]\d{9}$/,
+              message: '手机号码格式不正确！',
             },
           ]}
         />
