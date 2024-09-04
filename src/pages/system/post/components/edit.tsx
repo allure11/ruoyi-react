@@ -134,6 +134,7 @@ const PostForm: React.FC<PostFormProps> = (props) => {
               })}
               width="xl"
               placeholder="请输入显示顺序"
+              max={999999999}
               rules={[
                 {
                   required: true,
