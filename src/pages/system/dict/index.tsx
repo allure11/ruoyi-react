@@ -160,16 +160,22 @@ const DictTypeTableList: React.FC = () => {
       dataIndex: 'dictId',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.DictType.dict_name" defaultMessage="字典名称"/>,
       dataIndex: 'dictName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.DictType.dict_type" defaultMessage="字典类型"/>,
       dataIndex: 'dictType',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
       render: (dom, record) => {
         return (
           <a
@@ -186,19 +192,24 @@ const DictTypeTableList: React.FC = () => {
       title: <FormattedMessage id="system.DictType.status" defaultMessage="状态"/>,
       dataIndex: 'status',
       valueType: 'select',
+      ellipsis: true,
+      width: 100,
       valueEnum: statusOptions,
     },
     {
       title: <FormattedMessage id="system.DictType.remark" defaultMessage="备注"/>,
       dataIndex: 'remark',
       valueType: 'textarea',
+      ellipsis: true,
+      width: 100,
       hideInSearch: true,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -249,6 +260,7 @@ const DictTypeTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 500}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="dictId"

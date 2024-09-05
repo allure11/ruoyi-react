@@ -149,36 +149,48 @@ const MenuTableList: React.FC = () => {
       title: <FormattedMessage id="system.Menu.menu_name" defaultMessage="菜单名称"/>,
       dataIndex: 'menuName',
       valueType: 'text',
+      ellipsis: true,
+      width: 200,
     },
     {
       title: <FormattedMessage id="system.Menu.icon" defaultMessage="菜单图标"/>,
       dataIndex: 'icon',
       valueType: 'text',
       hideInSearch: true,
-      render: (text) => createIcon(text),
+      ellipsis: true,
+      width: 100,
+      render: (text, record) => createIcon(record.icon),
     },
     {
       title: <FormattedMessage id="system.Menu.order_num" defaultMessage="显示顺序"/>,
       dataIndex: 'orderNum',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.Menu.perms" defaultMessage="权限标识"/>,
       dataIndex: 'perms',
       valueType: 'text',
+      ellipsis: true,
+      width: 120,
     },
     {
       title: <FormattedMessage id="system.Menu.path" defaultMessage="路由地址"/>,
       dataIndex: 'path',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Menu.component" defaultMessage="组件路径"/>,
       dataIndex: 'component',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Menu.menu_type" defaultMessage="菜单类型"/>,
@@ -191,17 +203,22 @@ const MenuTableList: React.FC = () => {
       },
       hideInTable: true,
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Menu.status" defaultMessage="菜单状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
+      fixed: 'right',
       valueType: 'option',
       render: (_, record) => [
         <Button
@@ -253,6 +270,7 @@ const MenuTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 1000}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="menuId"

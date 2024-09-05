@@ -145,38 +145,50 @@ const DeptTableList: React.FC = () => {
       title: <FormattedMessage id="system.Dept.dept_name" defaultMessage="部门名称"/>,
       dataIndex: 'deptName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Dept.order_num" defaultMessage="显示顺序"/>,
       dataIndex: 'orderNum',
       valueType: 'text',
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.Dept.leader" defaultMessage="负责人"/>,
       dataIndex: 'leader',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Dept.phone" defaultMessage="联系电话"/>,
       dataIndex: 'phone',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Dept.email" defaultMessage="邮箱"/>,
       dataIndex: 'email',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Dept.status" defaultMessage="部门状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
+      width: 80,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -238,6 +250,7 @@ const DeptTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 1000}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="deptId"

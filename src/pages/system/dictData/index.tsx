@@ -4,7 +4,6 @@ import {Button, message, Modal} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, history, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
-import WrapContent from '@/components/WrapContent';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {DictDataType, DictDataListParams} from './data.d';
@@ -199,18 +198,23 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
     }
   };
 
+
   const columns: ProColumns<DictDataType>[] = [
     {
       title: <FormattedMessage id="system.DictData.dict_code" defaultMessage="字典编码"/>,
       dataIndex: 'dictCode',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.DictData.dict_type" defaultMessage="字典类型"/>,
       dataIndex: 'dictType',
       valueType: 'select',
       hideInTable: true,
+      ellipsis: true,
+      width: 100,
       valueEnum: dictTypeOptions,
       search: {
         transform: (value) => {
@@ -223,23 +227,31 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
       title: <FormattedMessage id="system.DictData.dict_label" defaultMessage="字典标签"/>,
       dataIndex: 'dictLabel',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.DictData.dict_value" defaultMessage="字典键值"/>,
       dataIndex: 'dictValue',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.DictData.dict_sort" defaultMessage="字典排序"/>,
       dataIndex: 'dictSort',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.DictData.status" defaultMessage="状态"/>,
       dataIndex: 'status',
       valueType: 'select',
+      ellipsis: true,
+      width: 100,
       valueEnum: statusOptions,
     },
     {
@@ -247,11 +259,14 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
+      fixed: 'right',
       valueType: 'option',
       render: (_, record) => [
         <Button
@@ -303,6 +318,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 500}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="dictCode"

@@ -154,29 +154,39 @@ const ConfigTableList: React.FC = () => {
       title: <FormattedMessage id="system.Config.config_name" defaultMessage="参数名称"/>,
       dataIndex: 'configName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Config.config_key" defaultMessage="参数键名"/>,
       dataIndex: 'configKey',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Config.config_value" defaultMessage="参数键值"/>,
       dataIndex: 'configValue',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Config.config_type" defaultMessage="系统内置"/>,
       dataIndex: 'configType',
       valueType: 'select',
       valueEnum: configTypeOptions,
+      ellipsis: true,
+      width: 40,
     },
     {
       title: <FormattedMessage id="system.Config.remark" defaultMessage="备注"/>,
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Config.create_time" defaultMessage="创建时间"/>,
@@ -191,12 +201,15 @@ const ConfigTableList: React.FC = () => {
           };
         },
       },
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 100,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -247,6 +260,7 @@ const ConfigTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 1000}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="configId"
