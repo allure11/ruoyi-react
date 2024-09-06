@@ -139,17 +139,23 @@ const NoticeTableList: React.FC = () => {
       dataIndex: 'noticeId',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Notice.notice_title" defaultMessage="公告标题"/>,
       dataIndex: 'noticeTitle',
       valueType: 'text',
+      ellipsis: true,
+      width: 190,
     },
     {
       title: <FormattedMessage id="system.Notice.notice_type" defaultMessage="公告类型"/>,
       dataIndex: 'noticeType',
       valueType: 'select',
       valueEnum: noticeTypeOptions,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Notice.status" defaultMessage="公告状态"/>,
@@ -157,23 +163,30 @@ const NoticeTableList: React.FC = () => {
       valueType: 'select',
       valueEnum: statusOptions,
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Notice.create_by" defaultMessage="创建者"/>,
       dataIndex: 'createBy',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Notice.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateTime',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -224,6 +237,7 @@ const NoticeTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 700}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="noticeId"

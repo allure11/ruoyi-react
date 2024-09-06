@@ -159,33 +159,45 @@ const RoleTableList: React.FC = () => {
       dataIndex: 'roleId',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.Role.role_name" defaultMessage="角色名称"/>,
       dataIndex: 'roleName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Role.role_key" defaultMessage="角色权限字符串"/>,
       dataIndex: 'roleKey',
       valueType: 'text',
+      ellipsis: true,
+      width: 120,
     },
     {
       title: <FormattedMessage id="system.Role.role_sort" defaultMessage="显示顺序"/>,
       dataIndex: 'roleSort',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.Role.status" defaultMessage="角色状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Role.create_time" defaultMessage="创建时间"/>,
       dataIndex: 'createTime',
       valueType: 'dateRange',
+      ellipsis: true,
+      width: 100,
       render: (_, record) => <span>{record.createTime.toString()}</span>,
       search: {
         transform: (value) => {
@@ -202,12 +214,15 @@ const RoleTableList: React.FC = () => {
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -267,6 +282,7 @@ const RoleTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 800}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="roleId"

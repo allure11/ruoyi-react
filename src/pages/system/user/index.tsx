@@ -180,11 +180,15 @@ const UserTableList: React.FC = () => {
       dataIndex: 'userId',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 70
     },
     {
       title: <FormattedMessage id="system.User.dept_id" defaultMessage="部门ID"/>,
       dataIndex: 'deptId',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
       render: (_, record) => {
         return record.dept?.deptName;
       },
@@ -193,34 +197,45 @@ const UserTableList: React.FC = () => {
       title: <FormattedMessage id="system.User.user_name" defaultMessage="用户账号"/>,
       dataIndex: 'userName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100
     },
     {
       title: <FormattedMessage id="system.User.nick_name" defaultMessage="用户昵称"/>,
       dataIndex: 'nickName',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100
     },
     {
       title: <FormattedMessage id="system.User.email" defaultMessage="用户邮箱"/>,
       dataIndex: 'email',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100
     },
     {
       title: <FormattedMessage id="system.User.phonenumber" defaultMessage="手机号码"/>,
       dataIndex: 'phonenumber',
       valueType: 'text',
+      ellipsis: true,
+      width: 100
     },
     {
       title: <FormattedMessage id="system.User.status" defaultMessage="帐号状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
+      ellipsis: true,
+      width: 80
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 190,
+      fixed: 'right',
       valueType: 'option',
       render: (_, record) => [
         <Button
@@ -322,6 +337,7 @@ const UserTableList: React.FC = () => {
               id: 'pages.searchTable.title',
               defaultMessage: '信息',
             })}
+            scroll={{x: 800}}
             actionRef={actionRef}
             formRef={formTableRef}
             rowKey="userId"

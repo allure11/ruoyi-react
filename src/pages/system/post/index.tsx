@@ -146,35 +146,46 @@ const PostTableList: React.FC = () => {
       title: <FormattedMessage id="system.Post.post_code" defaultMessage="岗位编码"/>,
       dataIndex: 'postCode',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Post.post_name" defaultMessage="岗位名称"/>,
       dataIndex: 'postName',
       valueType: 'text',
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="system.Post.post_sort" defaultMessage="岗位排序"/>,
       dataIndex: 'postSort',
       valueType: 'text',
       hideInSearch: true,
+      ellipsis: true,
+      width: 80,
     },
     {
       title: <FormattedMessage id="system.Post.status" defaultMessage="状态"/>,
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: statusOptions,
+      ellipsis: true,
+      width: 70,
     },
     {
       title: <FormattedMessage id="system.Post.remark" defaultMessage="备注"/>,
       dataIndex: 'remark',
       valueType: 'textarea',
       hideInSearch: true,
+      ellipsis: true,
+      width: 100,
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="操作"/>,
       dataIndex: 'option',
-      width: '220px',
+      width: 120,
       valueType: 'option',
+      fixed: 'right',
       render: (_, record) => [
         <Button
           type="link"
@@ -225,6 +236,7 @@ const PostTableList: React.FC = () => {
             id: 'pages.searchTable.title',
             defaultMessage: '信息',
           })}
+          scroll={{x: 600}}
           actionRef={actionRef}
           formRef={formTableRef}
           rowKey="postId"
