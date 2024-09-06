@@ -292,7 +292,7 @@ const PostTableList: React.FC = () => {
             </Button>,
           ]}
           request={(params) =>
-            getPostList({...params} as PostListParams).then((res) => {
+            getPostList({...params, pageNum: params.current} as PostListParams).then((res) => {
               return {
                 data: res.rows,
                 total: res.total,
