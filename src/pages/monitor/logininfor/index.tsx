@@ -30,8 +30,6 @@ const handleRemove = async (selectedRows: LogininforType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -53,8 +51,6 @@ const handleRemoveAll = async () => {
         hide();
         if (resp.code === 200) {
           message.success('删除成功，即将刷新');
-        } else {
-          message.error(resp.msg);
         }
         return true;
       } catch (error) {

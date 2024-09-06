@@ -29,8 +29,6 @@ const handleAdd = async (fields: DictTypeType) => {
     hide();
     if (resp.code === 200) {
       message.success('添加成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -52,8 +50,6 @@ const handleUpdate = async (fields: DictTypeType) => {
     hide();
     if (resp.code === 200) {
       message.success('配置成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -76,8 +72,6 @@ const handleRemove = async (selectedRows: DictTypeType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -96,8 +90,6 @@ const handleRemoveOne = async (selectedRow: DictTypeType) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -134,7 +126,7 @@ const DictTypeTableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<DictTypeType>();
   const [selectedRowsState, setSelectedRows] = useState<DictTypeType[]>([]);
-
+  const [editType, setEditType] = useState<string>('add')
   const [statusOptions, setStatusOptions] = useState<any>([]);
 
   const access = useAccess();
@@ -217,6 +209,7 @@ const DictTypeTableList: React.FC = () => {
           key="edit"
           hidden={!access.hasPerms('system:dictType:edit')}
           onClick={() => {
+            setEditType('edit');
             setModalVisible(true);
             setCurrentRow(record);
           }}
@@ -274,6 +267,7 @@ const DictTypeTableList: React.FC = () => {
               key="add"
               hidden={!access.hasPerms('system:dictType:add')}
               onClick={async () => {
+                setEditType('add');
                 setCurrentRow(undefined);
                 setModalVisible(true);
               }}
@@ -367,6 +361,7 @@ const DictTypeTableList: React.FC = () => {
         </FooterToolbar>
       )}
       <UpdateForm
+        type={editType}
         onSubmit={async (values) => {
           console.log(values)
           let success = false;

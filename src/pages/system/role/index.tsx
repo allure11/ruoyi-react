@@ -33,8 +33,6 @@ const handleAdd = async (fields: RoleType) => {
     hide();
     if (resp.code === 200) {
       message.success('添加成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -56,8 +54,6 @@ const handleUpdate = async (fields: RoleType) => {
     hide();
     if (resp.code === 200) {
       message.success('配置成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -80,8 +76,6 @@ const handleRemove = async (selectedRows: RoleType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -100,8 +94,6 @@ const handleRemoveOne = async (selectedRow: RoleType) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {

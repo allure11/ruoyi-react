@@ -6,7 +6,6 @@ import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
 import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
-import WrapContent from '@/components/WrapContent';
 import Card from 'antd/es/card';
 import type {UserType, UserListParams} from './data.d';
 import {
@@ -39,8 +38,6 @@ const handleAdd = async (fields: UserType) => {
     hide();
     if (resp.code === 200) {
       message.success('添加成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -62,8 +59,6 @@ const handleUpdate = async (fields: UserType) => {
     hide();
     if (resp.code === 200) {
       message.success('配置成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -86,8 +81,6 @@ const handleRemove = async (selectedRows: UserType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -106,8 +99,6 @@ const handleRemoveOne = async (selectedRow: UserType) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {

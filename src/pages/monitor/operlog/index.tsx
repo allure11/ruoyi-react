@@ -55,8 +55,6 @@ const handleUpdate = async (fields: OperlogType) => {
     hide();
     if (resp.code === 200) {
       message.success('配置成功');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -79,8 +77,6 @@ const handleRemove = async (selectedRows: OperlogType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -97,8 +93,6 @@ const handleRemoveAll = async () => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {

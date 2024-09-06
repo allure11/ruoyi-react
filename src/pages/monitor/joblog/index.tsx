@@ -10,15 +10,6 @@ import type {JobLogType, JobLogListParams} from './data.d';
 import {getJobLogList, removeJobLog, exportJobLog, cleanJobLog} from './service';
 import DetailForm from './components/detail';
 import {getDict} from '@/pages/system/dict/service';
-import WrapContent from '@/components/WrapContent';
-
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/01
- *
- * */
 
 
 /**
@@ -34,8 +25,6 @@ const handleRemove = async (selectedRows: JobLogType[]) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -52,8 +41,6 @@ const handleRemoveAll = async () => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {
@@ -72,8 +59,6 @@ const handleRemoveOne = async (selectedRow: JobLogType) => {
     hide();
     if (resp.code === 200) {
       message.success('删除成功，即将刷新');
-    } else {
-      message.error(resp.msg);
     }
     return true;
   } catch (error) {

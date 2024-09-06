@@ -6,16 +6,6 @@ import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {OnlineUserType, OnlineUserListParams} from './data.d';
 import {getOnlineUserList, forceLogout} from './service';
-import WrapContent from '@/components/WrapContent';
-
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- *
- * */
-
 
 const handleRemoveOne = async (selectedRow: OnlineUserType) => {
   const hide = message.loading('正在强制下线');
