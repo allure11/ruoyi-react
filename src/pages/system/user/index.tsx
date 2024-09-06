@@ -318,8 +318,8 @@ const UserTableList: React.FC = () => {
 
   return (
     <>
-      <Row gutter={[16, 24]}>
-        <Col lg={6} md={24}>
+      <Row gutter={[16, 24]} wrap={false}>
+        <Col lg={6} md={24} style={{minWidth: 280}}>
           <Card>
             <DeptTree
               onSelect={async (value: any) => {

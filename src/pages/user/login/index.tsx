@@ -104,6 +104,7 @@ const Login: React.FC = () => {
   const intl = useIntl();
   // 验证码
   const [captchaCode, setCaptchaCode] = useState<string>('');
+  const [captchaEnabled, setCaptchaEnabled] = useState<boolean>(true);
   const [uuid, setUuid] = useState<string>('');
 
   useEffect(() => {
@@ -127,6 +128,7 @@ const Login: React.FC = () => {
     const response = await getCaptchaImage()
     const imgdata = `data:image/png;base64,${response.img}`;
     setCaptchaCode(imgdata);
+    setCaptchaEnabled(response.captchaEnabled);
     setUuid(response.uuid);
   };
 
@@ -282,46 +284,49 @@ const Login: React.FC = () => {
                   },
                 ]}
               />
-              <Row>
-                <Col flex={3}>
-                  <ProFormText
-                    style={{
-                      float: 'right',
-                    }}
-                    name="code"
-                    placeholder={intl.formatMessage({
-                      id: 'pages.login.code.placeholder',
-                      defaultMessage: '请输入验证',
-                    })}
-                    rules={[
-                      {
-                        required: true,
-                        message: (
-                          <FormattedMessage
-                            id="pages.searchTable.updateForm.ruleName.nameRules"
-                            defaultMessage="请输入验证啊"
-                          />
-                        ),
-                      },
-                    ]}
-                  />
-                </Col>
-                <Col flex={2}>
-                  <Image
-                    src={captchaCode}
-                    alt="验证码"
-                    style={{
-                      display: 'inline-block',
-                      verticalAlign: 'top',
-                      cursor: 'pointer',
-                      paddingLeft: '10px',
-                      width: '100px',
-                    }}
-                    preview={false}
-                    onClick={() => getCaptchaCode()}
-                  />
-                </Col>
-              </Row>
+              {
+                captchaEnabled ? null :
+                  <Row>
+                    <Col flex={3}>
+                      <ProFormText
+                        style={{
+                          float: 'right',
+                        }}
+                        name="code"
+                        placeholder={intl.formatMessage({
+                          id: 'pages.login.code.placeholder',
+                          defaultMessage: '请输入验证',
+                        })}
+                        rules={[
+                          {
+                            required: true,
+                            message: (
+                              <FormattedMessage
+                                id="pages.searchTable.updateForm.ruleName.nameRules"
+                                defaultMessage="请输入验证啊"
+                              />
+                            ),
+                          },
+                        ]}
+                      />
+                    </Col>
+                    <Col flex={2}>
+                      <Image
+                        src={captchaCode}
+                        alt="验证码"
+                        style={{
+                          display: 'inline-block',
+                          verticalAlign: 'top',
+                          cursor: 'pointer',
+                          paddingLeft: '10px',
+                          width: '100px',
+                        }}
+                        preview={false}
+                        onClick={() => getCaptchaCode()}
+                      />
+                    </Col>
+                  </Row>
+              }
             </>
           )}
 
