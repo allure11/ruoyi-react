@@ -285,7 +285,7 @@ const Login: React.FC = () => {
                 ]}
               />
               {
-                captchaEnabled ? null :
+                !captchaEnabled ? null :
                   <Row>
                     <Col flex={3}>
                       <ProFormText
