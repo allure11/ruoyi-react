@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Modal, Row, Col, Button, Space, Upload, message } from 'antd';
-import { useIntl } from 'umi';
+import React, {useEffect, useRef, useState} from 'react';
+import {Modal, Row, Col, Button, Space, Upload, message} from 'antd';
+import {useIntl} from 'umi';
 import 'cropperjs/dist/cropper.css';
-import { Cropper } from 'react-cropper';
-import { uploadAvatar } from '@/pages/system/user/service';
+import {Cropper} from 'react-cropper';
+import {uploadAvatar} from '@/pages/system/user/service';
 import styles from './index.less';
 import {
   MinusOutlined,
@@ -12,13 +12,6 @@ import {
   UndoOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2022/02/24
- *
- * */
 
 export type AvatarCropperProps = {
   onFinished: (isSuccess: boolean) => void;
@@ -44,10 +37,8 @@ const AvatarCropperForm: React.FC<AvatarCropperProps> = (props) => {
       formData.append('avatarfile', blob);
       uploadAvatar(formData).then((res) => {
         if (res.code === 200) {
-          message.success(res.msg);          
+          message.success(res.msg);
           props.onFinished(true);
-        } else {
-          message.warn(res.msg);
         }
       });
     }, 'image/png');
@@ -104,7 +95,7 @@ const AvatarCropperForm: React.FC<AvatarCropperProps> = (props) => {
           <Cropper
             ref={cropperRef}
             src={avatarData}
-            style={{ height: 350, width: '100%', marginBottom: '16px' }}
+            style={{height: 350, width: '100%', marginBottom: '16px'}}
             initialAspectRatio={1}
             guides={false}
             crop={onCrop}
@@ -115,7 +106,7 @@ const AvatarCropperForm: React.FC<AvatarCropperProps> = (props) => {
         </Col>
         <Col span={12} order={2}>
           <div className={styles.avatarPreview}>
-            <img src={previewData} style={{ height: '100%', width: '100%' }} />
+            <img src={previewData} style={{height: '100%', width: '100%'}}/>
           </div>
         </Col>
       </Row>
@@ -123,17 +114,17 @@ const AvatarCropperForm: React.FC<AvatarCropperProps> = (props) => {
         <Col span={6}>
           <Upload beforeUpload={beforeUpload} maxCount={1}>
             <Button>
-              <UploadOutlined />
+              <UploadOutlined/>
               上传
             </Button>
           </Upload>
         </Col>
         <Col>
           <Space>
-            <Button icon={<RedoOutlined />} onClick={onRotateRight} />
-            <Button icon={<UndoOutlined />} onClick={onRotateLeft} />
-            <Button icon={<PlusOutlined />} onClick={onZoomIn} />
-            <Button icon={<MinusOutlined />} onClick={onZoomOut} />
+            <Button icon={<RedoOutlined/>} onClick={onRotateRight}/>
+            <Button icon={<UndoOutlined/>} onClick={onRotateLeft}/>
+            <Button icon={<PlusOutlined/>} onClick={onZoomIn}/>
+            <Button icon={<MinusOutlined/>} onClick={onZoomOut}/>
           </Space>
         </Col>
       </Row>
