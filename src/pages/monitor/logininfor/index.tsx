@@ -194,11 +194,20 @@ const LogininforTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('monitor:logininfor:remove')}
               onClick={async () => {
-                const success = await handleRemove(selectedRowsState);
-                if (success) {
-                  setSelectedRows([]);
-                  actionRef.current?.reloadAndRest?.();
-                }
+                confirm({
+                  title: '是否确认删除选中的日志数据项?',
+                  icon: <ExclamationCircleOutlined/>,
+                  content: '请谨慎操作',
+                  async onOk() {
+                    const success = await handleRemove(selectedRowsState);
+                    if (success) {
+                      setSelectedRows([]);
+                      actionRef.current?.reloadAndRest?.();
+                    }
+                  },
+                  onCancel() {
+                  },
+                });
               }}
             >
               <DeleteOutlined/>
