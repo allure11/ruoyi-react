@@ -113,6 +113,7 @@ const DeptTableList: React.FC = () => {
 
   const [deptTree, setDeptTree] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
+  const [modal, contextHolder] = Modal.useModal();
 
 
   /** 国际化配置 */
@@ -212,7 +213,7 @@ const DeptTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:dept:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -278,7 +279,7 @@ const DeptTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:dept:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -328,7 +329,7 @@ const DeptTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:dept:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -372,6 +373,7 @@ const DeptTableList: React.FC = () => {
         deptTree={deptTree}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

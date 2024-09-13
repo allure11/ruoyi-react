@@ -106,8 +106,8 @@ const NoticeTableList: React.FC = () => {
 
   const [noticeTypeOptions, setNoticeTypeOptions] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
-
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -207,7 +207,7 @@ const NoticeTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:notice:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -262,7 +262,7 @@ const NoticeTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:notice:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -313,7 +313,7 @@ const NoticeTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:notice:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -357,6 +357,7 @@ const NoticeTableList: React.FC = () => {
         noticeTypeOptions={noticeTypeOptions}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

@@ -128,8 +128,9 @@ const DictTypeTableList: React.FC = () => {
   const [selectedRowsState, setSelectedRows] = useState<DictTypeType[]>([]);
   const [editType, setEditType] = useState<string>('add')
   const [statusOptions, setStatusOptions] = useState<any>([]);
-
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
+
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -223,7 +224,7 @@ const DictTypeTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:dictType:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -279,7 +280,7 @@ const DictTypeTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:dictType:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -341,7 +342,7 @@ const DictTypeTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:dictType:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -361,9 +362,7 @@ const DictTypeTableList: React.FC = () => {
         </FooterToolbar>
       )}
       <UpdateForm
-        type={editType}
         onSubmit={async (values) => {
-          console.log(values)
           let success = false;
           if (values.dictId) {
             success = await handleUpdate({...values} as DictTypeType);
@@ -386,6 +385,7 @@ const DictTypeTableList: React.FC = () => {
         values={currentRow || {status: '0'}}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

@@ -114,19 +114,16 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
   const formTableRef = useRef<FormInstance>();
   const params = useParams();
   const [dictId, setDictId] = useState<string>('');
-
   const [dictType, setDictType] = useState<string>('');
-
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<DictDataType>();
   const [selectedRowsState, setSelectedRows] = useState<DictDataType[]>([]);
-
   const [dictTypeOptions, setDictTypeOptions] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
-
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
+
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -280,7 +277,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
           key="batchRemove"
           hidden={!access.hasPerms('system:dictData:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -335,7 +332,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:dictData:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -412,7 +409,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
             key="remove"
             hidden={!access.hasPerms('system:dictData:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -456,6 +453,7 @@ const DictDataTableList: React.FC<DictDataProps> = (props) => {
         dictType={dictType}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

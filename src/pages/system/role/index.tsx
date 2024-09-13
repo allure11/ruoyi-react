@@ -124,19 +124,16 @@ const handleExport = async () => {
 
 const RoleTableList: React.FC = () => {
   const formTableRef = useRef<FormInstance>();
-
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<RoleType>();
   const [selectedRowsState, setSelectedRows] = useState<RoleType[]>([]);
-
   const [statusOptions, setStatusOptions] = useState<any>([]);
-
   const [menuTree, setMenuTree] = useState<DataNode[]>();
   const [menuIds, setMenuIds] = useState<number[]>([]);
-
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
+
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -252,7 +249,7 @@ const RoleTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:role:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -316,7 +313,7 @@ const RoleTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:role:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -377,7 +374,7 @@ const RoleTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:role:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -422,6 +419,7 @@ const RoleTableList: React.FC = () => {
         menuCheckedKeys={menuIds || []}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

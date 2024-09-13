@@ -150,6 +150,8 @@ const UserTableList: React.FC = () => {
 
   const access = useAccess();
 
+  const [modal, contextHolder] = Modal.useModal();
+
   /** 国际化配置 */
   const intl = useIntl();
 
@@ -282,7 +284,7 @@ const UserTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:user:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -394,7 +396,7 @@ const UserTableList: React.FC = () => {
                 key="remove"
                 hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:user:remove')}
                 onClick={async () => {
-                  Modal.confirm({
+                  modal.confirm({
                     title: '删除',
                     content: '确定删除该项吗？',
                     okText: '确认',
@@ -456,7 +458,7 @@ const UserTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:user:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -524,6 +526,7 @@ const UserTableList: React.FC = () => {
         resetPwdModalVisible={resetPwdModalVisible}
         values={currentRow || {}}
       />
+      {contextHolder}
     </>
   );
 };

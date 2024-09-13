@@ -121,10 +121,10 @@ const PostTableList: React.FC = () => {
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<PostType>();
   const [selectedRowsState, setSelectedRows] = useState<PostType[]>([]);
-
   const [statusOptions, setStatusOptions] = useState<any>([]);
-
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
+
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -206,7 +206,7 @@ const PostTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:post:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -261,7 +261,7 @@ const PostTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:post:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -322,7 +322,7 @@ const PostTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:post:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -365,6 +365,7 @@ const PostTableList: React.FC = () => {
         values={currentRow || {}}
         statusOptions={statusOptions}
       />
+      {contextHolder}
     </>
   );
 };

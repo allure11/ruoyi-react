@@ -111,6 +111,7 @@ const MenuTableList: React.FC = () => {
   const [visibleOptions, setVisibleOptions] = useState<any>([]);
   const [statusOptions, setStatusOptions] = useState<any>([]);
   const access = useAccess();
+  const [modal, contextHolder] = Modal.useModal();
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -241,7 +242,7 @@ const MenuTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:menu:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -296,7 +297,7 @@ const MenuTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:menu:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -347,7 +348,7 @@ const MenuTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:menu:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -393,6 +394,7 @@ const MenuTableList: React.FC = () => {
         statusOptions={statusOptions}
         menuTree={menuTree}
       />
+      {contextHolder}
     </>
   );
 };

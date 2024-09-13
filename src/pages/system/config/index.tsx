@@ -115,15 +115,12 @@ const handleExport = async () => {
 
 const ConfigTableList: React.FC = () => {
   const formTableRef = useRef<FormInstance>();
-
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<ConfigType>();
   const [selectedRowsState, setSelectedRows] = useState<ConfigType[]>([]);
-
   const [configTypeOptions, setConfigTypeOptions] = useState<any>([]);
-
+  const [modal, contextHolder] = Modal.useModal();
   const access = useAccess();
 
   /** 国际化配置 */
@@ -222,7 +219,7 @@ const ConfigTableList: React.FC = () => {
           key="batchRemove"
           hidden={!access.hasPerms('system:config:remove')}
           onClick={async () => {
-            Modal.confirm({
+            modal.confirm({
               title: '删除',
               content: '确定删除该项吗？',
               okText: '确认',
@@ -277,7 +274,7 @@ const ConfigTableList: React.FC = () => {
               key="remove"
               hidden={selectedRowsState?.length === 0 || !access.hasPerms('system:config:remove')}
               onClick={async () => {
-                Modal.confirm({
+                modal.confirm({
                   title: '删除',
                   content: '确定删除该项吗？',
                   okText: '确认',
@@ -339,7 +336,7 @@ const ConfigTableList: React.FC = () => {
             key="remove"
             hidden={!access.hasPerms('system:config:remove')}
             onClick={async () => {
-              Modal.confirm({
+              modal.confirm({
                 title: '删除',
                 content: '确定删除该项吗？',
                 okText: '确认',
@@ -382,6 +379,7 @@ const ConfigTableList: React.FC = () => {
         values={currentRow || {configType: 'Y'}}
         configTypeOptions={configTypeOptions}
       />
+      {contextHolder}
     </>
   );
 };
