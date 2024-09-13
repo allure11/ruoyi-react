@@ -95,7 +95,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
               placeholder="请输入参数名称"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
                     <FormattedMessage id="请输入参数名称！" defaultMessage="请输入参数名称！"/>
                   ),
@@ -116,7 +116,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
               placeholder="请输入参数键名"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
                     <FormattedMessage id="请输入参数键名！" defaultMessage="请输入参数键名！"/>
                   ),
@@ -137,7 +137,7 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
               placeholder="请输入参数键值"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
                     <FormattedMessage id="请输入参数键值！" defaultMessage="请输入参数键值！"/>
                   ),
@@ -160,9 +160,9 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => {
               placeholder="请输入系统内置"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
-                    <FormattedMessage id="请输入系统内置！" defaultMessage="请输入系统内置！"/>
+                    <FormattedMessage id="请选择系统内置！" defaultMessage="请选择系统内置！"/>
                   ),
                 },
               ]}
