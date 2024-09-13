@@ -179,7 +179,7 @@ const RoleForm: React.FC<RoleFormProps> = (props) => {
                 {
                   required: true,
                   message: (
-                    <FormattedMessage id="请输入角色状态！" defaultMessage="请输入角色状态！"/>
+                    <FormattedMessage id="请选择角色状态！" defaultMessage="请选择角色状态！"/>
                   ),
                 },
               ]}
