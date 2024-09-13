@@ -166,6 +166,7 @@ const MenuTableList: React.FC = () => {
       dataIndex: 'perms',
       valueType: 'text',
       ellipsis: true,
+      hideInSearch: true,
       width: 120,
     },
     {
