@@ -228,8 +228,8 @@ const MenuTableList: React.FC = () => {
           key="edit"
           hidden={!access.hasPerms('system:menu:edit')}
           onClick={() => {
-            setModalVisible(true);
             setCurrentRow(record);
+            setModalVisible(true);
           }}
         >
           <FormattedMessage id="pages.searchTable.edit" defaultMessage="编辑"/>
@@ -367,6 +367,7 @@ const MenuTableList: React.FC = () => {
         </FooterToolbar>
       )}
       <UpdateForm
+        key={currentRow?.menuId}
         onSubmit={async (values) => {
           let success = false;
           if (values.menuId) {
