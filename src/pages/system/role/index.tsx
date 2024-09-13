@@ -417,7 +417,7 @@ const RoleTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {status: '1'}}
+        values={currentRow || {status: '0'}}
         menuTree={menuTree || []}
         menuCheckedKeys={menuIds || []}
         statusOptions={statusOptions}
