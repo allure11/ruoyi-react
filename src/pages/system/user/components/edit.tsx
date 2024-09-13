@@ -11,6 +11,7 @@ import {Modal} from 'antd';
 import {useIntl, FormattedMessage} from 'umi';
 import type {UserType} from '../data.d';
 import type {DataNode} from 'antd/lib/tree';
+import {getDeptTree} from "@/pages/system/user/service";
 
 export type UserFormValueType = Record<string, unknown> & Partial<UserType>;
 
@@ -137,7 +138,7 @@ const UserForm: React.FC<UserFormProps> = (props) => {
             defaultMessage: '部门',
           })}
           request={async () => {
-            return depts;
+            return await getDeptTree({});
           }}
           placeholder="请输入用户部门"
           colProps={{md: 12, xl: 12}}
