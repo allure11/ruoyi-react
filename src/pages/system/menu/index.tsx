@@ -134,6 +134,14 @@ const MenuTableList: React.FC = () => {
         setStatusOptions(opts);
       }
     });
+    getMenuList({} as MenuListParams).then((res) => {
+      const menu = {id: 0, label: '主类目', children: [] as DataNode[], value: 0};
+      const memuData = buildTreeData(res.data, 'menuId', 'menuName', '', '', '');
+      menu.children = memuData;
+      const treeData: any = [];
+      treeData.push(menu);
+      setMenuTree(treeData);
+    })
   }, []);
 
   const columns: ProColumns<MenuType>[] = [
@@ -309,12 +317,7 @@ const MenuTableList: React.FC = () => {
           ]}
           request={(params) =>
             getMenuList({...params} as MenuListParams).then((res) => {
-              const menu = {id: 0, label: '主类目', children: [] as DataNode[], value: 0};
               const memuData = buildTreeData(res.data, 'menuId', 'menuName', '', '', '');
-              menu.children = memuData;
-              const treeData: any = [];
-              treeData.push(menu);
-              setMenuTree(treeData);
               return {
                 data: memuData,
                 total: res.data.length,

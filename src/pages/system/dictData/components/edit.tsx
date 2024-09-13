@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {
   ProFormDigit,
   ProFormRadio,
@@ -6,16 +6,9 @@ import {
   ProFormText,
   ProFormTextArea,
 } from '@ant-design/pro-form';
-import { Form, Modal } from 'antd';
-import { useIntl, FormattedMessage } from 'umi';
-import type { DictDataType } from '../data.d';
-
-/* *
- *
- * @author whiteshader@163.com
- * @datetime  2021/09/16
- * 
- * */
+import {Form, Modal} from 'antd';
+import {useIntl, FormattedMessage} from 'umi';
+import type {DictDataType} from '../data.d';
 
 
 export type DictDataFormValueType = Record<string, unknown> & Partial<DictDataType>;
@@ -32,7 +25,7 @@ export type DictDataFormProps = {
 const DictDataForm: React.FC<DictDataFormProps> = (props) => {
   const [form] = Form.useForm();
 
-  const { statusOptions, dictType } = props;
+  const {statusOptions, dictType} = props;
 
   useEffect(() => {
     form.resetFields();
@@ -88,7 +81,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典编码！" defaultMessage="请输入字典编码！" />,
+              message: <FormattedMessage id="请输入字典编码！" defaultMessage="请输入字典编码！"/>,
             },
           ]}
         />
@@ -105,7 +98,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典类型！" defaultMessage="请输入字典类型！" />,
+              message: <FormattedMessage id="请输入字典类型！" defaultMessage="请输入字典类型！"/>,
             },
           ]}
         />
@@ -120,7 +113,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典标签！" defaultMessage="请输入字典标签！" />,
+              message: <FormattedMessage id="请输入字典标签！" defaultMessage="请输入字典标签！"/>,
             },
           ]}
         />
@@ -135,7 +128,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典键值！" defaultMessage="请输入字典键值！" />,
+              message: <FormattedMessage id="请输入字典键值！" defaultMessage="请输入字典键值！"/>,
             },
           ]}
         />
@@ -150,7 +143,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入字典排序！" defaultMessage="请输入字典排序！" />,
+              message: <FormattedMessage id="请输入字典排序！" defaultMessage="请输入字典排序！"/>,
             },
           ]}
         />
@@ -165,7 +158,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入样式属性！" defaultMessage="请输入样式属性！" />,
+              message: <FormattedMessage id="请输入样式属性！" defaultMessage="请输入样式属性！"/>,
             },
           ]}
         />
@@ -181,7 +174,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
             {
               required: false,
               message: (
-                <FormattedMessage id="请输入表格回显样式！" defaultMessage="请输入表格回显样式！" />
+                <FormattedMessage id="请输入表格回显样式！" defaultMessage="请输入表格回显样式！"/>
               ),
             },
           ]}
@@ -220,12 +213,12 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
             defaultMessage: '状态',
           })}
           width="xl"
-          labelCol={{ span: 24 }}
+          labelCol={{span: 24}}
           placeholder="请输入状态"
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！" />,
+              message: <FormattedMessage id="请输入状态！" defaultMessage="请输入状态！"/>,
             },
           ]}
         />
@@ -240,7 +233,7 @@ const DictDataForm: React.FC<DictDataFormProps> = (props) => {
           rules={[
             {
               required: false,
-              message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！" />,
+              message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
             },
           ]}
         />
