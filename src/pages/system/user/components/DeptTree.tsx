@@ -21,9 +21,9 @@ const DeptTree: React.FC<TreeProps> = (props) => {
         const exKeys = [];
         exKeys.push('1');
         setTreeData(res);
-        exKeys.push(res[0].children[0].id);
+        exKeys.push(res[0].id);
         setExpandedKeys(exKeys);
-        props.onSelect(res[0].children[0]);
+        props.onSelect(res[0]);
       });
       hide();
       // message.success('数据查询成功');
