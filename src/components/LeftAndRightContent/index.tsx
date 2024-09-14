@@ -4,8 +4,16 @@ import styles from "./style.less";
 
 type Props = {
   bgColor?: string;
-  left: { title: string, content: React.ReactElement };
-  right: { title: string, content: React.ReactElement };
+  left: {
+    hidden?: boolean;
+    title: string;
+    content: React.ReactElement;
+  };
+  right: {
+    hidden?: boolean;
+    title: string;
+    content: React.ReactElement;
+  };
 }
 
 export default ({left, right, bgColor}: Props): React.ReactElement => {
@@ -14,13 +22,21 @@ export default ({left, right, bgColor}: Props): React.ReactElement => {
   const {token} = useToken();
 
   return <div className={styles.Content} style={{backgroundColor: bgColor || token.colorBgBase}}>
-    <div className={styles.item}>
-      <h3 className={styles.itemTitle}>{left.title}</h3>
-      {left.content}
-    </div>
-    <div className={styles.item}>
-      <h3 className={styles.itemTitle}>{right.title}</h3>
-      {right.content}
-    </div>
+    {
+      left.hidden ? null :
+        <div className={styles.item}>
+          <h3 className={styles.itemTitle}>{left.title}</h3>
+          {left.content}
+        </div>
+    }
+    {
+      right.hidden ? null :
+        <div className={styles.item}>
+          {
+            left.hidden ? null : <h3 className={styles.itemTitle}>{right.title}</h3>
+          }
+          {right.content}
+        </div>
+    }
   </div>
 }
