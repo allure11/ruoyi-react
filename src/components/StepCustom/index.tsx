@@ -1,5 +1,4 @@
 import React from "react";
-import {ConfigProvider, Steps} from "antd";
 import styles from "./style.less"
 
 export type stepItemDataType = {
@@ -23,6 +22,15 @@ export default ({iconFontSize = 0, items = [], style}: StepsPropsConfig): React.
           items.map((item, index) => {
             return (
               <div className={styles.stepsItemContent}>
+                {index === 0 ? <></> :
+                  <div className={styles.stepsItemLine}
+                       style={{
+                         borderColor: item.status ? undefined : '#ccc',
+                         color: item.textColor,
+                         height: (style?.height as number || 50) / 2
+                       }}>
+                    {item.statusName}
+                  </div>}
                 <div className={styles.stepsNode}>
                   <div className={styles.stepsItem}
                        style={{
@@ -33,15 +41,6 @@ export default ({iconFontSize = 0, items = [], style}: StepsPropsConfig): React.
                   </div>
                   {item.description}
                 </div>
-                {index === items.length - 1 ? null :
-                  <div className={styles.stepsItemLine}
-                       style={{
-                         borderColor: item.status ? undefined : '#ccc',
-                         color: item.textColor,
-                         height: (style?.height as number || 50) / 2
-                       }}>
-                    {item.statusName}
-                  </div>}
               </div>
             )
           })
