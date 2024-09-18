@@ -162,6 +162,7 @@ const LogininforTableList: React.FC = () => {
       dataIndex: 'loginTime',
       valueType: 'dateRange',
       render: (_, record) => <span>{record.loginTime.toString()}</span>,
+      hideInSearch: true,
       search: {
         transform: (value) => {
           return {
