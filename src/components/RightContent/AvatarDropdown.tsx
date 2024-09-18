@@ -1,7 +1,7 @@
 import {outLogin} from '@/services/ant-design-pro/api';
 import {LogoutOutlined, SettingOutlined, UserOutlined} from '@ant-design/icons';
 import {history, useModel} from '@umijs/max';
-import {Spin} from 'antd';
+import {Modal, Spin} from 'antd';
 import {createStyles} from 'antd-style';
 import {stringify} from 'querystring';
 import React, {useCallback} from 'react';
@@ -38,6 +38,8 @@ const useStyles = createStyles(({token}) => {
 });
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children}) => {
+
+  const [modal, contextHolder] = Modal.useModal();
   /**
    * 退出登录，并且将当前的 url 保存
    */
@@ -65,10 +67,18 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
     (event: any) => {
       const {key} = event;
       if (key === 'logout') {
-        flushSync(() => {
-          setInitialState((s) => ({...s, currentUser: undefined}));
+        modal.confirm({
+          title: '退出登录',
+          content: '确定退出登录吗？',
+          okText: '确认',
+          cancelText: '取消',
+          onOk: async () => {
+            flushSync(() => {
+              setInitialState((s) => ({...s, currentUser: undefined}));
+            });
+            loginOut();
+          },
         });
-        loginOut();
         return;
       }
       history.push(`/account/${key}`);
