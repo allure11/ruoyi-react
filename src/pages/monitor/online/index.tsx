@@ -35,6 +35,7 @@ const OnlineUserTableList: React.FC = () => {
       title: <FormattedMessage id="monitor.OnlineUser.token_id" defaultMessage="会话编号"/>,
       dataIndex: 'tokenId',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="monitor.OnlineUser.user_name" defaultMessage="用户账号"/>,
@@ -45,11 +46,13 @@ const OnlineUserTableList: React.FC = () => {
       title: <FormattedMessage id="monitor.OnlineUser.dept_name" defaultMessage="部门名称"/>,
       dataIndex: 'deptName',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="monitor.OnlineUser.ipaddr" defaultMessage="登录IP地址"/>,
       dataIndex: 'ipaddr',
       valueType: 'text',
+      hideInSearch: true,
     },
     {
       title: <FormattedMessage id="monitor.OnlineUser.login_location" defaultMessage="登录地点"/>,
