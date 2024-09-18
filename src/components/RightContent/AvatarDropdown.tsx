@@ -7,6 +7,7 @@ import {stringify} from 'querystring';
 import React, {useCallback} from 'react';
 import {flushSync} from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
+import {InitialStateType} from "@@/plugin-initialState/@@initialState";
 
 export type GlobalHeaderRightProps = {
   menu?: boolean;
@@ -74,7 +75,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
           cancelText: '取消',
           onOk: async () => {
             flushSync(() => {
-              setInitialState((s) => ({...s, currentUser: undefined}));
+              setInitialState((s: InitialStateType) => ({...s, currentUser: undefined}));
             });
             loginOut();
           },
@@ -133,15 +134,17 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({menu, children
     },
   ];
 
-  return (
-    <HeaderDropdown
-      menu={{
-        selectedKeys: [],
-        onClick: onMenuClick,
-        items: menuItems,
-      }}
-    >
-      {children}
-    </HeaderDropdown>
+  return (<>
+      <HeaderDropdown
+        menu={{
+          selectedKeys: [],
+          onClick: onMenuClick,
+          items: menuItems,
+        }}
+      >
+        {children}
+      </HeaderDropdown>
+      {contextHolder}
+    </>
   );
 };

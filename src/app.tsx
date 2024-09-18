@@ -22,7 +22,7 @@ export async function getInitialState(): Promise<{
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
   menus?: any[];
-  authToken: (obj: API.LoginResult) => string;
+  authToken?: (obj: API.LoginResult) => string;
 }> {
   const fetchUserInfo = async () => {
     try {
