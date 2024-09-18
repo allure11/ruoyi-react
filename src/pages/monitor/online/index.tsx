@@ -6,6 +6,7 @@ import type {ProColumns, ActionType} from '@ant-design/pro-table';
 import ProTable from '@ant-design/pro-table';
 import type {OnlineUserType, OnlineUserListParams} from './data.d';
 import {getOnlineUserList, forceLogout} from './service';
+import moment from "moment";
 
 const handleRemoveOne = async (selectedRow: OnlineUserType) => {
   const hide = message.loading('正在强制下线');
@@ -76,7 +77,7 @@ const OnlineUserTableList: React.FC = () => {
       title: <FormattedMessage id="monitor.OnlineUser.login_time" defaultMessage="登录时间"/>,
       dataIndex: 'loginTime',
       valueType: 'dateRange',
-      render: (_, record) => <span>{record.loginTime}</span>,
+      render: (_, record) => <span>{moment(Number(record.loginTime)).format('YYYY-MM-DD HH:mm:ss')}</span>,
       search: {
         transform: (value) => {
           return {
