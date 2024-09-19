@@ -144,7 +144,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               placeholder="请输入部门名称"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
                     <FormattedMessage id='请输入部门名称' defaultMessage="请输入部门名称！"/>
                   ),
@@ -165,7 +165,7 @@ const DeptForm: React.FC<DeptFormProps> = (props) => {
               placeholder="请输入显示顺序"
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: (
                     <FormattedMessage id='请输入显示顺序' defaultMessage="请输入显示顺序！"/>
                   ),
