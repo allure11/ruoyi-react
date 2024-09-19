@@ -175,25 +175,25 @@ const NoticeForm: React.FC<NoticeFormProps> = (props) => {
             />
           </Col>
         </Row>
-        <Row gutter={[16, 16]}>
-          <Col span={24} order={1}>
-            <ProFormText
-              name="remark"
-              label={intl.formatMessage({
-                id: 'system.Notice.remark',
-                defaultMessage: '备注',
-              })}
-              width="xl"
-              placeholder="请输入备注"
-              rules={[
-                {
-                  required: false,
-                  message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,
-                },
-              ]}
-            />
-          </Col>
-        </Row>
+        {/*<Row gutter={[16, 16]}>*/}
+        {/*  <Col span={24} order={1}>*/}
+        {/*    <ProFormText*/}
+        {/*      name="remark"*/}
+        {/*      label={intl.formatMessage({*/}
+        {/*        id: 'system.Notice.remark',*/}
+        {/*        defaultMessage: '备注',*/}
+        {/*      })}*/}
+        {/*      width="xl"*/}
+        {/*      placeholder="请输入备注"*/}
+        {/*      rules={[*/}
+        {/*        {*/}
+        {/*          required: false,*/}
+        {/*          message: <FormattedMessage id="请输入备注！" defaultMessage="请输入备注！"/>,*/}
+        {/*        },*/}
+        {/*      ]}*/}
+        {/*    />*/}
+        {/*  </Col>*/}
+        {/*</Row>*/}
       </Form>
     </Modal>
   );
