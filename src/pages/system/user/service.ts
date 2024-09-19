@@ -55,6 +55,21 @@ export function exportUser(params?: UserListParams) {
   return downLoadXlsx(`${SYSTEM_PATH}/user/export`, {params}, `user_${new Date().getTime()}.xlsx`);
 }
 
+
+// 下载导入模板
+export function exportTemplate() {
+  return downLoadXlsx(`${SYSTEM_PATH}/user/importTemplate`, {}, `用户导入模板.xlsx`);
+}
+
+// 导入用户信息
+export function importData(data: any) {
+  return request(`${SYSTEM_PATH}/user/importData`, {
+    method: 'post',
+    data: data
+  })
+}
+
+
 export function updateUserProfile(data: API.CurrentUser) {
   return request(`${SYSTEM_PATH}/user/profile`, {
     method: 'put',

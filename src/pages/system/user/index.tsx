@@ -1,6 +1,6 @@
-import {PlusOutlined, DeleteOutlined} from '@ant-design/icons';
+import {PlusOutlined, DeleteOutlined, UploadOutlined} from '@ant-design/icons';
 import type {FormInstance} from 'antd';
-import {Button, message, Modal, Row, Col} from 'antd';
+import {Button, message, Modal, Row, Col, Descriptions, Upload, Radio, theme, UploadFile} from 'antd';
 import React, {useState, useRef, useEffect} from 'react';
 import {useIntl, FormattedMessage, useAccess} from 'umi';
 import {FooterToolbar} from '@ant-design/pro-layout';
@@ -16,7 +16,7 @@ import {
   updateUser,
   exportUser,
   updateUserPwd,
-  getDeptTree,
+  getDeptTree, exportTemplate, importData,
 } from './service';
 import UpdateForm from './components/edit';
 import {getDict} from '../dict/service';
@@ -25,6 +25,8 @@ import DeptTree from './components/DeptTree';
 import type {DataNode} from 'antd/lib/tree';
 import {getPostList} from '../post/service';
 import {getRoleList} from '../role/service';
+import styles from "@/pages/process/basics/materiel/style.less";
+import useMessage from "antd/lib/message/useMessage";
 
 /**
  * 添加节点
@@ -128,6 +130,10 @@ const handleExport = async () => {
 };
 
 const UserTableList: React.FC = () => {
+
+  const {useToken} = theme;
+  const {token} = useToken();
+  const [messageApi, messageContext] = useMessage();
   const formTableRef = useRef<FormInstance>();
 
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -147,10 +153,31 @@ const UserTableList: React.FC = () => {
   const [roleIds, setRoleIds] = useState<string[]>();
   const [roleList, setRoleList] = useState<string[]>();
   const [deptTree, setDeptTree] = useState<DataNode[]>();
+  const [editType, setEditType] = useState<string>('add')
 
   const access = useAccess();
 
   const [modal, contextHolder] = Modal.useModal();
+  const [uploadParam, setUploadParam] = React.useState<{
+    file: UploadFile[];
+    updateSupport: any;
+  }>({
+    file: [],
+    updateSupport: 1
+  });
+
+  const [editModal, setEditModal] = React.useState<any>({
+    title: '导入',
+    open: false,
+    hideModal: () => {
+      setEditModal({...editModal, open: false})
+    },
+    onOk: () => {
+    },
+    initialValues: {state: true},
+    okText: '确认',
+    cancelText: '取消',
+  })
 
   /** 国际化配置 */
   const intl = useIntl();
@@ -188,7 +215,8 @@ const UserTableList: React.FC = () => {
     {
       title: <FormattedMessage id="system.User.dept_id" defaultMessage="部门ID"/>,
       dataIndex: 'deptId',
-      valueType: 'text',
+      valueType: 'select',
+      hideInSearch: true,
       ellipsis: true,
       width: 100,
       render: (_, record) => {
@@ -247,6 +275,7 @@ const UserTableList: React.FC = () => {
           hidden={!access.hasPerms('system:user:edit')}
           onClick={() => {
             const fetchUserInfo = async (userId: number) => {
+              setEditType('edit');
               const res = await getUser(userId);
               setPostIds(res.postIds);
               setPostList(
@@ -356,6 +385,7 @@ const UserTableList: React.FC = () => {
                   if (selectDept.id === '' || selectDept.id == null) {
                     message.warning('请选择左侧父级节点');
                   } else {
+                    setEditType('add')
                     getDeptTree({}).then((treeData) => {
                       setDeptTree(treeData);
                       setCurrentRow(undefined);
@@ -413,6 +443,13 @@ const UserTableList: React.FC = () => {
               >
                 <DeleteOutlined/>
                 <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除"/>
+              </Button>,
+              <Button type="primary" key="primary" onClick={async () => {
+                setEditModal({
+                  ...editModal, open: true
+                });
+              }}>
+                导入
               </Button>,
               <Button
                 type="primary"
@@ -526,7 +563,79 @@ const UserTableList: React.FC = () => {
         resetPwdModalVisible={resetPwdModalVisible}
         values={currentRow || {}}
       />
+
+
+      <Modal
+        title={editModal.title}
+        open={editModal.open}
+        onOk={() => {
+          if (uploadParam.file.length === 0) {
+            messageApi.warning('请选择文件');
+            return
+          }
+          importData({...uploadParam, file: uploadParam.file[0]}).then(res => {
+            if (res.code === 200) {
+              messageApi.success(res.msg);
+              setEditModal({...editModal, open: false});
+              actionRef.current?.reload();
+            } else {
+              messageApi.warning(res.msg);
+            }
+          })
+        }}
+        onCancel={editModal.hideModal}
+        okText={editModal.okText}
+        cancelText={editModal.cancelText}
+      >
+        <Descriptions
+          column={1}
+          labelStyle={{
+            color: token.colorText
+          }}
+          items={[
+            {
+              key: '1',
+              label: '下载导入模板',
+              children: <a onClick={() => {
+                exportTemplate()
+              }}>用户导入模板.xlsx</a>,
+            },
+            {
+              key: '2',
+              label: (<span className={styles.requiredField}>选择文件</span>),
+              children: <>
+                <Upload
+                  onRemove={(file) => {
+                    const index = uploadParam.file.indexOf(file);
+                    const newFileList = uploadParam.file.slice();
+                    newFileList.splice(index, 1);
+                    setUploadParam({...uploadParam, file: [...newFileList]});
+                  }}
+                  beforeUpload={(file) => {
+                    setUploadParam({...uploadParam, file: [file]});
+                    return false;
+                  }}
+                  fileList={uploadParam.file}
+                  maxCount={1}
+                >
+                  <Button icon={<UploadOutlined/>} size="small">上传</Button>
+                </Upload></>,
+            },
+            {
+              key: '3',
+              label: '是否更新已经存在的用户数据',
+              children: <>
+                <Radio.Group onChange={(value) => {
+                  setUploadParam({...uploadParam, updateSupport: value.target.value})
+                }} value={uploadParam.updateSupport}>
+                  <Radio value={1}>是</Radio>
+                  <Radio value={0}>否</Radio>
+                </Radio.Group>
+              </>,
+            },]}/>
+      </Modal>
       {contextHolder}
+      {messageContext}
     </>
   );
 };
