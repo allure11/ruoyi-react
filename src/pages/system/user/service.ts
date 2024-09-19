@@ -65,6 +65,9 @@ export function exportTemplate() {
 export function importData(data: any) {
   return request(`${SYSTEM_PATH}/user/importData`, {
     method: 'post',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
     data: data
   })
 }
