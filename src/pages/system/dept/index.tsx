@@ -146,6 +146,7 @@ const DeptTableList: React.FC = () => {
       dataIndex: 'orderNum',
       valueType: 'text',
       ellipsis: true,
+      hideInSearch: true,
       width: 80,
     },
     {
@@ -153,6 +154,7 @@ const DeptTableList: React.FC = () => {
       dataIndex: 'leader',
       valueType: 'text',
       ellipsis: true,
+      hideInSearch: true,
       width: 100,
     },
     {
@@ -160,6 +162,7 @@ const DeptTableList: React.FC = () => {
       dataIndex: 'phone',
       valueType: 'text',
       ellipsis: true,
+      hideInSearch: true,
       width: 100,
     },
     {
@@ -167,6 +170,7 @@ const DeptTableList: React.FC = () => {
       dataIndex: 'email',
       valueType: 'text',
       ellipsis: true,
+      hideInSearch: true,
       width: 100,
     },
     {
