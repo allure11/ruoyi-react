@@ -25,7 +25,6 @@ import DeptTree from './components/DeptTree';
 import type {DataNode} from 'antd/lib/tree';
 import {getPostList} from '../post/service';
 import {getRoleList} from '../role/service';
-import styles from "@/pages/process/basics/materiel/style.less";
 import useMessage from "antd/lib/message/useMessage";
 
 /**
@@ -602,7 +601,7 @@ const UserTableList: React.FC = () => {
             },
             {
               key: '2',
-              label: (<span className={styles.requiredField}>选择文件</span>),
+              label: '选择文件',
               children: <>
                 <Upload
                   onRemove={(file) => {
