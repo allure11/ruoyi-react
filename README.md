@@ -10,6 +10,8 @@
 
 2、请根据实际情况修改 `config/modulePath.ts` 相关模块路径
 
+3、修改 `app.tsx` 中 authToken 函数获取对应 token
+
 ## 安装依赖
 
 ```bash
@@ -42,11 +44,11 @@ npm run dev
 import logo from '../public/logo-g.svg';
 
 export const layout = ({initialState, setInitialState}) => {
-  return {
-    // 自定义 logo，设置为 false 可以关闭 logo
-    logo: logo,
-    ...
-  }
+    return {
+        // 自定义 logo，设置为 false 可以关闭 logo
+        logo: logo,
+        ...
+    }
 }
 ```
 
@@ -61,20 +63,20 @@ export const layout = ({initialState, setInitialState}) => {
 ```tsx
 // routes.tex 配置
 export default [{
-  path: '/system',
-  icon: 'BugOutlined',
-  routes:
-    [
-      {
-        name: 'dictdata',
-        icon: 'PartitionOutlined',
-        path: '/system/dict/data/:id',
-        component: 'system/dictData/index',
-        access: 'authorize',
-        KeepAlive: true,
-        title: 'menu.title.dictData'
-      },
-    ]
+    path: '/system',
+    icon: 'BugOutlined',
+    routes:
+        [
+            {
+                name: 'dictdata',
+                icon: 'PartitionOutlined',
+                path: '/system/dict/data/:id',
+                component: 'system/dictData/index',
+                access: 'authorize',
+                KeepAlive: true,
+                title: 'menu.title.dictData'
+            },
+        ]
 }]
 ```
 
