@@ -369,7 +369,7 @@ const DeptTableList: React.FC = () => {
           setCurrentRow(undefined);
         }}
         visible={modalVisible}
-        values={currentRow || {}}
+        values={currentRow || {status: '1'}}
         deptTree={deptTree}
         statusOptions={statusOptions}
       />
